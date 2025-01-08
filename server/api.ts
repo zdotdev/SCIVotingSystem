@@ -10,7 +10,7 @@ import ServerlessHttp from "serverless-http";
 
 // middleware
 import credentials from "./middleware/credentials";
-import corsOptions from "./config/corsOptions";
+import corsOptions from "./configs/corsOptions";
 import { globalErrorHandler } from "./utils/error";
 
 const app = express();
