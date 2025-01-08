@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-const validateToken = async (req: any, res: any, next: any) => {
+export const validateToken = async (req: any, res: any, next: any) => {
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
 
@@ -18,5 +18,3 @@ const validateToken = async (req: any, res: any, next: any) => {
         return res.status(403).send({ message: "Forbidden" });
   }
 }
-
-export default validateToken;

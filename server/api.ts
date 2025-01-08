@@ -7,12 +7,11 @@ import helmet from "helmet";
 import mongoose from "mongoose";
 import morgan from "morgan";
 import ServerlessHttp from "serverless-http";
-import errorUtils from "./utils/error";
 
 // middleware
-import credentials from "./middlewares/credentials";
-import corsOptions from "./configs/corsOptions";
-const { globalErrorHandler } = errorUtils;
+import { credentials } from "./middlewares/credentials";
+import { corsOptions } from "./configs/corsOptions";
+import { globalErrorHandler } from "./utils/error";
 
 const app = express();
 dotenv.config();
