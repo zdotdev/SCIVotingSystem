@@ -9,7 +9,7 @@ import morgan from "morgan";
 import ServerlessHttp from "serverless-http";
 
 // middleware
-import credentials from "./middleware/credentials";
+import credentials from "./middlewares/credentials";
 import corsOptions from "./configs/corsOptions";
 import { globalErrorHandler } from "./utils/error";
 
