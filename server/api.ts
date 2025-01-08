@@ -7,11 +7,12 @@ import helmet from "helmet";
 import mongoose from "mongoose";
 import morgan from "morgan";
 import ServerlessHttp from "serverless-http";
+import errorUtils from "./utils/error";
 
 // middleware
 import credentials from "./middlewares/credentials";
 import corsOptions from "./configs/corsOptions";
-import { globalErrorHandler } from "./utils/error";
+const { globalErrorHandler } = errorUtils;
 
 const app = express();
 dotenv.config();
@@ -32,7 +33,7 @@ app.use(globalErrorHandler);
 // routes
 
 // mongoose
-mongoose.connect(process.env.MONGODB_URI as string).then(() => { console.log("Connected to MongoDB") }).catch((err) => console.log(err));
+mongoose.connect(process.env.MONGODB_URI as string).then(() => { console.log("Connected to MongoDB") }).catch((err: any) => console.log(err));
 
 app.listen(3001, () => {
     console.log("Server is running on port 3000");

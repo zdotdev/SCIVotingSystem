@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const UserSchema = z.object({
+const UserSchema = z.object({
     name: z.string().min(3, { message: "Name is required." }),
     email: z.string().email({ message: "Invalid email." }),
     password: z.string().min(8, { message: "Password must be at least 8 characters" })
@@ -15,3 +15,5 @@ export const UserSchema = z.object({
     studentId: z.string().min(1, { message: "Student ID is required." }),
     role: z.enum(["user", "admin"])
 });
+
+export default UserSchema;
