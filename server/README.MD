@@ -1,0 +1,20 @@
+# Technologies used: 
+- [ ] Svelte
+- [ ] NodeJS (learned)
+- [ ] Express (learned)
+- [ ] JWT (learned)
+- [ ] MongoDB (learned)
+- [ ] S3 bucket
+- [ ] Zod
+- [ ] Nodemon (learned)
+- [ ] Mongoose (learned)
+- [ ] Cors (learned)
+- [ ] Body parser (learned)
+- [ ] Cookie parser (learned)
+- [ ] Multer
+- [ ] Serverless-http (learned)
+- [ ] Morgan
+- [ ] Moment (learned)
+- [ ] Helmet (learned)
+- [ ] Dotenv (learned)
+- [ ] Bcrypt (learned)

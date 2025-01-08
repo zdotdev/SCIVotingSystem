@@ -1,0 +1,47 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "- [ ] Svelte\r - [ ] NodeJS (learned)\r - [ ] Express (learned)\r - [ ] JWT (learned)\r - [ ] MongoDB (learned)\r - [ ] S3 bucket\r - [ ] Zod\r - [ ] Nodemon (learned)\r - [ ] Mongoose (learned)\r - [ ] Cors (learned)\r - [ ] Body parser (learned)\r - [ ] Cookie parser (learned)\r - [ ] Multer\r - [ ] Serverless-http (learned)\r - [ ] Morgan\r - [ ] Moment (learned)\r - [ ] Helmet (learned)\r - [ ] Dotenv (learned)\r - [ ] Bcrypt (learned)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./dist/api.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.722.0",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "moment": "^2.30.1",
+    "mongoose": "^8.9.3",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.1.9",
+    "serverless-http": "^3.2.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/body-parser": "^1.19.5",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/cors": "^2.8.17",
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^5.0.0",
+    "@types/helmet": "^0.0.48",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/moment": "^2.11.29",
+    "@types/morgan": "^1.9.9",
+    "@types/multer": "^1.4.12",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.7.2"
+  }
+}
