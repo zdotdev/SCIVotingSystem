@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     image: { type: String, required: true },
     studentId: { type: String, required: true, trim: true, unique: true },
-    role: { type: String, required: true },
+    role: { type: String, default: "user" },
 }, { timestamps: true });
 
 export const UserSchema = mongoose.model<mongoose.Document>("User", userSchema);

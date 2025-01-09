@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { UserSchema } from "../models/user";
 import { errorHandler } from "../utils/error";
+import mongoose from "mongoose";
 
 // get all users
 export const getUsers = async (req: Request, res: Response) => {
@@ -22,7 +23,7 @@ export const getUserById = async (req: Request, res: Response) => {
     try {
         const userId = req.params.id;
 
-        if (!userId) {
+        if (!userId || !mongoose.isValidObjectId(userId)) {
             errorHandler(404, "User not found");
         }
 
@@ -43,7 +44,7 @@ export const deleteUser = async (req: Request, res: Response) => {
     try {
         const userId = req.params.id;
 
-        if (!userId) {
+        if (!userId || !mongoose.isValidObjectId(userId)) {
             errorHandler(404, "User Id is required.");
         }
 
