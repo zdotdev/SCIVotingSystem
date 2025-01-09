@@ -13,6 +13,9 @@ import { credentials } from "./middlewares/credentials";
 import { corsOptions } from "./configs/corsOptions";
 import { globalErrorHandler } from "./utils/error";
 
+// routes
+import userRoutes from "./routes/user";
+
 const app = express();
 dotenv.config();
 
@@ -27,6 +30,8 @@ app.use(credentials);
 app.use(cors(corsOptions));
 app.use(cookieParser());
 
+app.use("/api/user", userRoutes);
+
 app.use(globalErrorHandler);
 
 // routes
@@ -34,7 +39,7 @@ app.use(globalErrorHandler);
 // mongoose
 mongoose.connect(process.env.MONGODB_URI as string).then(() => { console.log("Connected to MongoDB") }).catch((err: any) => console.log(err));
 
-app.listen(3001, () => {
+app.listen(3000, () => {
     console.log("Server is running on port 3000");
 })
 
