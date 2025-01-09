@@ -1,4 +1,5 @@
-export const errorHandler = (statusCode: any, message: any) => {
+import { Request, Response, NextFunction } from 'express';
+export const errorHandler = (statusCode: number, message: string) => {
     const error = new Error(message);
     error.message = message;
 
@@ -8,7 +9,7 @@ export const errorHandler = (statusCode: any, message: any) => {
     };
 }
 
-export const globalErrorHandler = (error: any, req: any, res: any, next: any) => {
+export const globalErrorHandler = (error: any, req: Request, res: Response, next: NextFunction) => {
     console.error(error);
     res.status(error.statusCode || 500).json({message: "Internal Server Error", error: error.message})
 }
