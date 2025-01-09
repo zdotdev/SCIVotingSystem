@@ -59,7 +59,7 @@ export const signIn = async (req: Request, res: Response) => {
             errorHandler(404, "User not found");
         }
 
-        const isPasswordMatch = await bcrypt.compare(password, existingUser.password);
+        const isPasswordMatch = await bcrypt.compare(password, (existingUser as any).password);
 
         if(!isPasswordMatch) {
             errorHandler(401, "Invalid password");
