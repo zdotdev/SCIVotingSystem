@@ -18,3 +18,28 @@
 - [ ] Helmet (learned)
 - [ ] Dotenv (learned)
 - [ ] Bcrypt (learned)
+
+# To do:
+## Backend
+- [ ] Auth:
+    - [ ] Signin
+    - [ ] Sign up
+    - [ ] Sign out
+    - [ ] Sign in using jwt
+
+- [ ] User
+    - [ ] Get all users
+    - [ ] Get user by id
+    - [ ] Delete user
+
+- [ ] Candidacy
+    - [ ] Create candidacy
+    - [ ] Add candidacy
+    - [ ] Accept candidacy
+
+- [ ] Election
+    - [ ] Add vote per candidates
+    - [ ] Get election results
+    - [ ] Post election results
+    - [ ] Delete election results
+    
