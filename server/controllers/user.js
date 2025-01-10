@@ -1,67 +1,69 @@
-// import { Request, Response } from "express";
-// import { UserSchema } from "../models/user";
-// import { errorHandler } from "../utils/error";
-// import mongoose from "mongoose";
+const User = require('../models/user.js')
+const mongoose = require('mongoose')
 
-// // get all users
-// export const getUsers = async (req: Request, res: Response) => {
-//     try {
-//         const users = await UserSchema.find();
+// get all users
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find()
 
-//         if (!users || !users.length) {
-//             errorHandler(404, "No users found");
-//         }
+    if (!users || !users.length) {
+      return res.status(404).json({ message: 'No users found' })
+    }
 
-//         return res.status(200).json({message: "User list retrieved successfully.", user: users});
-//     } catch (error) {
-//         errorHandler(500, (error as Error).message);
-//     }
-// }
+    return res
+      .status(200)
+      .json({ message: 'User list retrieved successfully.', user: users })
+  } catch (err) {
+    return res.status(500).json({ message: err.message })
+  }
+}
 
-// // get user by id
-// export const getUserById = async (req: Request, res: Response) => {
-//     try {
-//         const userId = req.params.id;
+// get user by id
+const getUserById = async (req, res) => {
+  try {
+    const { id } = req.params
+    if (!id || !mongoose.isValidObjectId(id)) {
+      return res.status(404).json({ message: 'User Id is required.' })
+    }
 
-//         if (!userId || !mongoose.isValidObjectId(userId)) {
-//             errorHandler(404, "User not found");
-//         }
+    const user = await User.findById(id)
 
-//         const user = await UserSchema.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    }
 
-//         if (!user) {
-//             errorHandler(404, "User not found");
-//         }
+    return res
+      .status(200)
+      .json({ message: 'User retrieved successfully.', user })
+  } catch (err) {
+    return res.status(500).json({ message: err.message })
+  }
+}
 
-//         return res.status(200).json({message: "User retrieved successfully.", user});
-//     } catch (error) {
-//         errorHandler(500, (error as Error).message);
-//     }
-// }
+// delete user by id
+const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params
+    if (!id || !mongoose.isValidObjectId(id)) {
+      return res.status(404).json({ message: 'User Id is required.' })
+    }
 
-// // delete user by id
-// export const deleteUser = async (req: Request, res: Response) => {
-//     try {
-//         const userId = req.params.id;
+    const user = await User.find({ _id: id })
 
-//         if (!userId || !mongoose.isValidObjectId(userId)) {
-//             errorHandler(404, "User Id is required.");
-//         }
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    }
 
-//         const user = await UserSchema.findById(userId);
+    try {
+      await User.deleteOne({ _id: id })
+    } catch (err) {
+      return res.status(500).json({ message: err.message })
+    }
+  } catch (err) {}
+}
 
-//         if (!user) {
-//             errorHandler(404, "User not found");
-//         }
-
-//         try {
-//             await UserSchema.findByIdAndDelete(userId);
-//         } catch {
-//             errorHandler(500, "Error deleting user");
-//         }
-
-//         return res.status(200).json({message: "User deleted successfully"});
-//     }catch (error) {
-//         errorHandler(500, (error as Error).message);
-//     }
-// }
+module.exports = {
+  getAllUsers,
+  getUserById,
+  deleteUser
+}

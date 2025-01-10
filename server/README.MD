@@ -28,9 +28,9 @@
     - [ ] Sign in using jwt
 
 - [ ] User
-    - [ ] Get all users
-    - [ ] Get user by id
-    - [ ] Delete user
+    - [x] Get all users
+    - [x] Get user by id
+    - [x] Delete user
 
 - [ ] Candidacy
     - [ ] Create candidacy

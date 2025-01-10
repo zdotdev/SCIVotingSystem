@@ -1,46 +1,9 @@
-// import { Request, Response } from "express";
-// import { UserSchema } from "../models/user";
-// import { errorHandler } from "../utils/error";
-// import { UserZodSchema } from "../zod/user";
-// import { generateAcessToken, generateRefreshToken } from "../middlewares/auth";
-// import bcrypt from "bcrypt";
-// import mongoose from "mongoose";
+const User = require('../models/user.js')
+const UserZodSchema = require('../zod/user.js')
+const bcrypt = require('bcrypt')
+const mongoose = require('mongoose')
 
-// // Sign up
-// export const signUp = async (req: Request, res: Response) => {
-//     try {
-//         const { name, email, password, image, studentId } = req.body;
-
-//         const parserBody = UserZodSchema.safeParse(req.body);
-
-//         if(!parserBody.success) {
-//             errorHandler(422, parserBody.error.issues[0].message);
-//         }
-
-//         const existingUser = await UserSchema.findOne({}).or([{ email }, { studentId }]);
-
-//         if(existingUser) {
-//             errorHandler(409, "User already exists");
-//         }
-
-//         const hashedPassword = await bcrypt.hash(password, 12);
-
-//         const newUser = new UserSchema({
-//             name,
-//             email,
-//             password: hashedPassword,
-//             image,
-//             studentId
-//         });
-
-//         await newUser.save();
-
-//         return res.status(201).json({user: newUser,message: "User Sign up successfully."});
-
-//     }catch(error) {
-//         errorHandler(500, (error as Error).message);
-//     }
-// }
+// Sign up
 
 // // Sign in
 // export const signIn = async (req: Request, res: Response) => {

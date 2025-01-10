@@ -15,6 +15,8 @@ const { credentials } = require('./middlewares/credentials.js')
 const { corsOptions } = require('./configs/corsOptions.js')
 const { globalErrorHandler } = require('./utils/error.js')
 
+const userRoutes = require('./routes/user.js')
+
 app.use(bodyParser.json({ limit: '5mb' }))
 app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }))
 
@@ -27,6 +29,9 @@ app.use(cookieParser())
 app.use(credentials)
 app.use(cors(corsOptions))
 app.use(globalErrorHandler)
+
+// routes
+app.use('/api/user', userRoutes)
 
 // mongoose
 mongoose
