@@ -19,7 +19,7 @@
   },
   "name": "server",
   "version": "1.0.0",
-  "description": "- [ ] Svelte\r - [ ] NodeJS (learned)\r - [ ] Express (learned)\r - [ ] JWT (learned)\r - [ ] MongoDB (learned)\r - [ ] S3 bucket\r - [ ] Zod\r - [ ] Nodemon (learned)\r - [ ] Mongoose (learned)\r - [ ] Cors (learned)\r - [ ] Body parser (learned)\r - [ ] Cookie parser (learned)\r - [ ] Multer\r - [ ] Serverless-http (learned)\r - [ ] Morgan\r - [ ] Moment (learned)\r - [ ] Helmet (learned)\r - [ ] Dotenv (learned)\r - [ ] Bcrypt (learned)",
+  "description": "",
   "main": "api.js",
   "devDependencies": {},
   "scripts": {
