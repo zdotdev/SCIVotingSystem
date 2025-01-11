@@ -17,6 +17,7 @@ const { globalErrorHandler } = require('./utils/error.js')
 
 const userRoutes = require('./routes/user.js')
 const authRoutes = require('./routes/auth.js')
+const electionRoutes = require('./routes/election.js')
 
 app.use(bodyParser.json({ limit: '5mb' }))
 app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }))
@@ -34,6 +35,7 @@ app.use(globalErrorHandler)
 // routes
 app.use('/api/user', userRoutes)
 app.use('/api/auth', authRoutes)
+app.use('/api/election', electionRoutes)
 
 // mongoose
 mongoose

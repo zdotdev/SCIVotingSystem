@@ -22,10 +22,12 @@
 # To do:
 ## Backend
 - [ ] Auth:
-    - [ ] Signin
-    - [ ] Sign up
-    - [ ] Sign out
+    - [x] Signin
+    - [x] Sign up
+    - [x] Sign out
     - [ ] Sign in using jwt
+    - [ ] Sign out using jwt
+    - [ ] Add refresh token in user account
 
 - [ ] User
     - [x] Get all users
@@ -38,8 +40,11 @@
     - [ ] Accept candidacy
 
 - [ ] Election
-    - [ ] Add vote per candidates
-    - [ ] Get election results
-    - [ ] Post election results
-    - [ ] Delete election results
+    - [x] Get all elections
+    - [x] Get ellection by ID
+    - [x] Create election
+    - [x] Add vote per candidates
+    - [x] Get election results
+    - [x] Post election results
+    - [x] Delete election results
     
