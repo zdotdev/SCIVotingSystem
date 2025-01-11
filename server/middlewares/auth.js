@@ -1,12 +1,14 @@
-// import jwt from 'jsonwebtoken';
-// import dotenv from 'dotenv';
+const jwt = require('jsonwebtoken')
+const dotenv = require('dotenv')
 
-// dotenv.config();
+dotenv.config()
 
-// export const generateAcessToken = async ({ id }: { id: string }) => {
-//     return jwt.sign({ id }, process.env.JWT_SECRET as string, { expiresIn: '20h' });
-// }
+const generateAcessToken = async id => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '20h' })
+}
 
-// export const generateRefreshToken = async ({ id }: { id: string }, { email }: { email: string }) => {
-//     return jwt.sign({ id, email }, process.env.JWT_REFRESH_SECRET as string);
-// }
+const generateRefreshToken = async (id, email) => {
+  return jwt.sign({ id, email }, process.env.JWT_REFRESH_SECRET)
+}
+
+module.exports = { generateAcessToken, generateRefreshToken }

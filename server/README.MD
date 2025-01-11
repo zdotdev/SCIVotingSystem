@@ -1,23 +1,23 @@
 # Technologies used: 
 - [ ] Svelte
-- [ ] NodeJS (learned)
-- [ ] Express (learned)
-- [ ] JWT (learned)
-- [ ] MongoDB (learned)
+- [ ] NodeJS
+- [ ] Express
+- [ ] JWT
+- [ ] MongoDB
 - [ ] S3 bucket
 - [ ] Zod
-- [ ] Nodemon (learned)
-- [ ] Mongoose (learned)
-- [ ] Cors (learned)
-- [ ] Body parser (learned)
-- [ ] Cookie parser (learned)
+- [ ] Nodemon
+- [ ] Mongoose
+- [ ] Cors
+- [ ] Body parser
+- [ ] Cookie parser
 - [ ] Multer
-- [ ] Serverless-http (learned)
+- [ ] Serverless-http
 - [ ] Morgan
-- [ ] Moment (learned)
-- [ ] Helmet (learned)
-- [ ] Dotenv (learned)
-- [ ] Bcrypt (learned)
+- [ ] Moment
+- [ ] Helmet
+- [ ] Dotenv
+- [ ] Bcrypt
 
 # To do:
 ## Backend
@@ -25,14 +25,14 @@
     - [x] Signin
     - [x] Sign up
     - [x] Sign out
-    - [ ] Sign in using jwt
-    - [ ] Sign out using jwt
-    - [ ] Add refresh token in user account
+    - [x] Sign in using jwt
+    - [x] Sign out using jwt
+    - [x] Add refresh token in user account
 
 - [x] User
     - [x] Get all users
     - [x] Get user by id
-    - [ ] Accept/Reject user
+    - [x] Accept/Reject user
     - [x] Delete user
 
 - [x] Election
