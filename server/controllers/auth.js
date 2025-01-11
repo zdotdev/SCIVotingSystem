@@ -4,49 +4,80 @@ const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
 
 // Sign up
+const signUp = async (req, res) => {
+  try {
+    const { name, email, password, image, studentId } = req.body
+    const parserBody = UserZodSchema.pick({
+      name: true,
+      email: true,
+      password: true,
+      image: true,
+      studentId: true
+    }).safeParse(req.body)
+    if (!parserBody.success) {
+      return res
+        .status(422)
+        .json({ message: parserBody.error.issues[0].message })
+    }
+    const existingUser = await User.findOne().or([{ email }, { studentId }])
 
-// // Sign in
-// export const signIn = async (req: Request, res: Response) => {
-//     try {
-//         const { email, password } = req.body;
+    if (existingUser) {
+      return res.status(409).json({ message: 'User already exists' })
+    }
 
-//         const parserBody = UserZodSchema.pick({ email: true, password: true }).safeParse(req.body);
+    const hashedPassword = await bcrypt.hash(password, 12)
 
-//         if(!parserBody.success) {
-//             errorHandler(422, parserBody.error.issues[0].message);
-//         }
+    const newUser = new User({
+      name,
+      email,
+      password: hashedPassword,
+      image,
+      studentId
+    })
+    try {
+      await newUser.save()
+      return res.status(201).json({ message: 'User created successfully' })
+    } catch (err) {
+      return res.status(500).json({ message: err.message })
+    }
+  } catch (err) {
+    return res.status(500).json({ message: err.message })
+  }
+}
 
-//         const existingUser = await UserSchema.findOne({}).or([{ email }]);
+// Sign in
+const signIn = async (req, res) => {
+  try {
+    const { email, password } = req.body
 
-//         if(!existingUser) {
-//             errorHandler(404, "User not found");
-//         }
+    const existingUser = await User.findOne({ email })
 
-//         const isPasswordMatch = await bcrypt.compare(password, (existingUser as any).password);
+    if (!existingUser) {
+      return res.status(404).json({ message: 'User email does not exist' })
+    }
 
-//         if(!isPasswordMatch) {
-//             errorHandler(401, "Invalid password");
-//         }
+    const isPasswordCorrect = await bcrypt.compare(
+      password,
+      existingUser.password
+    )
 
-//         return res.status(200).json({message: "User sign in successfully.", user: existingUser});
+    if (!isPasswordCorrect) {
+      return res.status(400).json({ message: 'Wrong password.' })
+    }
 
-//     }catch(error) {
-//         errorHandler(500, (error as Error).message);
-//     }
-// }
+    return res.status(200).json({ message: 'User signed in successfully' })
+  } catch (err) {
+    return res.status(500).json({ message: err.message })
+  }
+}
 
-// // Sign out
-// export const signOut = async (req: Request, res: Response) => {
-//     try {
-//         const { id } = req.body;
+// Sign out
+const signOut = async (req, res) => {
+  try {
+    return res.status(200).json({ message: 'User signed out successfully' })
+  } catch (err) {
+    return res.status(500).json({ message: err.message })
+  }
+}
 
-//         if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-//             errorHandler(400, "Invalid id");
-//         }
-
-//         return res.status(200).json({message: "User sign out successfully."});
-
-//     }catch(error) {
-//         errorHandler(500, (error as Error).message);
-//     }
-// }
+module.exports = { signUp, signIn, signOut }
