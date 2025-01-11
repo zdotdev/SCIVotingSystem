@@ -15,7 +15,7 @@ const UserZodSchema = z.object({
     ),
   image: z.string().min(1, { message: 'Image is required.' }),
   studentId: z.string().min(1, { message: 'Student ID is required.' }),
-  role: z.enum(['user', 'admin'])
+  role: z.enum(['newUser', 'student', 'admin']).default('newUser')
 })
 
 module.exports = UserZodSchema

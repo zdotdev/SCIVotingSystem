@@ -3,7 +3,8 @@ const User = require('../models/user.js')
 const mongoose = require('mongoose')
 const {
   ElectionZodSchema,
-  ElectionCandidateZodSchema
+  ElectionCandidateZodSchema,
+  electionSaveVoteZodSchema
 } = require('../zod/election.js')
 
 // get all elections
@@ -186,6 +187,14 @@ const addVotes = async (req, res) => {
       return res.status(404).json({ message: 'Election Id is required.' })
     }
     const { votesData, votersId } = req.body // votesData should be an array of objects with candidateId, votes, and votersId
+
+    const parsedVotes = electionSaveVoteZodSchema.safeParse(req.body)
+
+    if (!parsedVotes.success) {
+      return res
+        .status(400)
+        .json({ message: parsedVotes.error.issues[0].message })
+    }
 
     const election = await Election.findById(id)
     const voters = await User.findById(votersId)

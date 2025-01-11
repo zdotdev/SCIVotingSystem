@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     image: { type: String, required: true },
     studentId: { type: String, required: true, trim: true, unique: true },
-    role: { type: String, default: 'student' }
+    role: { type: String, default: 'newUser' }
   },
   { timestamps: true }
 )

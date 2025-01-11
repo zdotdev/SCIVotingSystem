@@ -1,5 +1,6 @@
 const User = require('../models/user.js')
 const mongoose = require('mongoose')
+const UserZodSchema = require('../zod/user.js')
 
 // get all users
 const getAllUsers = async (req, res) => {
@@ -40,6 +41,44 @@ const getUserById = async (req, res) => {
   }
 }
 
+const updateUserRole = async (req, res) => {
+  try {
+    const { id } = req.params
+    if (!id || !mongoose.isValidObjectId(id)) {
+      return res.status(404).json({ message: 'User Id is required.' })
+    }
+
+    const user = await User.findById(id)
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    }
+
+    const { role } = req.body
+
+    const parseBody = UserZodSchema.pick({ role: true }).safeParse(req.body)
+
+    if (!parseBody.success) {
+      return res
+        .status(422)
+        .json({ message: parseBody.error.issues[0].message })
+    }
+
+    if (!role) {
+      return res.status(404).json({ message: 'Role is required.' })
+    }
+
+    user.role = role
+    await user.save()
+
+    return res
+      .status(200)
+      .json({ message: 'User role updated successfully.', user })
+  } catch (err) {
+    return res.status(500).json({ message: err.message })
+  }
+}
+
 // delete user by id
 const deleteUser = async (req, res) => {
   try {
@@ -66,5 +105,6 @@ const deleteUser = async (req, res) => {
 module.exports = {
   getAllUsers,
   getUserById,
-  deleteUser
+  deleteUser,
+  updateUserRole
 }

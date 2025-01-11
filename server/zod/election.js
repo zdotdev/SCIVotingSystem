@@ -24,4 +24,21 @@ const ElectionCandidateZodSchema = z.object({
   candidateVotes: z.number({ message: 'Vote must be a number.' }).default(0)
 })
 
-module.exports = { ElectionZodSchema, ElectionCandidateZodSchema }
+const electionVoteZodSchema = z.object({
+  candidateId: z.string().min(3, { message: 'Candidate Id is required.' }),
+  votes: z
+    .number({ message: 'Votes must be a number.' })
+    .min(1, { message: 'Votes must be greater than 0.' })
+    .max(1, { message: 'Votes must be equal 1.' })
+})
+
+const electionSaveVoteZodSchema = z.object({
+  votesData: z.array(electionVoteZodSchema),
+  votersId: z.string().min(3, { message: 'Voters Id is required.' })
+})
+
+module.exports = {
+  ElectionZodSchema,
+  ElectionCandidateZodSchema,
+  electionSaveVoteZodSchema
+}

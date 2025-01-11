@@ -29,17 +29,13 @@
     - [ ] Sign out using jwt
     - [ ] Add refresh token in user account
 
-- [ ] User
+- [x] User
     - [x] Get all users
     - [x] Get user by id
+    - [ ] Accept/Reject user
     - [x] Delete user
 
-- [ ] Candidacy
-    - [ ] Create candidacy
-    - [ ] Add candidacy
-    - [ ] Accept candidacy
-
-- [ ] Election
+- [x] Election
     - [x] Get all elections
     - [x] Get ellection by ID
     - [x] Create election
