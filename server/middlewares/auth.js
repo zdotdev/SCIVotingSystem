@@ -8,7 +8,7 @@ const generateAcessToken = async id => {
 }
 
 const generateRefreshToken = async (id, email) => {
-  return jwt.sign({ id, email }, process.env.JWT_REFRESH_SECRET)
+  return jwt.sign({ id, email }, process.env.JWT_SECRET)
 }
 
 module.exports = { generateAcessToken, generateRefreshToken }

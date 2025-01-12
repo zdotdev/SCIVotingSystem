@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
     import { onMount } from 'svelte';
 
     let data = [];
@@ -30,4 +30,12 @@
             <li>{item.name}</li>
         {/each}
     </ul>
+</main> -->
+
+<script>
+
+</script>
+
+<main>
+    
 </main>

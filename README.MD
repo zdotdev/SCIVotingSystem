@@ -58,7 +58,13 @@
 - [ ] Dashboard
     - [ ] Election results / Upcomming election
     - [ ] Page for create election
+        - [ ] Get all elections
+        - [ ] Create election
+        - [ ] Delete election
     - [ ] Page for manage student accounts
+        - [x] Get all students
+        - [x] Delete students
+        - [ ] Accept student registration
 
 - [ ] Admin dialog
     - [ ] Logout

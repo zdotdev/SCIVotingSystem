@@ -1,5 +1,7 @@
 <script>
-    import SignupLogin from "$lib/Components/Auth/SignupLogin.svelte";
+    import Signup from "$lib/Components/Auth/Signup.svelte";
+    import GetallUsers from "$lib/Components/User/GetallUsers.svelte";
 </script>
 
-<SignupLogin />
+<!-- <Signup /> -->
+<!-- <GetallUsers/> -->
