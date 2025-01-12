@@ -21,7 +21,7 @@
 
 # To do:
 ## Backend
-- [ ] Auth:
+- [x] Auth:
     - [x] Signin
     - [x] Sign up
     - [x] Sign out
@@ -43,4 +43,22 @@
     - [x] Get election results
     - [x] Post election results
     - [x] Delete election results
-    
+
+## Frontend
+### Student
+- [ ] Signup/login page
+
+- [ ] Dashboard
+    - [ ] Page for vote
+    - [ ] Page for results
+
+- [ ] User dialog
+    - [ ] Logout
+### Admin
+- [ ] Dashboard
+    - [ ] Election results / Upcomming election
+    - [ ] Page for create election
+    - [ ] Page for manage student accounts
+
+- [ ] Admin dialog
+    - [ ] Logout

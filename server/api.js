@@ -11,8 +11,8 @@ const ServerlessHttp = require('serverless-http')
 const app = express()
 dotenv.config()
 
-const { credentials } = require('./middlewares/credentials.js')
-const { corsOptions } = require('./configs/corsOptions.js')
+const credentials = require('./middlewares/credentials.js')
+const corsOptions = require('./configs/corsOptions.js')
 const { globalErrorHandler } = require('./utils/error.js')
 
 const userRoutes = require('./routes/user.js')
