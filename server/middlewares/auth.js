@@ -3,7 +3,7 @@ const dotenv = require('dotenv')
 
 dotenv.config()
 
-const generateAcessToken = async id => {
+const generateAccessToken = async id => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '20h' })
 }
 
@@ -11,4 +11,4 @@ const generateRefreshToken = async (id, email) => {
   return jwt.sign({ id, email }, process.env.JWT_SECRET)
 }
 
-module.exports = { generateAcessToken, generateRefreshToken }
+module.exports = { generateAccessToken, generateRefreshToken }

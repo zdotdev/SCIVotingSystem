@@ -3,9 +3,10 @@ const UserZodSchema = require('../zod/user.js')
 const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
 const {
-  generateAcessToken,
+  generateAccessToken,
   generateRefreshToken
 } = require('../middlewares/auth.js')
+const jwt = require('jsonwebtoken')
 
 // Sign up
 const signUp = async (req, res) => {
@@ -39,7 +40,7 @@ const signUp = async (req, res) => {
       studentId
     })
 
-    const accessToken = await generateAcessToken(newUser._id)
+    const accessToken = await generateAccessToken(newUser._id)
     const refreshToken = await generateRefreshToken(newUser._id, newUser.email)
 
     newUser.refreshToken = refreshToken
@@ -59,7 +60,9 @@ const signUp = async (req, res) => {
         sameSite: 'none'
       })
 
-      return res.status(201).json({ message: 'User created successfully' })
+      return res
+        .status(201)
+        .json({ message: 'User created successfully', user: newUser.role })
     } catch (err) {
       return res.status(500).json({ message: err.message })
     }
@@ -72,6 +75,17 @@ const signUp = async (req, res) => {
 const signIn = async (req, res) => {
   try {
     const { email, password } = req.body
+
+    const parserBody = UserZodSchema.pick({
+      email: true,
+      password: true
+    }).safeParse(req.body)
+
+    if (!parserBody.success) {
+      return res
+        .status(422)
+        .json({ message: parserBody.error.issues[0].message })
+    }
 
     const existingUser = await User.findOne({ email })
 
@@ -109,7 +123,9 @@ const signIn = async (req, res) => {
       sameSite: 'none'
     })
 
-    return res.status(200).json({ message: 'User signed in successfully' })
+    return res
+      .status(200)
+      .json({ message: 'User signed in successfully', user: existingUser.role })
   } catch (err) {
     return res.status(500).json({ message: err.message })
   }
@@ -150,4 +166,41 @@ const signOut = async (req, res) => {
   }
 }
 
-module.exports = { signUp, signIn, signOut }
+const loginWithRefreshToken = async (req, res, next) => {
+  try {
+    const refreshToken = req.cookies.refreshToken
+
+    if (!refreshToken) {
+      return res.status(401).json({ message: 'Refresh token required' })
+    }
+
+    const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET)
+
+    const user = await User.findById(decoded.id.id)
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    }
+
+    if (user.refreshToken !== refreshToken) {
+      return res.status(403).json({ message: 'Invalid refresh token' })
+    }
+
+    const accessToken = await generateAccessToken({ id: user._id })
+
+    res.cookie('accessToken', accessToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none'
+    })
+
+    return res.status(200).json({
+      message: 'Token refreshed successfully',
+      user: user.role
+    })
+  } catch (error) {
+    console.error(error)
+    return res.status(401).json({ message: 'Invalid or expired refresh token' })
+  }
+}
+
+module.exports = { signUp, signIn, signOut, loginWithRefreshToken }

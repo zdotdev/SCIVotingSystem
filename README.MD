@@ -64,7 +64,7 @@
     - [ ] Page for manage student accounts
         - [x] Get all students
         - [x] Delete students
-        - [ ] Accept student registration
+        - [x] Accept/Reject student registration
 
 - [ ] Admin dialog
     - [ ] Logout
