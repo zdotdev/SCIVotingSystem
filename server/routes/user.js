@@ -5,10 +5,12 @@ const {
   getAllUsers,
   getUserById,
   deleteUser,
-  updateUserRole
+  updateUserRole,
+  getAllNewUsers
 } = require('../controllers/user.js')
 
 router.get('/', getAllUsers)
+router.get('/new', getAllNewUsers)
 router.get('/:id', getUserById)
 router.delete('/:id', deleteUser)
 router.patch('/:id', updateUserRole)

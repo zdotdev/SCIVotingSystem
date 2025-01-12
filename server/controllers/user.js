@@ -5,7 +5,23 @@ const UserZodSchema = require('../zod/user.js')
 // get all users
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find()
+    const users = await User.find({ role: 'student' })
+
+    if (!users || !users.length) {
+      return res.status(404).json({ message: 'No users found' })
+    }
+
+    return res
+      .status(200)
+      .json({ message: 'User list retrieved successfully.', user: users })
+  } catch (err) {
+    return res.status(500).json({ message: err.message })
+  }
+}
+
+const getAllNewUsers = async (req, res) => {
+  try {
+    const users = await User.find({ role: 'newUser' })
 
     if (!users || !users.length) {
       return res.status(404).json({ message: 'No users found' })
@@ -106,5 +122,6 @@ module.exports = {
   getAllUsers,
   getUserById,
   deleteUser,
-  updateUserRole
+  updateUserRole,
+  getAllNewUsers
 }

@@ -1,29 +1,14 @@
 <script>
-    import { onMount } from 'svelte';
-    import DeleteUserButton from '../Buttons/DeleteUserButton.svelte';
-
-    let data = [];
-    let message = '';
-    let status = 0;
-    let error = null;
-
-    onMount(async () => {
-        try {
-            const response = await fetch('http://localhost:3000/api/user');
-            const result = await response.json();
-            data = result.user;
-            message = result.message;
-            status = response.status;
-        } catch (err) {
-            error = err.message;
-        }
-    });
-    
+    export let data;
+    export let error;
+    export let status;
+    export let message;
+    export let ActionButton
+    export let ActionButtonTwo
 </script>
-
 <main class="flex flex-wrap gap-4 justify-center">
     {#if error}
-        <p style="color: red;">test</p>
+        <p style="color: red;">{error}</p>
     {/if}
     {#if status === 404}
         <p style="color: red;">{message}</p>
@@ -38,7 +23,10 @@
                     <p>|</p>
                     <p>{item.email}</p>
                 </div>
-                <DeleteUserButton userId={item._id} />
+                <ActionButton userId={item._id} />
+                {#if ActionButtonTwo}
+                    <ActionButtonTwo userId={item._id} />
+                {/if}
             </div>
         </div>
     {/each}
