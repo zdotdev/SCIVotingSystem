@@ -176,7 +176,7 @@ const loginWithRefreshToken = async (req, res, next) => {
 
     const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET)
 
-    const user = await User.findById(decoded.id.id)
+    const user = await User.findById(decoded.id)
     if (!user) {
       return res.status(404).json({ message: 'User not found' })
     }

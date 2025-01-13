@@ -1,5 +1,9 @@
 <script>
     import { onMount } from 'svelte';
+    import Admin from '$lib/Components/Admin/Admin.svelte';
+    import Student from '$lib/Components/Student/Student.svelte';
+
+    let userChecker = null;
 
     onMount(async () => {
         try {
@@ -11,22 +15,22 @@
                 credentials: 'include',
             });
 
-            if (response.ok) {
-                const data = await response.json();
-                const user = data.user;
+            const data = await response.json();
 
-                if (user == 'student') {
-                    window.location.href = '/Client';
-                } else if (user == 'admin') {
-                    window.location.href = '/Admin';
-                } else if (user == 'newUser') {
-                    window.location.href = '/NewUser';
+            if (response.ok) {
+                const user = data.user;
+                if (user === 'student') {
+                    userChecker = 'student'
+                } else if (user === 'admin') {
+                    userChecker = 'admin';
+                } else if (user === 'newUser') {
+                    userChecker = 'newUser';
                 } else {
-                    console.error('Invalid user:', user);
+                    console.error(data.message);
                     window.location.href = '/Auth/Login';
                 }
             } else {
-                console.error('Authentication failed:', await response.json());
+                console.error(data.message);
                 window.location.href = '/Auth/Login';
             }
         } catch (error) {
@@ -35,6 +39,15 @@
         }
     });
 </script>
+
 <main class="flex justify-center items-center h-screen">
-    <img src="/src/Image/1497.gif" alt="Loading..." class="" />
+    {#if !userChecker}
+        <img src="/src/Image/1497.gif" alt="Loading..." />
+    {:else if userChecker === 'newUser'}
+        <h1 class="text-4xl">Please wait for the admin to accept your registration.</h1>
+    {:else if userChecker === 'student'}
+        <Student />
+    {:else if userChecker === 'admin'}
+        <Admin />
+    {/if}
 </main>

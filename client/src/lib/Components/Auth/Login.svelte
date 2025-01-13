@@ -29,7 +29,7 @@
                 } else if (user == 'admin') {
                     window.location.href = '/Admin';
                 } else if (user == 'newUser') {
-                    window.location.href = '/NewUser';
+                    window.location.href = '/';
                 }
             } else {
                 error = data.message;
@@ -52,7 +52,7 @@
         </div>
         <div class="flex gap-4">
             <button type="button" on:click={() => {login()}} class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Login</button>
-        <button type="button" on:click={() => {window.location.href = '/Auth/SignUp'}} class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Sign up</button>
+            <button type="button" on:click={() => {window.location.href = '/Auth/SignUp'}} class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Sign up</button>
         </div>
     </form>
 </main>
