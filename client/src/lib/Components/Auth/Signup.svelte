@@ -45,34 +45,35 @@
 
 </script>
 
-<main>
-    <form action="POST">
-        {#if error}
-            <p style="color: red;">{error}</p>
-        {/if}
-        <div>
+<main class="flex justify-center items-center h-screen">
+    <form action="POST" class="w-fit flex flex-col gap-8 items-center space-x-4 p-8 border-gray-200 rounded-lg shadow-md">
+        <h2 class="text-4xl font-bold">Sign up</h2>
+        <div class="flex flex-col gap-4">
             <label for="name">Full Name:</label>
             <input type="text" id="name" name="name" placeholder="Juan Dela Cruz" required>
         </div>
-        <div>
+        <div class="flex flex-col gap-4">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" placeholder="myemail@email.com" required>
         </div>
-        <div>
+        <div class="flex flex-col gap-4">
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" placeholder="abcd1234!" required>
         </div>
-        <div>
+        <div class="flex flex-col gap-4">
             <label for="image">Image:</label>
             <input type="text" id="image" name="image" required>
         </div>
-        <div>
+        <div class="flex flex-col gap-4">
             <label for="studentId">Student Id:</label>
             <input type="text" id="studentId" name="studentId" required>
         </div>
-        <div>
-            <button type="button" on:click={() => {signUp()}}>Sign up</button>
-            <button type="button" on:click={() => {window.location.href = '/Auth/Login'}}>Login</button>
+        {#if error}
+            <p style="color: red;">{error}</p>
+        {/if}
+        <div class="flex gap-4">
+            <button type="button" on:click={() => {signUp()}} class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Sign up</button>
+            <button type="button" on:click={() => {window.location.href = '/Auth/Login'}} class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Login</button>
         </div>
     </form>
 </main>
