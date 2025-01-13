@@ -61,7 +61,7 @@
             const user = data.user;
 
             if (user == 'student' || user == 'admin' || user == 'newUser') {
-                window.location.href = '/';
+                window.location.href = '/'
             }
         } else {
             error = data.message;

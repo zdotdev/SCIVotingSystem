@@ -8,10 +8,10 @@
 </script>
 <main class="flex flex-wrap gap-4 justify-center">
     {#if error}
-        <p style="color: red;">{error}</p>
+        <p class="text-red-500 text-4xl">{error}</p>
     {/if}
     {#if status === 404}
-        <p style="color: red;">{message}</p>
+        <p class="text-red-500 text-4xl">{message}</p>
     {/if}
     {#each data as item}
         <div class="w-fit flex items-center space-x-4 p-4 border-gray-200 rounded-lg shadow-md">

@@ -21,10 +21,6 @@ const electionSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    electionDescription: {
-      type: String,
-      required: true
-    },
     electionStart: {
       type: Date,
       required: true

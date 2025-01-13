@@ -1,15 +1,14 @@
 <script>
+    import CreateElection from "$lib/Components/Election/CreateElection.svelte";
     import Sidebar from "$lib/Components/Sidebar/Sidebar.svelte";
     import Navbar from "$lib/Components/Navbar/Navbar.svelte";
-    import { globalData } from '$lib/stores';
-    import NavigationButton from '$lib/Components/Buttons/NavigationButton.svelte';
 
 </script>
-<h1>Admin</h1>
 <main>
     <Navbar />
     <Sidebar />
     <div class="pl-20 pt-20 ml-64 h-screen w-4/5">
-        <h1 class="text-6xl font-bold">Dashboard</h1>
+        <h2 class="text-6xl font-bold">Create Election</h2>
+        <CreateElection />
     </div>
 </main>

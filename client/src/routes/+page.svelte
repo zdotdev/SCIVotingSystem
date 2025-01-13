@@ -1,6 +1,5 @@
 <script>
     import { onMount } from 'svelte';
-    import {goto} from '$app/navigation';
     import Admin from '$lib/Components/Admin/Admin.svelte';
     import Student from '$lib/Components/Student/Student.svelte';
 
@@ -28,15 +27,15 @@
                     userChecker = 'newUser';
                 } else {
                     console.error(data.message);
-                    goto('/Auth/Login');
+                    window.location.href = '/Auth/Login';
                 }
             } else {
                 console.error(data.message);
-                goto('/Auth/Login');
+                window.location.href = '/Auth/Login';
             }
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
-            goto('/Auth/Login');
+            window.location.href = '/Auth/Login';
         }
     });
 </script>

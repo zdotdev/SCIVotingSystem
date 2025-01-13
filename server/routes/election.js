@@ -13,9 +13,9 @@ const {
 } = require('../controllers/election.js')
 
 router.get('/', getAllElections)
+router.get('/displayed', getDisplayedElections)
 router.get('/:id', getElectionById)
 router.get('/:id/results', getElectionResults)
-router.get('/displayed', getDisplayedElections)
 router.post('/', createElection)
 router.put('/:id', updateElection)
 router.put('/:id/vote', addVotes)

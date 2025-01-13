@@ -2,9 +2,6 @@ const { z } = require('zod')
 
 const ElectionZodSchema = z.object({
   electionTitle: z.string().min(3, { message: 'Election title is required.' }),
-  electionDescription: z
-    .string()
-    .min(3, { message: 'Election description is required.' }),
   electionStart: z
     .string()
     .min(3, { message: 'Election start date is required.' }),

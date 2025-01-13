@@ -73,13 +73,18 @@ const createElection = async (req, res) => {
   try {
     const {
       electionTitle,
-      electionDescription,
       electionStart,
       electionEnd,
       electionCandidates,
       displayElection
     } = req.body
-    const parsedElection = ElectionZodSchema.safeParse(req.body)
+    const parsedElection = ElectionZodSchema.pick({
+      electionTitle: true,
+      electionStart: true,
+      electionEnd: true,
+      displayElection: true,
+      electionCandidates: true
+    }).safeParse(req.body)
     const parsedCandidates = electionCandidates.map(candidate => {
       return ElectionCandidateZodSchema.safeParse(candidate)
     })
@@ -105,7 +110,6 @@ const createElection = async (req, res) => {
     }
     const election = new Election({
       electionTitle,
-      electionDescription,
       electionStart,
       electionEnd,
       electionCandidates,
@@ -134,7 +138,6 @@ const updateElection = async (req, res) => {
     }
     const {
       electionTitle,
-      electionDescription,
       electionStart,
       electionEnd,
       electionCandidates,
@@ -162,7 +165,6 @@ const updateElection = async (req, res) => {
 
     try {
       election.electionTitle = electionTitle
-      election.electionDescription = electionDescription
       election.electionStart = electionStart
       election.electionEnd = electionEnd
       election.electionCandidates = electionCandidates
