@@ -40,8 +40,11 @@ const signUp = async (req, res) => {
       studentId
     })
 
-    const accessToken = await generateAccessToken(newUser._id)
-    const refreshToken = await generateRefreshToken(newUser._id, newUser.email)
+    const accessToken = await generateAccessToken({ id: newUser._id })
+    const refreshToken = await generateRefreshToken({
+      id: newUser._id,
+      email: newUser.email
+    })
 
     newUser.refreshToken = refreshToken
 

@@ -40,14 +40,16 @@
     });
 </script>
 
-<main class="flex justify-center items-center h-screen">
-    {#if !userChecker}
+{#if !userChecker}
+    <main class="flex justify-center items-center h-screen">
         <img src="/src/Image/1497.gif" alt="Loading..." />
-    {:else if userChecker === 'newUser'}
+    </main>
+{:else if userChecker === 'newUser'}
+    <main class="flex justify-center items-center h-screen">
         <h1 class="text-4xl">Please wait for the admin to accept your registration.</h1>
-    {:else if userChecker === 'student'}
-        <Student />
-    {:else if userChecker === 'admin'}
-        <Admin />
-    {/if}
-</main>
+    </main>
+{:else if userChecker === 'student'}
+    <Student />
+{:else if userChecker === 'admin'}
+    <Admin />
+{/if}

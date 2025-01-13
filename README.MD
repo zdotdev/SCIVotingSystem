@@ -46,7 +46,7 @@
 
 ## Frontend
 ### Student
-- [ ] Signup/login page
+- [x] Signup/login page
 
 - [ ] Dashboard
     - [ ] Page for vote
