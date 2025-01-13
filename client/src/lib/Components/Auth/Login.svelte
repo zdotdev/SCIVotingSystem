@@ -1,4 +1,35 @@
 <script>
+    import { onMount } from "svelte";
+
+    onMount(async () => {
+        try {
+            const response = await fetch('http://localhost:3000/api/auth/loginWithRefreshToken', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                const user = data.user;
+                if (user === 'student' || user === 'admin' || user === 'newUser') {
+                    window.location.href = '/';
+                } else {
+                    console.error(data.message);
+                }
+            } else {
+                console.error(data.message);
+            }
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    });
+
+
+
     let error = null;
     async function login() {
         if (!document.getElementById('email').value || !document.getElementById('password').value) {
@@ -22,18 +53,14 @@
         });
         const data = await response.json();
         if (response.ok) {
-                const user = data.user;
+            const user = data.user;
 
-                if (user == 'student') {
-                    window.location.href = '/Client';
-                } else if (user == 'admin') {
-                    window.location.href = '/Admin';
-                } else if (user == 'newUser') {
-                    window.location.href = '/';
-                }
-            } else {
-                error = data.message;
+            if (user == 'student' || user == 'admin' || user == 'newUser') {
+                window.location.href = '/';
             }
+        } else {
+                error = data.message;
+        }
     }
 </script>
 
