@@ -5,8 +5,8 @@
 <h1>Admin</h1>
 <main>
     <Navbar />
-    <Sidebar />
-    <div class="bg-red-500 ml-64 h-screen w-full">
+    <Sidebar title={["Vote", "Results"]}/>
+    <div class="bg-red-500 pl-44 ml-64 h-screen w-4/5">
 
     </div>
 </main>

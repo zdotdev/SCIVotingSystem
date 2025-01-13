@@ -254,6 +254,25 @@ const deleteElection = async (req, res) => {
   }
 }
 
+const getDisplayedElections = async (req, res) => {
+  try {
+    const elections = await Election.find({
+      displayElection: { $lte: new Date() }
+    })
+
+    if (!elections || !elections.length) {
+      return res.status(404).json({ message: 'No elections found' })
+    }
+
+    return res.status(200).json({
+      message: 'Election list retrieved successfully.',
+      election: elections
+    })
+  } catch (err) {
+    return res.status(500).json({ message: err.message })
+  }
+}
+
 module.exports = {
   getAllElections,
   getElectionById,
@@ -261,5 +280,6 @@ module.exports = {
   createElection,
   updateElection,
   addVotes,
-  deleteElection
+  deleteElection,
+  getDisplayedElections
 }
