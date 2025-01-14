@@ -30,19 +30,19 @@
 
 <main class="flex flex-wrap gap-4 justify-center">
     <div class="w-fit flex items-center space-x-4 p-4 border-gray-200 rounded-lg shadow-md">
-        <div class="flex flex-col gap-2">
-            <h2 class="text-xl font-bold">{title}</h2>
+        <div class="flex flex-col gap-2 px-8 py-4">
+            <h2 class="text-2xl font-bold">{title}</h2>
             <div class="flex flex-col gap-4">
                 <div class="flex gap-2">
-                    <p>Start date: </p>
+                    <strong>Start date: </strong>
                     <p>{formattedStart}</p>
                 </div>
                 <div class="flex gap-2">
-                    <p>End date: </p>
+                    <strong>End date: </strong>
                     <p>{formattedEnd}</p>
                 </div>
                 <div class="flex gap-2">
-                    <p>Display date: </p>
+                    <strong>Announcement date: </strong>
                     <p>{formattedDisplayDate}</p>
                 </div>
             </div>

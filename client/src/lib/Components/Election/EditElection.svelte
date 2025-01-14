@@ -88,46 +88,48 @@
         <p style="color: orange;">{message}</p>
     {/if}
 
-    <form on:submit|preventDefault={updateElection}>
-        <label>
-            Election Title:
-            <input type="text" bind:value={electionTitle} required />
-        </label>
+    <form on:submit|preventDefault={updateElection} class="flex flex-col items-center justify-center">
+        <div class="flex flex-col gap-4 my-4">
+            <label class="flex flex-col gap-2">
+                <strong>Election Title:</strong>
+                <input class="w-fit" type="text" bind:value={electionTitle} required />
+            </label>
 
-        <label>
-            Start Date:
-            <input type="date" bind:value={electionStart} required />
-        </label>
+            <label class="flex flex-col gap-2">
+                <strong>Start Date:</strong>
+                <input class="w-fit" type="date" bind:value={electionStart} required />
+            </label>
 
-        <label>
-            End Date:
-            <input type="date" bind:value={electionEnd} required />
-        </label>
+            <label class="flex flex-col gap-2">
+                <strong>End Date:</strong>
+                <input class="w-fit" type="date" bind:value={electionEnd} required />
+            </label>
 
-        <label>
-            Display Election Date:
-            <input type="date" bind:value={displayElection} required />
-        </label>
-
-        <h2>Candidates</h2>
+            <label class="flex flex-col gap-2">
+                <strong>Display Election Date:</strong>
+                <input class="w-fit" type="date" bind:value={displayElection} required />
+            </label>
+        </div>
+        <h2 class="text-2xl font-bold mt-4 mb-2">Candidates</h2>
         {#each electionCandidates as candidate, index}
-            <div>
-                <label>
-                    Candidate Name:
-                    <input type="text" bind:value={candidate.candidateName} required />
+            <div class="flex flex-col">
+                <label class="flex flex-col gap-2">
+                    <strong>Candidate Name:</strong>
+                    <input class="w-fit" type="text" bind:value={candidate.candidateName} required />
                 </label>
 
-                <label>
-                    Candidate Position:
-                    <input type="text" bind:value={candidate.candidatePosition} required />
+                <label class="flex flex-col gap-2">
+                    <strong>Candidate Position:</strong>
+                    <input class="w-fit" type="text" bind:value={candidate.candidatePosition} required />
                 </label>
 
-                <button type="button" on:click={() => removeCandidate(index)}>Remove Candidate</button>
+                <button class="w-fit my-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" type="button" on:click={() => removeCandidate(index)}>Remove Candidate</button>
             </div>
         {/each}
+            <div class="flex gap-8">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="button" on:click={addCandidate}>Add Candidate</button>
+                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" type="submit" on:click={() => {window.location.href = '/Election'}}>Save Changes</button>
+            </div>
 
-        <button type="button" on:click={addCandidate}>Add Candidate</button>
-
-        <button type="submit" on:click={() => {window.location.href = '/Election'}}>Save Changes</button>
     </form>
 </main>
