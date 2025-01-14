@@ -26,15 +26,12 @@
                 } else if (user === 'newUser') {
                     userChecker = 'newUser';
                 } else {
-                    console.error(data.message);
                     window.location.href = '/Auth/Login';
                 }
             } else {
-                console.error(data.message);
                 window.location.href = '/Auth/Login';
             }
         } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
             window.location.href = '/Auth/Login';
         }
     });

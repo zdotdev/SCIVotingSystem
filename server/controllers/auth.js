@@ -137,7 +137,12 @@ const signIn = async (req, res) => {
 // Sign out
 const signOut = async (req, res) => {
   try {
-    const { id } = req.body
+    const refreshToken = req.cookies.refreshToken
+    if (!refreshToken) {
+      return res.status(401).json({ message: 'Refresh token required' })
+    }
+    const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET)
+    const id = decoded.id.id
 
     if (!id || !mongoose.isValidObjectId(id)) {
       return res.status(400).json({ message: 'Invalid user ID' })
