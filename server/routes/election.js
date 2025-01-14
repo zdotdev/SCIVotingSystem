@@ -9,10 +9,12 @@ const {
   updateElection,
   addVotes,
   deleteElection,
-  getDisplayedElections
+  getDisplayedElections,
+  getActiveElection
 } = require('../controllers/election.js')
 
 router.get('/', getAllElections)
+router.get('/active', getActiveElection)
 router.get('/displayed', getDisplayedElections)
 router.get('/:id', getElectionById)
 router.get('/:id/results', getElectionResults)

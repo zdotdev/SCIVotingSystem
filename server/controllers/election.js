@@ -263,7 +263,9 @@ const getDisplayedElections = async (req, res) => {
     })
 
     if (!elections || !elections.length) {
-      return res.status(404).json({ message: 'No elections found' })
+      return res
+        .status(404)
+        .json({ message: 'No election results to be displayed.' })
     }
 
     return res.status(200).json({
@@ -275,6 +277,29 @@ const getDisplayedElections = async (req, res) => {
   }
 }
 
+const getActiveElection = async (req, res) => {
+  try {
+    const elections = await Election.find({
+      electionStart: { $lte: new Date() },
+      electionEnd: { $gte: new Date() }
+    }).sort({ electionStart: -1 })
+
+    if (!elections || elections.length === 0) {
+      return { message: 'No active elections found.', election: null }
+    }
+
+    return res
+      .status(200)
+      .json({ message: 'Active election found.', election: elections[0] })
+  } catch (err) {
+    console.error('Error fetching active election:', err)
+    return {
+      message: 'An error occurred while retrieving the active election.',
+      election: null
+    }
+  }
+}
+
 module.exports = {
   getAllElections,
   getElectionById,
@@ -283,5 +308,6 @@ module.exports = {
   updateElection,
   addVotes,
   deleteElection,
-  getDisplayedElections
+  getDisplayedElections,
+  getActiveElection
 }
