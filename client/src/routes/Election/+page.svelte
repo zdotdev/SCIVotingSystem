@@ -2,9 +2,6 @@
     import Sidebar from "$lib/Components/Sidebar/Sidebar.svelte";
     import Navbar from "$lib/Components/Navbar/Navbar.svelte";
     import GetAllElection from "$lib/Components/Election/GetAllElection.svelte";
-    import { globalData } from '$lib/stores';
-
-    $: val = $globalData.val;
 
 </script>
 <h1>Admin</h1>

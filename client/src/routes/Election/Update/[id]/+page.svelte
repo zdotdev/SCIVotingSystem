@@ -1,12 +1,12 @@
 <script>
+    import { page } from "$app/stores";
+    import EditElection from "$lib/Components/Election/EditElection.svelte";
     import Sidebar from "$lib/Components/Sidebar/Sidebar.svelte";
     import Navbar from "$lib/Components/Navbar/Navbar.svelte";
+    const electionId = $page.params.id;
 </script>
-<h1>Admin</h1>
 <main>
     <Navbar />
     <Sidebar />
-    <div class="pl-20 pt-20 ml-64 h-screen w-4/5">
-        <h1 class="text-6xl font-bold">Dashboard</h1>
-    </div>
+    <EditElection />
 </main>

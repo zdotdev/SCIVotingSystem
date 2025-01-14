@@ -1,12 +1,13 @@
 <script>
     import { onMount } from 'svelte';
     import { page } from '$app/stores';
+    import DeletElectionButton from '$lib/Components/Buttons/DeletElectionButton.svelte';
+    import EditElectionButton from '$lib/Components/Buttons/EditElectionButton.svelte';
 
     let data = {};
 
     onMount(async () => {
         const electionId = $page.params.id;
-        console.log(electionId);
 
         try {
             const response = await fetch(`http://localhost:3000/api/election/${electionId}`);
@@ -24,7 +25,7 @@
 </script>
 
 <main>
-    <h1>{data.electionTitle}</h1>
+    <h1 class="text-6xl font-bold">{data.electionTitle}</h1>
     <p>{data.electionStart}</p>
     <ul>
         {#each data.electionCandidates as candidate}
@@ -37,4 +38,6 @@
     </ul>
     <p>{data.electionEnd}</p>
     <p>{data.displayElection}</p>
+    <EditElectionButton id={data._id} />
+    <DeletElectionButton id={data._id} />
 </main>

@@ -57,11 +57,12 @@
 ### Admin
 - [ ] Dashboard
     - [ ] Election results / Upcomming election
-    - [ ] Page for create election
-        - [ ] Get all elections
-        - [ ] Create election
+    - [x] Page for create election
+        - [x] Get all elections
+        - [x] Create election
         - [ ] Delete election
-    - [ ] Page for manage student accounts
+        - [ ] Edit election
+    - [x] Page for manage student accounts
         - [x] Get all students
         - [x] Delete students
         - [x] Accept/Reject student registration

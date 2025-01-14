@@ -9,7 +9,6 @@
     <Navbar />
     <Sidebar />
     <div class="pl-20 pt-20 ml-64 h-screen w-4/5">
-        <h1 class="text-6xl font-bold">Election data</h1>
         <GetElection />
     </div>
 </main>
