@@ -16,7 +16,7 @@
         } catch (err) {
             error = console.log(err.message);
         }
-        window.location.reload();
+        window.location.href = '/Auth/Login';
     }
 </script>
 

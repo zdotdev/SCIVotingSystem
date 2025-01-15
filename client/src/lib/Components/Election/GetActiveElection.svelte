@@ -37,6 +37,39 @@
     onMount(async () => {
         await getActive();
     });
+
+    let userChecker = null;
+
+    onMount(async () => {
+        try {
+            const response = await fetch('http://localhost:3000/api/auth/loginWithRefreshToken', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                const user = data.user;
+                if (user === 'student') {
+                    userChecker = 'student'
+                } else if (user === 'admin') {
+                    userChecker = 'admin';
+                } else if (user === 'newUser') {
+                    userChecker = 'newUser';
+                } else {
+                    window.location.href = '/Auth/Login';
+                }
+            } else {
+                window.location.href = '/Auth/Login';
+            }
+        } catch (error) {
+            window.location.href = '/Auth/Login';
+        }
+    });
     
 </script>
 
@@ -56,7 +89,11 @@
                     <p class="text-gray-500">No active election available.</p>
                 {/if}
             {#if electionId}
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={() => {window.location.href = `/Election/Open/${electionId}`}}>View</button>
+                {#if userChecker === 'admin'}
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={() => {window.location.href = `/Election/Open/${electionId}`}}>View</button>
+                {:else if userChecker === 'student'}
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={() => {window.location.href = `/Election/Vote/${electionId}`}}>Vote</button>
+                {/if}
             {/if}
             </div>
     </div>

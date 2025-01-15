@@ -5,9 +5,11 @@ const {
   signUp,
   signIn,
   signOut,
-  loginWithRefreshToken
+  loginWithRefreshToken,
+  idGetter
 } = require('../controllers/auth.js')
 
+router.get('/', idGetter)
 router.post('/signUp', signUp)
 router.post('/signIn', signIn)
 router.post('/signOut', signOut)

@@ -211,4 +211,30 @@ const loginWithRefreshToken = async (req, res, next) => {
   }
 }
 
-module.exports = { signUp, signIn, signOut, loginWithRefreshToken }
+const idGetter = async (req, res) => {
+  try {
+    const refreshToken = req.cookies.refreshToken
+
+    if (!refreshToken) {
+      return res.status(401).json({ message: 'Refresh token required' })
+    }
+
+    const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET)
+
+    const user = await User.findById(decoded.id.id)
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    }
+
+    if (user.refreshToken !== refreshToken) {
+      return res.status(403).json({ message: 'Invalid refresh token' })
+    }
+    return res
+      .status(200)
+      .json({ message: 'User ID retrieved successfully', user: user._id })
+  } catch (err) {
+    return res.status(500).json({ message: err.message })
+  }
+}
+
+module.exports = { signUp, signIn, signOut, loginWithRefreshToken, idGetter }

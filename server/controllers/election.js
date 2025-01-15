@@ -188,7 +188,16 @@ const addVotes = async (req, res) => {
     if (!id || !mongoose.isValidObjectId(id)) {
       return res.status(404).json({ message: 'Election Id is required.' })
     }
-    const { votesData, votersId } = req.body // votesData should be an array of objects with candidateId, votes, and votersId
+    const { votesData, votersId } = req.body
+
+    const existingVote = await Election.findOne({
+      _id: id,
+      electionVoters: votersId
+    })
+
+    if (existingVote) {
+      return res.status(400).json({ message: 'Voter has already voted.' })
+    }
 
     const parsedVotes = electionSaveVoteZodSchema.safeParse(req.body)
 
@@ -300,6 +309,29 @@ const getActiveElection = async (req, res) => {
   }
 }
 
+const getCandidates = async (req, res) => {
+  try {
+    const { id } = req.params
+    if (!id || !mongoose.isValidObjectId(id)) {
+      return res.status(404).json({ message: 'Election Id is required.' })
+    }
+    const election = await Election.findById(id)
+
+    if (!election) {
+      return res.status(404).json({ message: 'Election not found' })
+    }
+
+    const candidates = election.electionCandidates
+
+    return res.status(200).json({
+      message: 'Election candidates retrieved successfully.',
+      candidates
+    })
+  } catch (err) {
+    return res.status(500).json({ message: err.message })
+  }
+}
+
 module.exports = {
   getAllElections,
   getElectionById,
@@ -309,5 +341,6 @@ module.exports = {
   addVotes,
   deleteElection,
   getDisplayedElections,
-  getActiveElection
+  getActiveElection,
+  getCandidates
 }
