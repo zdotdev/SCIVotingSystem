@@ -13,7 +13,6 @@ const UserZodSchema = z.object({
           'Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character'
       }
     ),
-  image: z.string().min(1, { message: 'Image is required.' }),
   studentId: z.string().min(1, { message: 'Student ID is required.' }),
   role: z.enum(['newUser', 'student', 'admin']).default('newUser'),
   refreshToken: z.string().min(1, { message: 'Refresh token is required.' })

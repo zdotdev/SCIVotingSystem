@@ -2,7 +2,6 @@ const User = require('../models/user.js')
 const mongoose = require('mongoose')
 const UserZodSchema = require('../zod/user.js')
 
-// get all users
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find({ role: 'student' })
@@ -35,7 +34,6 @@ const getAllNewUsers = async (req, res) => {
   }
 }
 
-// get user by id
 const getUserById = async (req, res) => {
   try {
     const { id } = req.params
@@ -95,7 +93,6 @@ const updateUserRole = async (req, res) => {
   }
 }
 
-// delete user by id
 const deleteUser = async (req, res) => {
   try {
     const { id } = req.params

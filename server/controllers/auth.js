@@ -8,15 +8,13 @@ const {
 } = require('../middlewares/auth.js')
 const jwt = require('jsonwebtoken')
 
-// Sign up
 const signUp = async (req, res) => {
   try {
-    const { name, email, password, image, studentId } = req.body
+    const { name, email, password, studentId } = req.body
     const parserBody = UserZodSchema.pick({
       name: true,
       email: true,
       password: true,
-      image: true,
       studentId: true
     }).safeParse(req.body)
     if (!parserBody.success) {
@@ -36,7 +34,6 @@ const signUp = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      image,
       studentId
     })
 
@@ -74,7 +71,6 @@ const signUp = async (req, res) => {
   }
 }
 
-// Sign in
 const signIn = async (req, res) => {
   try {
     const { email, password } = req.body
@@ -134,7 +130,6 @@ const signIn = async (req, res) => {
   }
 }
 
-// Sign out
 const signOut = async (req, res) => {
   try {
     const refreshToken = req.cookies.refreshToken

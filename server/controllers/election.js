@@ -7,7 +7,6 @@ const {
   electionSaveVoteZodSchema
 } = require('../zod/election.js')
 
-// get all elections
 const getAllElections = async (req, res) => {
   try {
     const elections = await Election.find()
@@ -25,7 +24,6 @@ const getAllElections = async (req, res) => {
   }
 }
 
-// Get election by id
 const getElectionById = async (req, res) => {
   try {
     const { id } = req.params
@@ -46,7 +44,6 @@ const getElectionById = async (req, res) => {
   }
 }
 
-// Get ellection results
 const getElectionResults = async (req, res) => {
   try {
     const { id } = req.params
@@ -68,7 +65,6 @@ const getElectionResults = async (req, res) => {
   }
 }
 
-// Create election
 const createElection = async (req, res) => {
   try {
     const {
@@ -129,7 +125,6 @@ const createElection = async (req, res) => {
   }
 }
 
-// Update election
 const updateElection = async (req, res) => {
   try {
     const { id } = req.params
@@ -181,7 +176,6 @@ const updateElection = async (req, res) => {
   }
 }
 
-// Add votes per candidate
 const addVotes = async (req, res) => {
   try {
     const { id } = req.params
@@ -240,7 +234,6 @@ const addVotes = async (req, res) => {
   }
 }
 
-// Delete election
 const deleteElection = async (req, res) => {
   try {
     const { id } = req.params

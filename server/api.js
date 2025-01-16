@@ -32,12 +32,10 @@ app.use(credentials)
 app.use(cors(corsOptions))
 app.use(globalErrorHandler)
 
-// routes
 app.use('/api/user', userRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/election', electionRoutes)
 
-// mongoose
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {

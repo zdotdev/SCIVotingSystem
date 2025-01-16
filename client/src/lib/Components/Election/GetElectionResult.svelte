@@ -26,7 +26,6 @@
         }
     }
 
-    // Format date to MM-DD-YYYY
     function formatDate(date) {
         const d = new Date(date);
         const month = String(d.getMonth() + 1).padStart(2, '0');

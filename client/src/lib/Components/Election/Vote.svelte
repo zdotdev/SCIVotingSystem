@@ -34,7 +34,6 @@
         }
     }); 
 
-    // Group candidates by their position
     function groupCandidatesByPosition() {
         groupedCandidates = candidateList.reduce((acc, candidate) => {
             if (!acc[candidate.candidatePosition]) {
@@ -45,7 +44,6 @@
         }, {});
     }
 
-    // Submit vote
     async function vote() {
         const votesData = Object.entries(selectedCandidates).map(([position, candidateId]) => ({
             candidateId,

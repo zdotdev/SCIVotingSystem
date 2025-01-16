@@ -39,7 +39,6 @@
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
-        const image = document.getElementById('image').value;
         const studentId = document.getElementById('studentId').value;
 
         const response = await fetch('http://localhost:3000/api/auth/signUp', {
@@ -84,10 +83,6 @@
         <div class="flex flex-col gap-4">
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" placeholder="abcd1234!" required>
-        </div>
-        <div class="flex flex-col gap-4">
-            <label for="image">Image:</label>
-            <input type="text" id="image" name="image" required>
         </div>
         <div class="flex flex-col gap-4">
             <label for="studentId">Student Id:</label>

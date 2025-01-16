@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const { required } = require('../zod/user')
 
 const userSchema = new mongoose.Schema(
   {
@@ -13,7 +12,6 @@ const userSchema = new mongoose.Schema(
       index: true
     },
     password: { type: String, required: true },
-    image: { type: String, required: true },
     studentId: { type: String, required: true, trim: true, unique: true },
     role: { type: String, default: 'newUser' },
     refreshToken: { type: String, required: true }
