@@ -1,33 +1,15 @@
-# Technologies used: 
-- [ ] Svelte
-- [ ] NodeJS
-- [ ] Express
-- [ ] JWT
-- [ ] MongoDB
-- [ ] S3 bucket
-- [ ] Zod
-- [ ] Nodemon
-- [ ] Mongoose
-- [ ] Cors
-- [ ] Body parser
-- [ ] Cookie parser
-- [ ] Multer
-- [ ] Serverless-http
-- [ ] Morgan
-- [ ] Moment
-- [ ] Helmet
-- [ ] Dotenv
-- [ ] Bcrypt
+# Dependencies:
+- mongoose
 
-# To do:
+# to do
 ## Backend
-- [x] Auth:
-    - [x] Signin
-    - [x] Sign up
-    - [x] Sign out
-    - [x] Sign in using jwt
-    - [x] Sign out using jwt
-    - [x] Add refresh token in user account
+- [ ] Auth:
+    - [ ] Signin
+    - [ ] Sign up
+    - [ ] Sign out
+    - [ ] Sign in using jwt
+    - [ ] Sign out using jwt
+    - [ ] Add refresh token in user account
 
 - [x] User
     - [x] Get all users
@@ -37,35 +19,12 @@
 
 - [x] Election
     - [x] Get all elections
-    - [x] Get ellection by ID
+    - [x] Get election by ID
+    - [x] Get active election
+    - [x] Get election results
+    - [x] Update election
+    - [x] Get all candidates
+    - [x] Get displayed election
     - [x] Create election
     - [x] Add vote per candidates
-    - [x] Get election results
-    - [x] Post election results
     - [x] Delete election results
-
-## Frontend
-### Student
-- [x] Signup/login page
-
-- [ ] Dashboard
-    - [ ] Page for vote
-    - [ ] Page for results
-
-- [ ] User dialog
-    - [ ] Logout
-### Admin
-- [ ] Dashboard
-    - [ ] Election results / Upcomming election
-    - [x] Page for create election
-        - [x] Get all elections
-        - [x] Create election
-        - [ ] Delete election
-        - [ ] Edit election
-    - [x] Page for manage student accounts
-        - [x] Get all students
-        - [x] Delete students
-        - [x] Accept/Reject student registration
-
-- [ ] Admin dialog
-    - [ ] Logout
