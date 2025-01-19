@@ -6,11 +6,11 @@ export async function GET() {
         const users = await User.find({role: 'student'})
 
         if (!users) {
-            return new Response('No users found', { status: 404 })
+            return new Response({message: 'No users found'}, { status: 404 })
         }
 
-        return json({user: users})
+        return json({message: "Users fetched successfully.", user: users})
     } catch (error) {
-        return new Response('Internal server error.', error, { status: 500 })
+        return new Response({message: 'Internal server error.'}, error, { status: 500 })
     }
 }
