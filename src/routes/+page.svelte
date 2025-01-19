@@ -1,1 +1,1 @@
-<p>V</p>
+<p class="text-red-500">V</p>
