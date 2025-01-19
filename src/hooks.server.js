@@ -5,7 +5,7 @@ import cookie from 'cookie';
 // Start MongoDB
 start_mongo()
   .then(() => {
-    console.log("Connected to MongoDB");
+    console.log("Server Running...");
   })
   .catch((err) => {
     console.error(err);
@@ -13,7 +13,7 @@ start_mongo()
 
 // Implementing CORS manually
 function handleCors(request, response) {
-  const allowedOrigins = ['http://localhost:5173']; // Replace with your frontend URL
+  const allowedOrigins = ['http://localhost:5173', 'http://localhost:5174']; // Replace with your frontend URL
   const origin = request.headers.get('origin');
 
   if (allowedOrigins.includes(origin)) {
@@ -35,6 +35,7 @@ function setSecurityHeaders(response) {
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('X-Frame-Options', 'DENY');
   response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+  response.headers.set('Content-Security-Policy', "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';");
 }
 
 // Main hook to handle requests
