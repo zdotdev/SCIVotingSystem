@@ -16,6 +16,7 @@
     - [x] Get user by id
     - [x] Accept/Reject user
     - [x] Delete user
+    - [ ] Add student course
 
 - [x] Election
     - [x] Get all elections
