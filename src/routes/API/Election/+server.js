@@ -8,12 +8,12 @@ export async function GET() {
         const elections = await Election.find();
 
         if (!elections) {
-            throw new Response("No elections found", { status: 404 });
+            throw new Response({message: "No elections found."}, { status: 404 });
         }
 
-        return json({election: elections});
+        return json({message: "Election fetched successfully.",election: elections});
     } catch (error) {
-        return new Response("Internal server error.", error, { status: 500 });
+        return new Response({message: "Internal server error."}, error, { status: 500 });
     }
 }
 
@@ -34,17 +34,17 @@ export async function POST({ body }) {
         })
 
         if (!parseCandidates.some((candidate) => candidate.success)) {
-            return new Response(parseCandidates.find((candidate) => !candidate.success).error.issues[0].message, { status: 400 });
+            return new Response({message: parseCandidates.find((candidate) => !candidate.success).error.issues[0].message}, { status: 400 });
         }
 
         if (!validatedData.success) {
-            return new Response(validatedData.error.issues[0].message, { status: 400 });
+            return new Response({message: validatedData.error.issues[0].message}, { status: 400 });
         }
 
         const existingElection = await Election.findOne({ electionTitle });
 
         if (existingElection) {
-            return new Response("Election already exists", { status: 400 });
+            return new Response({message: "Election already exists."}, { status: 400 });
         }
 
         const newElection = new Election({
@@ -57,7 +57,7 @@ export async function POST({ body }) {
 
         await newElection.save();
 
-        return new Response("Election created successfully", { status: 201 });
+        return new Response({message: "Election created successfully."}, { status: 201 });
     }catch(error){
         return new Response("Internal server error.", error, { status: 500 });
     }

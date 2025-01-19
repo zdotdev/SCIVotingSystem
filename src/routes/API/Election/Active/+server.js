@@ -9,11 +9,11 @@ export async function GET() {
     }).sort({ electionStart: -1 })
 
         if (!elections || elections.length === 0) {
-            throw new Response("No active elections found", { status: 404 });
+            throw new Response({message: "No active elections found"}, { status: 404 });
         }
 
-        return json({election: elections});
+        return json({message: "Election fetched successfully.", election: elections});
     } catch (error) {
-        return new Response("Internal server error.", error, { status: 500 });
+        return new Response({message: "Internal server error."}, error, { status: 500 });
     }
 }

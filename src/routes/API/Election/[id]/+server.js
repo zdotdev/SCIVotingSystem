@@ -8,18 +8,18 @@ export async function GET({ params }) {
         const { id } = params
 
         if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-            return new Response('Election ID is required.', { status: 400 })
+            return new Response({message: 'Election ID is required.'}, { status: 400 })
         }
 
         const election = await Election.findById(id)
 
         if (!election) {
-            return new Response('No election found', { status: 404 })
+            return new Response({message: 'No election found.'}, { status: 404 })
         }
 
-        return json({election})
+        return json({message: "Election fetched successfully.", election})
     } catch (error) {
-        return new Response('Internal server error.', error, { status: 500 })
+        return new Response({message: 'Internal server error.'}, error, { status: 500 })
     }
 }
 
@@ -28,7 +28,7 @@ export async function PUT({ params, body }) {
         const { id } = params
 
         if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-            return new Response('Election ID is required.', { status: 400 })
+            return new Response({message: 'Election ID is required.'}, { status: 400 })
         }
 
         const { electionTitle, electionStart, electionEnd, electionCandidates, displayElection } = body
@@ -40,17 +40,17 @@ export async function PUT({ params, body }) {
         })
 
         if (!validatedData.success) {
-            return new Response(validatedData.error.issues[0].message, { status: 400 })
+            return new Response({message: validatedData.error.issues[0].message}, { status: 400 })
         }
 
         if (parserCandidates.some((candidate) => !candidate.success)) {
-            return new Response(parserCandidates.find((candidate) => !candidate.success).error.issues[0].message, { status: 400 })
+            return new Response({message: parserCandidates.find((candidate) => !candidate.success).error.issues[0].message}, { status: 400 })
         }
 
         const election = await Election.findById(id)
 
         if (!election) {
-            return new Response('No election found', { status: 404 })
+            return new Response({message: 'No election found'}, { status: 404 })
         }
 
         election.electionTitle = electionTitle
@@ -61,10 +61,10 @@ export async function PUT({ params, body }) {
 
         await election.save()
 
-        return json({election})
+        return json({message: "Election updated successfully.", election})
 
     }catch(error) {
-        return new Response('Internal server error.', error, { status: 500 })
+        return new Response({message: 'Internal server error.'}, error, { status: 500 })
     }
 }
 
@@ -73,20 +73,20 @@ export async function DELETE({ params }) {
         const { id } = params
 
         if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-            return new Response('Election ID is required.', { status: 400 })
+            return new Response({message: 'Election ID is required.'}, { status: 400 })
         }
 
         const election = await Election.findById(id)
 
         if (!election) {
-            return new Response('No election found', { status: 404 })
+            return new Response({message: 'No election found'}, { status: 404 })
         }
 
         await election.deleteOne({_id: id})
 
-        return new Response('Election deleted successfully.', { status: 200 })
+        return new Response({message: 'Election deleted successfully.'}, { status: 200 })
 
     }catch(error) {
-        return new Response('Internal server error.', error, { status: 500 })
+        return new Response({message: 'Internal server error.'}, error, { status: 500 })
     }
 }

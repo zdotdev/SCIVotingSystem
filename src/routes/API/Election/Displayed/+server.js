@@ -6,11 +6,11 @@ export async function GET() {
         const election = await Election.find({ displayElection: { $lte: new Date() } })
 
         if (!election || election.length === 0) {
-            return new Response('No election found', { status: 404 })
+            return new Response({message: 'No election found'}, { status: 404 })
         }
 
         return json({election})
     } catch (error) {
-        return new Response('Internal server error.', error, { status: 500 })
+        return new Response({message: 'Internal server error.'}, error, { status: 500 })
     }
 }

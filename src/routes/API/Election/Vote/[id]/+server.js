@@ -10,36 +10,36 @@ export async function PUT({ params, body }) {
         const { votesData, votersId } = body;
         
         if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-            return new Response("Election ID is required.", { status: 400 });
+            return new Response({message: "Election ID is required."}, { status: 400 });
         }
         
         const validatedData = ElectionSaveVoteZodSchema.safeParse(body);
 
         if (!validatedData.success) {
-            return new Response(validatedData.error.issues[0].message, { status: 400 });
+            return new Response({mesage: validatedData.error.issues[0].message}, { status: 400 });
         }
 
         const existingVote = await Election.findOne({ _id: id, electionVoters: votersId });
 
         if (existingVote) {
-            return new Response("You have already voted.", { status: 400 });
+            return new Response({message: "You have already voted."}, { status: 400 });
         }
 
         const election = await Election.findById(id);
         const voter = await User.findById(votersId);
 
         if (!election) {
-            return new Response("No election found", { status: 404 });
+            return new Response({message: "No election found"}, { status: 404 });
         }
 
         if (!voter) {
-            return new Response("No voter found", { status: 404 });
+            return new Response({message: "No voter found"}, { status: 404 });
         }
 
         votesData.forEach((candidateId, votes) => {
             const candidate = election.electionCandidates.id(candidateId);
             if (!candidate) {
-                return new Response("Candidate not found", { status: 404 });
+                return new Response({message: "Candidate not found"}, { status: 404 });
             }
             candidate.candidateVotes += votes;
         });
@@ -50,6 +50,6 @@ export async function PUT({ params, body }) {
 
         return json({ message: "Vote saved successfully." });
     } catch (error) {
-        return new Response("Internal server error.", error, { status: 500 });
+        return new Response({message: "Internal server error."}, error, { status: 500 });
     }
 }

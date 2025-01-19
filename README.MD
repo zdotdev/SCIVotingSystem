@@ -29,3 +29,9 @@
     - [x] Create election
     - [x] Add vote per candidates
     - [x] Delete election results
+
+## Frontend
+
+- [ ] Auth
+    - [ ] Sign in
+    - [ ] Sign up
