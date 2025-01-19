@@ -3,13 +3,13 @@
 
 # to do
 ## Backend
-- [ ] Auth:
-    - [ ] Signin
-    - [ ] Sign up
-    - [ ] Sign out
-    - [ ] Sign in using jwt
-    - [ ] Sign out using jwt
-    - [ ] Add refresh token in user account
+- [x] Auth:
+    - [x] Signin
+    - [x] Sign up
+    - [x] Sign out
+    - [x] Sign in using jwt
+    - [x] Sign out using jwt
+    - [x] Add refresh token in user account
 
 - [x] User
     - [x] Get all users

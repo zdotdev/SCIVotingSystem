@@ -8,13 +8,14 @@ import cookie from 'cookie';
 export async function POST({ request }) {
   try {
     const body = await request.json();
-    const { name, email, password, studentId } = body;
+    const { name, email, password, studentId, studentCourse } = body;
 
     const parserBody = UserZodSchema.pick({
       name: true,
       email: true,
       password: true,
       studentId: true,
+      studentCourse: true,
     }).safeParse(body);
 
     if (!parserBody.success) {

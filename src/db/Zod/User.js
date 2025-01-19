@@ -14,6 +14,7 @@ const UserZodSchema = z.object({
       }
     ),
   studentId: z.string().min(1, { message: 'Student ID is required.' }),
+  studentCourse: z.string().min(1, { message: 'Student course is required.' }),
   role: z.enum(['newUser', 'student', 'admin']).default('newUser'),
   refreshToken: z.string().min(1, { message: 'Refresh token is required.' })
 })
