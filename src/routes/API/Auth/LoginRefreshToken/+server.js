@@ -35,7 +35,7 @@ export async function POST({ request }) {
 
     const accessToken = createAccessToken({ id: user._id });
 
-    const response = new Response(
+    return new Response(
       JSON.stringify({ message: 'Token refreshed successfully', user: user.role, id: user._id }),
       {
         status: 200,
@@ -51,7 +51,6 @@ export async function POST({ request }) {
       }
     );
 
-    return response;
   } catch (error) {
     console.error('Error during token refresh:', error);
 
