@@ -37,6 +37,7 @@ export async function POST({ request }) {
       email,
       password: hashedPassword,
       studentId,
+      studentCourse
     });
 
     const accessToken = await generateAccessToken({ id: newUser._id });
