@@ -1,7 +1,7 @@
 <script>
     import { onMount } from 'svelte';
 
-    export let form; // This will contain the data passed from the server
+    export let form;
 
     let email = '';
     let password = '';
