@@ -1,3 +1,4 @@
+import { error } from '@sveltejs/kit';
 import { loginRefreshToken } from '$lib/uri';
 
 export async function load({ fetch, cookies }) {
@@ -28,6 +29,6 @@ export async function load({ fetch, cookies }) {
         return { error: null };
     } catch (err) {
         console.error('Error in load function:', err);
-        return { error: 'Failed to refresh session. Please log in again.' };
+        throw error(500,{ error: 'Failed to refresh session. Please log in again.' });
     }
 }

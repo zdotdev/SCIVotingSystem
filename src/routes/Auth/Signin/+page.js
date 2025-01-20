@@ -18,7 +18,7 @@ export async function load({ fetch, cookies }) {
             if (user === 'student') {
                 window.location.href = '/SCI-Voting-System/Student/Dashboard';
             } else if (user === 'newUser') {
-                window.location.href = 307, '/Pending';
+                window.location.href = '/Pending';
             } else if (user === 'admin') {
                 window.location.href = '/SCI-Voting-System/Admin/Dashboard';
             } else {

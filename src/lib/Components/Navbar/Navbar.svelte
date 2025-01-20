@@ -22,7 +22,7 @@
         } catch (err) {
             throw error(400, {errorMessage: err.message}); 
         }
-        window.location.href = '/Auth/Signup';
+        window.location.href = '/Auth/Signin';
     }
 </script>
 
@@ -32,13 +32,13 @@
         <button type="button" on:click={() => {window.location.href = `/${path}/${title}`}} class="w-12 h-12 rounded-full text-white ml-auto flex content-center p-2">
             {title}
         </button>
-        <button type="button" on:click={() => {signout}} class="w-12 h-12 rounded-full bg-white ml-auto flex content-center p-2">
+        <button type="button" on:click={() => {signout()}} class="w-12 h-12 rounded-full bg-white ml-auto flex content-center p-2">
             <img src="{LogoutImage}" alt="Logout">
         </button>
     </nav>
     {:else}
     <nav class="w-screen z-10 flex items-center bg-gray-800 h-16 fixed top-0 left-0 px-8">
-        <button type="button" on:click={() => {signout}} class="w-12 h-12 rounded-full bg-white ml-auto flex content-center p-2">
+        <button type="button" on:click={() => {signout()}} class="w-12 h-12 rounded-full bg-white ml-auto flex content-center p-2">
             <img src="{LogoutImage}" alt="Logout">
         </button>
     </nav>

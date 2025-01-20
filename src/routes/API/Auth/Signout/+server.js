@@ -49,7 +49,7 @@ export async function POST({ request }) {
     const user = await User.findById(id);
     if (user) {
       await User.updateOne(
-        { _id: existingUser._id },
+        { _id: user._id },
         { refreshToken: null }
       );
 
