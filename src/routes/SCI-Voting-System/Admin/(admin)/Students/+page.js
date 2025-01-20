@@ -15,20 +15,14 @@ export async function load({ fetch, cookies }) {
             const data = await response.json();
             const user = data.user;
 
-            if (user === 'student') {
-                window.location.href = '/SCI-Voting-System/Student/Dashboard';
-            } else if (user === 'newUser') {
-                window.location.href = 307, '/Pending';
-            } else if (user === 'admin') {
-                window.location.href = '/SCI-Voting-System/Admin/Dashboard';
-            } else {
-                window.location.href = '/Auth/Signin';
+            if (user != 'admin') {
+                throw error(403,{ message: 'Forbidden' });
             }
         }
 
         return { error: null };
     } catch (err) {
         console.error('Error in load function:', err);
-        throw error(500,{ error: 'Failed to refresh session. Please log in again.' });
+        throw error(500,{ message: 'Failed to refresh session. Please log in again.' });
     }
 }
