@@ -1,7 +1,7 @@
 import User from '$db/Schema/User';
 import UserZodSchema from '$db/Zod/User';
 import bcrypt from 'bcrypt';
-import { createAccessToken, createRefreshToken } from '$db/JWT/Auth';
+import { generateAccessToken, generateRefreshToken } from '$db/JWT/Auth';
 import { json } from '@sveltejs/kit';
 import cookie from 'cookie';
 
@@ -32,14 +32,17 @@ export async function POST({ request }) {
       return json({ message: 'Wrong password.' }, { status: 400 });
     }
 
-    const accessToken = createAccessToken({ id: existingUser._id });
-    const refreshToken = createRefreshToken({
+    const accessToken = await generateAccessToken({ id: existingUser._id });
+    const refreshToken = await generateRefreshToken({
       id: existingUser._id,
       email: existingUser.email,
     });
 
-    existingUser.refreshToken = refreshToken;
-    await existingUser.save();
+    await User.updateOne(
+      { _id: existingUser._id },
+      { refreshToken }
+    );
+
 
     const responseHeaders = new Headers({
       'Set-Cookie': [

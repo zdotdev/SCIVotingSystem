@@ -1,7 +1,7 @@
 import User from '$db/Schema/User';
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from '$env/static/private';
-import { createAccessToken } from '$db/JWT/Auth';
+import { generateAccessToken } from '$db/JWT/Auth';
 import cookie from 'cookie';
 
 export async function POST({ request }) {
@@ -18,7 +18,7 @@ export async function POST({ request }) {
 
     const decoded = jwt.verify(refreshToken, JWT_SECRET);
 
-    const user = await User.findById(decoded.id);
+    const user = await User.findById(decoded.id.id);
     if (!user) {
       return new Response(JSON.stringify({ message: 'User not found' }), {
         status: 404,
@@ -33,7 +33,7 @@ export async function POST({ request }) {
       });
     }
 
-    const accessToken = createAccessToken({ id: user._id });
+    const accessToken = await generateAccessToken({ id: user._id });
 
     return new Response(
       JSON.stringify({ message: 'Token refreshed successfully', user: user.role, id: user._id }),

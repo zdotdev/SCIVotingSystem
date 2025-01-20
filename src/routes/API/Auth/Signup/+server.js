@@ -1,7 +1,7 @@
 import User from '$db/Schema/User';
 import UserZodSchema from '$db/Zod/User';
 import bcrypt from 'bcrypt';
-import { createAccessToken, createRefreshToken } from '$db/JWT/Auth';
+import { generateAccessToken, generateRefreshToken } from '$db/JWT/Auth';
 import { json } from '@sveltejs/kit';
 import cookie from 'cookie';
 
@@ -39,8 +39,8 @@ export async function POST({ request }) {
       studentId,
     });
 
-    const accessToken = createAccessToken({ id: newUser._id });
-    const refreshToken = createRefreshToken({
+    const accessToken = await generateAccessToken({ id: newUser._id });
+    const refreshToken = await generateRefreshToken({
       id: newUser._id,
       email: newUser.email,
     });

@@ -21,7 +21,7 @@ export async function POST({ request }) {
       return json({ message: 'Invalid or expired refresh token' }, { status: 401 });
     }
 
-    const id = decoded.id;
+    const id = decoded.id.id;
 
     if (!id || !mongoose.isValidObjectId(id)) {
       return json({ message: 'Invalid user ID' }, { status: 400 });
@@ -48,8 +48,11 @@ export async function POST({ request }) {
 
     const user = await User.findById(id);
     if (user) {
-      user.refreshToken = null;
-      await user.save();
+      await User.updateOne(
+        { _id: existingUser._id },
+        { refreshToken: null }
+      );
+
     } else {
       return json({ message: 'Forbidden' }, { status: 403 });
     }

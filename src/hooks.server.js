@@ -31,11 +31,18 @@ function handleCors(request, response) {
 
 // Implementing Helmet-like security headers manually
 function setSecurityHeaders(response) {
-  response.headers.set('Content-Security-Policy', "default-src 'self'");
+  response.headers.set(
+    'Content-Security-Policy',
+    `
+      default-src 'self';
+      connect-src 'self' http://localhost:5173;
+      style-src 'self' 'unsafe-inline';
+      script-src 'self' 'unsafe-inline';
+    `.replace(/\s{2,}/g, ' ').trim() // Minify the CSP header
+  );
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('X-Frame-Options', 'DENY');
   response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
-  response.headers.set('Content-Security-Policy', "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';");
 }
 
 // Main hook to handle requests
