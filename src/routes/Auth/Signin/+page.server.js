@@ -1,4 +1,4 @@
-import { fail } from '@sveltejs/kit';
+import { fail, error } from '@sveltejs/kit';
 import { signIn } from '$lib/uri';
 
 export const actions = {
@@ -26,11 +26,11 @@ export const actions = {
                 const user = data.user;
 
                 if (user === 'student') {
-                    window.location.href = '/Student';
+                    window.location.href = '/SCI-Voting-System/Student/Dashboard';
                 } else if (user === 'newUser') {
                     window.location.href = '/Pending';
                 } else if (user === 'admin') {
-                    window.location.href = '/Admin/Dashboard';
+                    window.location.href = '/SCI-Voting-System/Admin/Dashboard';
                 } else {
                     return fail(400, { errorMessage: 'Invalid user role.' });
                 }
@@ -39,7 +39,7 @@ export const actions = {
             }
         } catch (error) {
             console.error('Error during login:', error);
-            return fail(500, { errorMessage: 'An internal error occurred. Please try again.' });
+            throw error(500, { errorMessage: 'An internal error occurred. Please try again.' });
         }
     },
 };

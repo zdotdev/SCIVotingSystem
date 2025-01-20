@@ -15,11 +15,11 @@ export async function load({ fetch, cookies }) {
             const user = data.user;
 
             if (user === 'student') {
-                window.location.href = '/Student';
+                window.location.href = '/SCI-Voting-System/Student/Dashboard';
             } else if (user === 'newUser') {
                 window.location.href = 307, '/Pending';
             } else if (user === 'admin') {
-                window.location.href = '/Admin/Dashboard';
+                window.location.href = '/SCI-Voting-System/Admin/Dashboard';
             } else {
                 window.location.href = '/Auth/Signin';
             }
