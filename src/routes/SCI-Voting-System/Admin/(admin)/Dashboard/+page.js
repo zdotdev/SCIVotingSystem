@@ -38,11 +38,11 @@ export const load = async ({ fetch, cookies }) => {
                 displayedData
             };
         } else {
-            return {errorMessage: 'Failed to load election data. Please try again later.' };
+            return {errorMessage: 'Forbidden: Admins only' };
         }
 
     } catch (err) {
         console.error('Error in load function:', err);
-        throw error(500, { errorMessage: 'Failed to load data. Please try again later.' });
+        throw error(500, { errorMessage: 'Forbidden: Admins only' });
     }
 };

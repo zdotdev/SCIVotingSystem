@@ -1,8 +1,9 @@
-import { fail, error } from '@sveltejs/kit';
 import { loginRefreshToken } from '$lib/uri';
+import { error } from '@sveltejs/kit';
 
-export async function load({ fetch }) {
+export const load = async ({ fetch, cookies }) => {
     let userChecker = null;
+
     try {
         const authResponse = await fetch(loginRefreshToken, {
             method: 'POST',
@@ -15,16 +16,16 @@ export async function load({ fetch }) {
         const authData = await authResponse.json();
 
         if (!authResponse.ok) {
-            throw error(401, { errorMessage: 'Unauthorized: Failed to refresh session' });
+            throw error(401, 'Unauthorized: Failed to refresh session');
         }
 
         userChecker = authData.user;
-
         if (userChecker !== 'admin') {
-            throw error(403, { errorMessage: 'Forbidden: Admins only' });
+            throw error(403, 'Forbidden: Admins only');
         }
+
     } catch (err) {
         console.error('Error in load function:', err);
-        throw error(500, { errorMessage: 'Failed to load data. Please try again later.' })
+        throw error(500, { errorMessage: 'Forbidden: Admins only' });
     }
-}
+};
