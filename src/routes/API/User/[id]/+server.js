@@ -33,6 +33,11 @@ export async function PATCH({ params, request }) {
         }
 
         const body = await request.json();
+
+        if(!body) {
+            return json({ message: 'Request body is required.' }, { status: 400 });
+        }
+
         const { role } = body;
 
         if (!role) {

@@ -23,14 +23,19 @@ export async function GET({ params }) {
     }
 }
 
-export async function PUT({ params, body }) {
+export async function PUT({ params, request }) {
     try {
         const { id } = params
+        const body = await request.json();
+
+        if(!body) {
+            return json({ message: 'Request body is required.' }, { status: 400 });
+        }
 
         if (!id || !mongoose.Types.ObjectId.isValid(id)) {
             return new Response({message: 'Election ID is required.'}, { status: 400 })
         }
-
+        
         const { electionTitle, electionStart, electionEnd, electionCandidates, displayElection } = body
 
         const validatedData = ElectionZodSchema.pick({ electionTitle: true, electionStart: true, electionEnd: true, electionCandidates: true, displayElection: true }).safeParse(body)

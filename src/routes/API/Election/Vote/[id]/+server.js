@@ -4,9 +4,16 @@ import { ElectionSaveVoteZodSchema } from "$db/Zod/Election.js";
 import { json } from "@sveltejs/kit";
 import mongoose from "mongoose";
 
-export async function PUT({ params, body }) {
+export async function PUT({ params, request }) {
     try {
         const { id } = params;
+
+        const body = await request.json();
+
+        if(!body) {
+            return json({ message: 'Request body is required.' }, { status: 400 });
+        }
+
         const { votesData, votersId } = body;
         
         if (!id || !mongoose.Types.ObjectId.isValid(id)) {
