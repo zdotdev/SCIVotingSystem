@@ -1,8 +1,9 @@
-import { loginRefreshToken } from '$lib/uri';
+import { loginRefreshToken, user } from '$lib/uri';
 import { error } from '@sveltejs/kit';
 
 export const load = async ({ fetch, cookies }) => {
     let userChecker = null;
+    let usersData = {};
 
     try {
         const authResponse = await fetch(loginRefreshToken, {
@@ -22,6 +23,17 @@ export const load = async ({ fetch, cookies }) => {
         userChecker = authData.user;
         if (userChecker !== 'admin') {
             throw error(403, 'Forbidden: Admins only');
+        }
+
+        const users = await fetch(user);
+        
+        if (users.ok) {
+            usersData = (await users.json()).user;
+            return {
+                usersData
+            }
+        }else {
+            return { errorMessage: 'Failed to load new users data. Please try again later.' };
         }
 
     } catch (err) {
