@@ -34,7 +34,7 @@ export const actions = {
                     return { redirect: '/SCI-Voting-System/Admin/Dashboard' };
                 }
             } else {
-                throw fail(response.status, { errorMessage: data.message || 'Sign up failed.' });
+                return fail(response.status, { errorMessage: data.message || 'Sign up failed.' });
             }
         } catch(error) {
             console.error("Error during signup:", error);

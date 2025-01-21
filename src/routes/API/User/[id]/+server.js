@@ -1,78 +1,85 @@
-import User from '$db/Schema/User'
-import { json } from '@sveltejs/kit'
-import UserZodSchema from '$db/Zod/User.js'
-import mongoose from 'mongoose'
+import User from '$db/Schema/User';
+import { json } from '@sveltejs/kit';
+import UserZodSchema from '$db/Zod/User.js';
+import mongoose from 'mongoose';
 
 export async function GET({ params }) {
     try {
-        const { id } = params
+        const { id } = params;
 
         if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-            return new Response({message: 'User ID is required.'}, { status: 400 })
+            return json({ message: 'User ID is required.' }, { status: 400 });
         }
 
-        const users = await User.findById(id)
+        const users = await User.findById(id);
 
         if (!users) {
-            return new Response({message: 'No users found'}, { status: 404 })
+            return json({ message: 'No users found' }, { status: 404 });
         }
 
-        return json({message: "User fetched succesfully.", user: users})
+        return json({ message: 'User fetched successfully.', user: users });
     } catch (error) {
-        return new Response({message: 'Internal server error.'}, error, { status: 500 })
+        console.error(error);
+        return json({ message: 'Internal server error.' }, { status: 500 });
     }
 }
 
-export async function PATCH({ params, body }) {
+export async function PATCH({ params, request }) {
     try {
-        const { id } = params
+        const { id } = params;
 
         if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-            return new Response({message: 'User ID is required.'}, { status: 400 })
+            return json({ message: 'User ID is required.' }, { status: 400 });
         }
 
-        const { role } = body
+        const body = await request.json();
+        const { role } = body;
 
         if (!role) {
-            return new Response({message: 'Role is required.'}, { status: 400 })
+            return json({ message: 'Role is required.' }, { status: 400 });
         }
 
-        const user = await User.findById(id)
-
-        const validatedData = UserZodSchema.pick({ role: true }).safeParse(body)
-
-        if (!validatedData.success) {
-            return new Response({message: validatedData.error.issues[0].message}, { status: 400 })
-        }
+        const user = await User.findById(id);
 
         if (!user) {
-            return new Response({message: 'No users found'}, { status: 404 })
+            return json({ message: 'No users found' }, { status: 404 });
         }
 
-        user.role = role
-        await user.save()
+        const validatedData = UserZodSchema.pick({ role: true }).safeParse(body);
 
-        return json({user})
+        if (!validatedData.success) {
+            return json({ message: validatedData.error.issues[0].message }, { status: 400 });
+        }
 
-    }catch(error) {
-        return new Response({message: 'Internal server error.'}, error, { status: 500 })
+        user.role = role;
+        await user.save();
+
+        return json({ message: 'User updated successfully.', user });
+    } catch (error) {
+        console.error(error);
+        return json({ message: 'Internal server error.' }, { status: 500 });
     }
 }
 
 export async function DELETE({ params }) {
     try {
-        const { id } = params
-        const user = await User.findById(id)
+        const { id } = params;
 
-        if (!user) {
-            return new Response({message: 'No users found'}, { status: 404 })
+        if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+            return json({ message: 'User ID is required.' }, { status: 400 });
         }
 
-        await user.delete()
+        const user = await User.findById(id);
 
-        return new Response({message: 'User has been deleted'}, { status: 200 })
+        if (!user) {
+            return json({ message: 'No users found' }, { status: 404 });
+        }
 
+        await User.findByIdAndDelete(id);
+
+        return json({ message: 'User has been deleted.' });
     } catch (error) {
-        return new Response({message: 'Internal server error.'}, error, { status: 500 })
+        console.error(error);
+        return json({ message: 'Internal server error.' }, { status: 500 });
     }
 }

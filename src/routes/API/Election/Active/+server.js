@@ -8,8 +8,12 @@ export async function GET() {
       electionEnd: { $gte: new Date() }
     }).sort({ electionStart: -1 })
 
-        if (!elections || elections.length === 0) {
+        if (!elections) {
             throw new Response({message: "No active elections found"}, { status: 404 });
+        }
+
+        if (elections.length === 0) {
+            return json({ message: "No active elections found." });
         }
 
         return json({message: "Election fetched successfully.", election: elections});

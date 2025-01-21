@@ -1,6 +1,6 @@
 // User
 export const user = 'http://localhost:5173/API/User';
-export const newUsers = 'http://localhost:5173/API/NewUsers';
+export const newUsers = 'http://localhost:5173/API/User/NewUsers';
 
 // Election
 export const election = 'http://localhost:5173/API/Election';

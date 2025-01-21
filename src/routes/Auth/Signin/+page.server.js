@@ -8,7 +8,7 @@ export const actions = {
         const password = formData.get('password');
 
         if (!email || !password) {
-            throw fail(400, { errorMessage: 'Email and password are required.' });
+            return fail(400, { errorMessage: 'Email and password are required.' });
         }
 
         try {
@@ -34,7 +34,7 @@ export const actions = {
                     return fail(400, { errorMessage: 'Invalid user role.' });
                 }
             } else {
-                throw fail(response.status, { errorMessage: data.message || 'Sign in failed.' });
+                return fail(response.status, { errorMessage: data.message || 'Sign in failed.' });
             }
         } catch (error) {
             console.error('Error during login:', error);

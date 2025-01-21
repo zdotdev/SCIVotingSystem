@@ -1,9 +1,11 @@
-import { error } from '@sveltejs/kit'
-import { loginRefreshToken } from '$lib/uri';
+import { fail, error } from '@sveltejs/kit';
+import { loginRefreshToken, newUsers } from '$lib/uri';
 
-export async function load({ fetch, cookies }) {
+export async function load({ fetch }) {
+    let userChecker = null;
+    let newUsersData = {};
     try {
-        const response = await fetch(loginRefreshToken, {
+        const authResponse = await fetch(loginRefreshToken, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -11,18 +13,31 @@ export async function load({ fetch, cookies }) {
             credentials: 'include',
         });
 
-        if (response.ok) {
-            const data = await response.json();
-            const user = data.user;
+        const authData = await authResponse.json();
 
-            if (user != 'admin') {
-                throw error(403,{ message: 'Forbidden' });
-            }
+        if (!authResponse.ok) {
+            throw error(401, { errorMessage: 'Unauthorized: Failed to refresh session' });
         }
 
-        return { error: null };
+        userChecker = authData.user;
+
+        if (userChecker !== 'admin') {
+            throw error(403, { errorMessage: 'Forbidden: Admins only' });
+        }
+
+        const users = await fetch(newUsers);
+
+        if (users.ok) {
+            newUsersData = (await users.json()).user;
+            return {
+                newUsersData
+            }
+        }else {
+            return { errorMessage: 'Failed to load new users data. Please try again later.' };
+        }
+
     } catch (err) {
         console.error('Error in load function:', err);
-        throw error(500,{ message: 'Failed to refresh session. Please log in again.' });
+        throw error(500, { errorMessage: 'Failed to load data. Please try again later.' })
     }
 }
