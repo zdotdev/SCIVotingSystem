@@ -1,8 +1,15 @@
 <script>
+    import { browser } from '$app/environment';
     import Button from '$lib/Components/Button/Button.svelte';
 
     export let form;
 
+    if (form?.redirect) {
+        if (browser) {
+            window.location.href = form.redirect;
+        }
+    }
+    
     let name = '';
     let email = '';
     let password = '';

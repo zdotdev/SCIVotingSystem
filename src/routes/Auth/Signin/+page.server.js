@@ -8,7 +8,7 @@ export const actions = {
         const password = formData.get('password');
 
         if (!email || !password) {
-            return fail(400, { errorMessage: 'Email and password are required.' });
+            throw fail(400, { errorMessage: 'Email and password are required.' });
         }
 
         try {
@@ -21,21 +21,20 @@ export const actions = {
             });
 
             const data = await response.json();
+            const user = data.user;
 
             if (response.ok) {
-                const user = data.user;
-
                 if (user === 'student') {
-                    window.location.href = '/SCI-Voting-System/Student/Dashboard';
+                    return { redirect: '/SCI-Voting-System/Student/Dashboard' };
                 } else if (user === 'newUser') {
-                    window.location.href = '/Pending';
+                    return { redirect: '/Pending' };
                 } else if (user === 'admin') {
-                    window.location.href = '/SCI-Voting-System/Admin/Dashboard';
+                    return { redirect: '/SCI-Voting-System/Admin/Dashboard' };
                 } else {
                     return fail(400, { errorMessage: 'Invalid user role.' });
                 }
             } else {
-                return fail(response.status, { errorMessage: data.message || 'Login failed.' });
+                throw fail(response.status, { errorMessage: data.message || 'Sign in failed.' });
             }
         } catch (error) {
             console.error('Error during login:', error);

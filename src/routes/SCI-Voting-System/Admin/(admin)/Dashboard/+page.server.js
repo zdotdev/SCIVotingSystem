@@ -21,10 +21,10 @@ export const load = async ({ fetch, cookies }) => {
         if (authResponse.ok) {
             userChecker = authData.user;
             if (userChecker !== 'admin') {
-                throw error(403, { message: 'Forbidden: Admins only' });
+                throw error(403, { errorMessage: 'Forbidden: Admins only' });
             }
         } else {
-            throw error(401, { message: 'Unauthorized: Failed to refresh session' });
+            throw error(401, { errorMessage: 'Unauthorized: Failed to refresh session' });
         }
         const activeElectionRes = await fetch(electionActive);
         electionData = activeElectionRes.ok
@@ -44,6 +44,6 @@ export const load = async ({ fetch, cookies }) => {
         userChecker,
         electionData,
         displayedData,
-        error: errorMessage,
+        errorMessage,
     };
 };

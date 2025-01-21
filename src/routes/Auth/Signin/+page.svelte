@@ -1,7 +1,14 @@
 <script>
+    import { browser } from '$app/environment';
     import Button from '$lib/Components/Button/Button.svelte';
 
     export let form;
+
+    if (form?.redirect) {
+        if (browser) {
+            window.location.href = form.redirect;
+        }
+    }
 
     let email = '';
     let password = '';
@@ -27,7 +34,7 @@
 
         <div class="flex gap-4">
             <Button type="submit" color="green" text="Login" />
-            <Button type="button" func={() => window.location.href = '/Auth/Signup'} color="gray" text="Sign up"/>
+            <Button type="button" func={() => {if(browser){window.location.href = '/Auth/Signup'}}} color="gray" text="Sign up"/>
         </div>
     </form>
 </main>

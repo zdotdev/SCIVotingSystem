@@ -23,23 +23,20 @@ export const actions = {
             });
 
             const data = await response.json();
+            const user = data.user;
             
             if (response.ok) {
-                const user = data.user;
-
-                if (user === "student") {
-                    window.location.href = "/SCI-Voting-System/Student/Dashboard";
-                } else if (user === "newUser") {
-                    window.location.href = "/Pending";
-                } else if (user === "admin") {
-                    window.location.href = "/SCI-Voting-System/Admin/Dashboard";
-                } else {
-                    return fail(400, { errorMessage: "Invalid user role." });
+                if (user === 'student') {
+                    return { redirect: '/SCI-Voting-System/Student/Dashboard' };
+                } else if (user === 'newUser') {
+                    return { redirect: '/Pending' };
+                } else if (user === 'admin') {
+                    return { redirect: '/SCI-Voting-System/Admin/Dashboard' };
                 }
             } else {
-                return fail(response.status, { errorMessage: data.message || "Signup failed." });
+                throw fail(response.status, { errorMessage: data.message || 'Sign up failed.' });
             }
-        }catch(error) {
+        } catch(error) {
             console.error("Error during signup:", error);
             throw error(500, { errorMessage: "An internal error occurred. Please try again." });
         }
