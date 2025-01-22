@@ -8,45 +8,46 @@ export async function GET() {
         const elections = await Election.find();
 
         if (!elections) {
-            throw new Response({message: "No elections found."}, { status: 404 });
+            throw json({message: "No elections found."}, { status: 404 });
         }
 
         return json({message: "Election fetched successfully.",election: elections});
     } catch (error) {
-        return new Response({message: "Internal server error."}, error, { status: 500 });
+        return json({message: "Internal server error."}, error, { status: 500 });
     }
 }
 
-export async function POST({ body }) {
+export async function POST({ request }) {
     try {
-        const { electionTitle, electionStart, electionEnd, displayElection } = body
-
-        const validatedData = ElectionZodSchema.pick({
-            electionTitle: true,
-            electionStart: true,
-            electionEnd: true,
-            displayElection: true,
-            electionCandidates: true
-        }).safeParse(body);
-
-        const parseCandidates = electionCandidates.map((candidate) => {
-            return ElectionCandidateZodSchema.safeParse(candidate);
-        })
-
-        if (!parseCandidates.some((candidate) => candidate.success)) {
-            return new Response({message: parseCandidates.find((candidate) => !candidate.success).error.issues[0].message}, { status: 400 });
-        }
+        const body = await request.json();
+        const validatedData = ElectionZodSchema.safeParse(body);
 
         if (!validatedData.success) {
-            return new Response({message: validatedData.error.issues[0].message}, { status: 400 });
+            return json(
+                { message: validatedData.error.issues[0].message },
+                { status: 400 }
+            );
         }
 
+        const { electionTitle, electionStart, electionEnd, electionCandidates, displayElection } = validatedData.data;
+        const invalidCandidate =
+            Array.isArray(electionCandidates) &&
+            electionCandidates.find(candidate => {
+                const validation = ElectionCandidateZodSchema.safeParse(candidate);
+                return !validation.success;
+            });
+
+        if (invalidCandidate) {
+            const validation = ElectionCandidateZodSchema.safeParse(invalidCandidate);
+            return json(
+                { message: validation.error.issues[0].message },
+                { status: 400 }
+            );
+        }
         const existingElection = await Election.findOne({ electionTitle });
-
         if (existingElection) {
-            return new Response({message: "Election already exists."}, { status: 400 });
+            return json({ message: "Election already exists." }, { status: 400 });
         }
-
         const newElection = new Election({
             electionTitle,
             electionStart,
@@ -57,8 +58,9 @@ export async function POST({ body }) {
 
         await newElection.save();
 
-        return new Response({message: "Election created successfully."}, { status: 201 });
-    }catch(error){
-        return new Response("Internal server error.", error, { status: 500 });
+        return json({ message: "Election created successfully." }, { status: 201 });
+    } catch (error) {
+        console.error("Error creating election:", error);
+        return json({ message: "Internal server error." }, { status: 500 });
     }
 }

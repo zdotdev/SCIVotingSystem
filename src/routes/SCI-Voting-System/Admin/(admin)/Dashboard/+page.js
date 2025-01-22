@@ -29,7 +29,7 @@ export const load = async ({ fetch, cookies }) => {
         const activeElectionRes = await fetch(electionActive);
         const displayedElectionRes = await fetch(electionDisplayed);
 
-        if (activeElectionRes.ok && displayedElectionRes.ok) {
+        if (activeElectionRes.ok || displayedElectionRes.ok) {
             electionData = (await activeElectionRes.json()).election;
             displayedData = (await displayedElectionRes.json()).election;
             return {
@@ -38,7 +38,7 @@ export const load = async ({ fetch, cookies }) => {
                 displayedData
             };
         } else {
-            return {errorMessage: 'Forbidden: Admins only' };
+            return {errorMessage: 'Error fetching data.' };
         }
 
     } catch (err) {

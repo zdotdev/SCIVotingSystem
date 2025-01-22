@@ -3,11 +3,11 @@
     export let data;
     const { newUsersData, errorMessage } = data;
 
-    function groupUsersByCourse(users) {
-        if (!Array.isArray(users)) {
+    function groupUsersByCourse() {
+        if (!Array.isArray(newUsersData)) {
             throw new Error('Invalid input: users must be an array');
         }
-        return users.reduce((acc, user) => {
+        return newUsersData.reduce((acc, user) => {
             const course = user.studentCourse;
             if (!acc[course]) {
                 acc[course] = [];

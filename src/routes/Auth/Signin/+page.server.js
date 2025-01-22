@@ -1,4 +1,4 @@
-import { fail, error } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 import { signIn } from '$lib/uri';
 
 export const actions = {
@@ -8,7 +8,7 @@ export const actions = {
         const password = formData.get('password');
 
         if (!email || !password) {
-            return fail(400, { errorMessage: 'Email and password are required.' });
+            return json(400, { errorMessage: 'Email and password are required.' });
         }
 
         try {
@@ -31,10 +31,10 @@ export const actions = {
                 } else if (user === 'admin') {
                     return { redirect: '/SCI-Voting-System/Admin/Dashboard' };
                 } else {
-                    return fail(400, { errorMessage: 'Invalid user role.' });
+                    return json({ errorMessage: 'Invalid user role.' });
                 }
             } else {
-                return fail(response.status, { errorMessage: data.message || 'Sign in failed.' });
+                return json({ errorMessage: data.message || 'Sign in failed.' });
             }
         } catch (error) {
             console.error('Error during login:', error);

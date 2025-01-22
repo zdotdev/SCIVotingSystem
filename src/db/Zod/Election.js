@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-const ElectionZodSchema = z.object({
+export const ElectionZodSchema = z.object({
   electionTitle: z.string().min(3, { message: 'Election title is required.' }),
   electionStart: z
     .string()
@@ -11,7 +11,7 @@ const ElectionZodSchema = z.object({
     .min(3, { message: 'Display election date is required.' })
 })
 
-const ElectionCandidateZodSchema = z.object({
+export const ElectionCandidateZodSchema = z.object({
   candidateName: z
     .string({ message: 'Candidate name is required.' })
     .min(3, { message: 'Candidate name is required.' }),
@@ -21,7 +21,7 @@ const ElectionCandidateZodSchema = z.object({
   candidateVotes: z.number({ message: 'Vote must be a number.' }).default(0)
 })
 
-const electionVoteZodSchema = z.object({
+export const electionVoteZodSchema = z.object({
   candidateId: z.string().min(3, { message: 'Candidate Id is required.' }),
   votes: z
     .number({ message: 'Votes must be a number.' })
@@ -29,14 +29,7 @@ const electionVoteZodSchema = z.object({
     .max(1, { message: 'Votes must be equal 1.' })
 })
 
-const electionSaveVoteZodSchema = z.object({
+export const electionSaveVoteZodSchema = z.object({
   votesData: z.array(electionVoteZodSchema),
   votersId: z.string().min(3, { message: 'Voters Id is required.' })
 })
-
-export default {
-  ElectionZodSchema,
-  ElectionCandidateZodSchema,
-  electionVoteZodSchema,
-  electionSaveVoteZodSchema
-}

@@ -1,8 +1,9 @@
 import { loginRefreshToken, election } from '$lib/uri';
 import { error } from '@sveltejs/kit';
 
-export const load = async ({ fetch, cookies }) => {
+export const load = async ({ fetch, cookies, params }) => {
     let userChecker = null;
+    const { id } = params;
 
     try {
         const authResponse = await fetch(loginRefreshToken, {
@@ -24,21 +25,20 @@ export const load = async ({ fetch, cookies }) => {
             throw error(403, 'Forbidden: Admins only');
         }
 
-        const elections = await fetch(election);
+        const electionResponse = await fetch(`${election}/${id}`);
 
-        if (!elections.ok) {
-            return { errorMessage: 'Failed to fetch elections' };
+        if (!electionResponse.ok) {
+            return { redirect: '/SCI-Voting-System/Admin/Election' };
         }
 
-        const electionData = await elections.json();
+        const electionData = await electionResponse.json();
         const electionList = electionData.election;
-        
-        return {
-            electionList
-        }
 
+        return {
+            electionList,
+        };
     } catch (err) {
         console.error('Error in load function:', err);
-        throw error(500, { errorMessage: 'Forbidden: Admins only' });
+        throw error(500, { errorMessage: 'An unexpected error occurred' });
     }
 };

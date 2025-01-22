@@ -6,15 +6,12 @@ export async function GET() {
         const election = await Election.findOne({ displayElection: { $lte: new Date() } }).sort({ displayElection: -1 })
 
         if (!election) {
-            return new Response({message: 'No election found'}, { status: 404 })
+            return json({ message: 'No election found' }, { status: 404 })
         }
 
-        if (election.length === 0) {
-            return json({message: 'No election found.'})
-        }
-
-        return json({election})
+        return json({ election })
     } catch (error) {
-        return new Response({message: 'Internal server error.'}, error, { status: 500 })
+        console.error('Error fetching election:', error)
+        return json({ message: 'Internal server error occurred while fetching election data.' }, { status: 500 })
     }
 }
