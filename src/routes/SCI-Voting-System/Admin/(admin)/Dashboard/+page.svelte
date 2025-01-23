@@ -16,6 +16,5 @@
     {:else}
         <ActiveElection {electionData} {userChecker} />
         <ElectionResults {displayedData} />
-        <p>{userChecker}</p>
     {/if}
 </main>

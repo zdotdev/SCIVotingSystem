@@ -1,4 +1,4 @@
-import { fail, error } from "@sveltejs/kit";
+import { json, error } from "@sveltejs/kit";
 import { signUp } from "$lib/uri";
 
 export const actions = {
@@ -11,7 +11,7 @@ export const actions = {
         const studentCourse = formData.get("studentCourse");
 
         if (!name || !email || !password || !studentId || !studentCourse) {
-            return fail(400, { errorMessage: "All fields are required." });
+            return json({ errorMessage: "All fields are required." });
         }
         try {
             const response = await fetch(signUp, {
@@ -34,7 +34,7 @@ export const actions = {
                     return { redirect: '/SCI-Voting-System/Admin/Dashboard' };
                 }
             } else {
-                return fail(response.status, { errorMessage: data.message || 'Sign up failed.' });
+                return json({ errorMessage: data.message || 'Sign up failed.' });
             }
         } catch(error) {
             console.error("Error during signup:", error);

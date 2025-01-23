@@ -23,4 +23,5 @@
     {:else}
         <p>No election data to display.</p>
     {/if}
+    <Button type='Button' func={() => {if(browser){window.location.href = '/SCI-Voting-System/Admin/Election/Create'}}} color='blue' text="Create election"/>
 </main>
