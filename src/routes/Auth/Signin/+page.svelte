@@ -3,15 +3,6 @@
     import Button from '$lib/Components/Button/Button.svelte';
 
     export let form;
-
-    if (form?.redirect) {
-        if (browser) {
-            window.location.href = form.redirect;
-        }
-    }
-
-    let email = '';
-    let password = '';
 </script>
 
 <main class="flex justify-center items-center h-screen">
@@ -19,11 +10,11 @@
         <h2 class="text-4xl font-bold">Login</h2>
         <div class="flex flex-col gap-4">
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" bind:value={email} required placeholder="myemail@email.com" />
+            <input type="email" id="email" name="email" required placeholder="myemail@email.com" />
         </div>
         <div class="flex flex-col gap-4">
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" bind:value={password} required placeholder="Abcd1234!" />
+            <input type="password" id="password" name="password" required placeholder="Abcd1234!" />
         </div>
 
         {#if form?.errorMessage}
