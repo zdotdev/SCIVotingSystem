@@ -6,7 +6,7 @@ import { ElectionZodSchema,   ElectionCandidateZodSchema,
 export async function GET() {
     try {
         const elections = await Election.find();
-
+        
         if (!elections) {
             throw json({message: "No elections found."}, { status: 404 });
         }

@@ -61,11 +61,10 @@ export async function POST({ request }) {
       ],
     });
 
-    return new Response(
-      JSON.stringify({
+    return json({
         message: 'User signed in successfully',
         user: existingUser.role,
-      }),
+      },
       {
         status: 200,
         headers: responseHeaders,

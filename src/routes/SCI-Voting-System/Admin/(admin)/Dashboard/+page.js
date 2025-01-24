@@ -1,5 +1,5 @@
 import { loginRefreshToken, electionActive, electionDisplayed } from '$lib/uri';
-import { error, fail } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 
 export const load = async ({ fetch, cookies }) => {
     let userChecker = null;
@@ -29,17 +29,19 @@ export const load = async ({ fetch, cookies }) => {
         const activeElectionRes = await fetch(electionActive);
         const displayedElectionRes = await fetch(electionDisplayed);
 
-        if (activeElectionRes.ok || displayedElectionRes.ok) {
+        if (activeElectionRes.ok) {
             electionData = (await activeElectionRes.json()).election;
-            displayedData = (await displayedElectionRes.json()).election;
-            return {
-                userChecker,
-                electionData,
-                displayedData
-            };
-        } else {
-            return {errorMessage: 'Error fetching data.' };
         }
+
+        if (displayedElectionRes.ok) {
+            displayedData = (await displayedElectionRes.json()).election;
+        } 
+
+        return {
+            userChecker,
+            electionData,
+            displayedData
+        };
 
     } catch (err) {
         console.error('Error in load function:', err);

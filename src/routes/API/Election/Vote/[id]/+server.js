@@ -17,36 +17,36 @@ export async function PUT({ params, request }) {
         const { votesData, votersId } = body;
         
         if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-            return new Response({message: "Election ID is required."}, { status: 400 });
+            return json({message: "Election ID is required."}, { status: 400 });
         }
         
         const validatedData = ElectionSaveVoteZodSchema.safeParse(body);
 
         if (!validatedData.success) {
-            return new Response({mesage: validatedData.error.issues[0].message}, { status: 400 });
+            return json({mesage: validatedData.error.issues[0].message}, { status: 400 });
         }
 
         const existingVote = await Election.findOne({ _id: id, electionVoters: votersId });
 
         if (existingVote) {
-            return new Response({message: "You have already voted."}, { status: 400 });
+            return json({message: "You have already voted."}, { status: 400 });
         }
 
         const election = await Election.findById(id);
         const voter = await User.findById(votersId);
 
         if (!election) {
-            return new Response({message: "No election found"}, { status: 404 });
+            return json({message: "No election found"}, { status: 404 });
         }
 
         if (!voter) {
-            return new Response({message: "No voter found"}, { status: 404 });
+            return json({message: "No voter found"}, { status: 404 });
         }
 
         votesData.forEach((candidateId, votes) => {
             const candidate = election.electionCandidates.id(candidateId);
             if (!candidate) {
-                return new Response({message: "Candidate not found"}, { status: 404 });
+                return json({message: "Candidate not found"}, { status: 404 });
             }
             candidate.candidateVotes += votes;
         });
@@ -57,6 +57,6 @@ export async function PUT({ params, request }) {
 
         return json({ message: "Vote saved successfully." });
     } catch (error) {
-        return new Response({message: "Internal server error."}, error, { status: 500 });
+        return json({message: "Internal server error."}, error, { status: 500 });
     }
 }

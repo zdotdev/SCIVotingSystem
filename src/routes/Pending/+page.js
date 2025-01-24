@@ -1,11 +1,11 @@
 import { loginRefreshToken } from '$lib/uri';
-import { error, fail } from '@sveltejs/kit';
+import { error, fail, redirect } from '@sveltejs/kit';
 import { browser } from '$app/environment';
 
 export const load = async ({ fetch, cookies }) => {
     let userChecker = null;
     try {
-        const authResponse = await fetch(loginRefreshToken, {
+        const response = await fetch(loginRefreshToken, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -13,18 +13,19 @@ export const load = async ({ fetch, cookies }) => {
             credentials: 'include',
         });
 
-        const authData = await authResponse.json();
+        const authData = await response.json();
         userChecker = authData.user;
         
-        if (authResponse.ok && browser) {
-            if (userChecker === 'student') {
-                window.location.href = '/SCI-Voting-System/Student/Dashboard';
-            } else if (userChecker === 'admin') {
-                window.location.href = '/SCI-Voting-System/Admin/Dashboard';
-            }
+        if (!response.ok) {
+            throw fail(400, { errorMessage: authData.message || 'Failed to refresh session. Please log in again.' });
         }
     } catch (err) {
         console.error('Error in load function:', err);
         throw error(500, { errorMessage: 'Forbidden: Admins only' });
+    }
+    if (userChecker === 'student') {
+        throw redirect(303, '/SCI-Voting-System/Student/Dashboard');
+    } else if (userChecker === 'admin') {
+        throw redirect(303, '/SCI-Voting-System/Admin/Dashboard');
     }
 };

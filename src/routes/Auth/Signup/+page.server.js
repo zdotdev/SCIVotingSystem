@@ -6,6 +6,7 @@ export const actions = {
         const formData = await request.formData();
         const name = formData.get("name");
         const email = formData.get("email");
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const password = formData.get("password");
         const studentId = formData.get("studentId");
         const studentCourse = formData.get("studentCourse");
@@ -13,6 +14,9 @@ export const actions = {
 
         if (!name || !email || !password || !studentId || !studentCourse) {
             return json({ errorMessage: "All fields are required." });
+        }
+        if (!emailRegex.test(email)) {
+            return fail(400, { errorMessage: 'Invalid email format.' });
         }
         try {
             const response = await fetch(signUp, {

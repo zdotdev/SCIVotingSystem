@@ -7,17 +7,17 @@ export async function GET({params}) {
         const { id } = params
         
         if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-            return new Response({message: 'Election ID is required.'}, {status: 400})
+            return json({message: 'Election ID is required.'}, {status: 400})
         }
 
         const election = await (await Election.findById(id)).select('electionCandidates')
 
         if (!election) {
-            return new Response({message: 'No election found'}, {status: 404})
+            return json({message: 'No election found'}, {status: 404})
         }
 
         return json({election})
     }catch(error) {
-        return new Response({message: 'Internal server error.'}, error, { status: 500 })
+        return json({message: 'Internal server error.'}, error, { status: 500 })
     }
 }

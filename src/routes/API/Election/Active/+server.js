@@ -9,7 +9,7 @@ export async function GET() {
     }).sort({ electionStart: -1 })
 
         if (!elections) {
-            throw new Response({message: "No active elections found"}, { status: 404 });
+            return json({message: "No active elections found"}, { status: 404 });
         }
 
         if (elections.length === 0) {
@@ -18,6 +18,6 @@ export async function GET() {
 
         return json({message: "Election fetched successfully.", election: elections});
     } catch (error) {
-        return new Response({message: "Internal server error."}, error, { status: 500 });
+        return json({message: "Internal server error."}, error, { status: 500 });
     }
 }

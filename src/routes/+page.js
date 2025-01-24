@@ -1,8 +1,9 @@
-import { fail, error } from '@sveltejs/kit';
+import { fail, error, redirect } from '@sveltejs/kit';
 import { loginRefreshToken } from '$lib/uri';
 import { browser } from '$app/environment';
 
 export async function load({ fetch }) {
+    let userChecker = null;
     try {
         const response = await fetch(loginRefreshToken, {
             method: 'POST',
@@ -13,19 +14,28 @@ export async function load({ fetch }) {
         });
 
         const data = await response.json();
-        const user = data.user;
+        userChecker = data.user;
 
-        if (browser && response.ok) {
-            if (user === 'student') {
-                window.location.href = '/SCI-Voting-System/Student/Dashboard';
-            } else if (user === 'newUser') {
-                window.location.href = '/Pending' ;
-            } else if (user === 'admin') {
-                window.location.href = '/SCI-Voting-System/Admin/Dashboard' ;
-            }
+        if (!response.ok) {
+            throw fail(400, { errorMessage: data.message || 'Failed to refresh session. Please log in again.' });
         }
     } catch (err) {
-        console.error('Error in load function:', err);
-        throw error(500, { error: 'Failed to refresh session. Please log in again.' });
+        if (browser) {
+            document.cookie = 'refreshToken=; Max-Age=0; path=/';
+            document.cookie = 'accessToken=; Max-Age=0; path=/';
+        }
+        // console.error('Error in load function:', err);
+        // throw error(500, { error: 'Failed to refresh session. Please log in again.' });
+    }
+    console.log('User Checker:', userChecker);
+    
+    if (userChecker === 'student') {
+        throw redirect(303, '/SCI-Voting-System/Student/Dashboard');
+    } else if (userChecker === 'newUser') {
+        throw redirect(303, '/Pending');
+    } else if (userChecker === 'admin') {
+        throw redirect(303, '/SCI-Voting-System/Admin/Dashboard');
+    } else {
+        throw redirect(303, '/Auth/Signin');
     }
 }

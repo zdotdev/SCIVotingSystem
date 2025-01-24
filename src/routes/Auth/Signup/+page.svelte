@@ -14,7 +14,7 @@
         </div>
         <div class="flex flex-col gap-4">
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required placeholder="myemail@email.com" />
+            <input type="text" id="email" name="email" required placeholder="myemail@email.com" />
         </div>
         <div class="flex flex-col gap-4">
             <label for="password">Password:</label>
@@ -35,7 +35,7 @@
         {/if}
         <div class="flex gap-4">
             <Button type="submit" color="green" text="Sign up" />
-            <Button type="button" func={() => window.location.href = '/Auth/Signin'} color="gray" text="Login"/>
+            <Button type="button" func={() => {if(browser) {window.location.href = '/Auth/Signin'}}} color="gray" text="Login"/>
         </div>
     </form>
 </main>

@@ -1,15 +1,20 @@
-import { error, fail } from '@sveltejs/kit';
+import { error, fail, redirect } from '@sveltejs/kit';
 import { signIn } from '$lib/uri';
 
 export const actions = {
     default: async ({ request, fetch }) => {
         const formData = await request.formData();
         const email = formData.get('email');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const password = formData.get('password');
         let userChecker = null;
 
         if (!email || !password) {
-            throw fail(400, { errorMessage: 'Email and password are required.' });
+            return fail(400, { errorMessage: 'Email and password are required.' });
+        }
+        
+        if (!emailRegex.test(email)) {
+            return fail(400, { errorMessage: 'Invalid email format.' });
         }
 
         try {

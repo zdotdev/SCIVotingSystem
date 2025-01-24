@@ -51,11 +51,10 @@ export async function POST({ request }) {
     try {
       await newUser.save();
 
-      const response = new Response(
-        JSON.stringify({
+      const response = json({
           message: 'User created successfully',
           user: newUser.role,
-        }),
+        },
         {
           status: 201,
           headers: {

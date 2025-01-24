@@ -25,7 +25,7 @@ function handleCors(request, response) {
 
   if (request.method === 'OPTIONS') {
     // Preflight request handling
-    return new Response(null, { status: 204, headers: response.headers });
+    return json(null, { status: 204, headers: response.headers });
   }
 }
 

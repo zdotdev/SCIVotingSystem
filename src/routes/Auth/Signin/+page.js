@@ -16,20 +16,15 @@ export async function load({ fetch }) {
         const data = await response.json();
         const user = data.user;
 
-        if (!response.ok) {
-            throw fail(400, { error: data.message || 'Failed to refresh session. Please log in again.' });
-        }
     } catch (err) {
         console.error('Error in load function:', err);
-        throw error(500, { error: 'Failed to refresh session. Please log in again.' });
+        throw error(500, { errorMessage: 'Failed to refresh session. Please log in again.' });
     }
     if (userChecker === 'student') {
         throw redirect(303, '/SCI-Voting-System/Student/Dashboard');
     } else if (userChecker === 'newUser') {
         throw redirect(303, '/Pending');
     } else if (userChecker === 'admin') {
-        throw fail(303, '/SCI-Voting-System/Admin/Dashboard');
-    } else {
-        throw error(500, { error: 'Failed to refresh session. Please log in again.' });
+        throw redirect(303, '/SCI-Voting-System/Admin/Dashboard');
     }
 }

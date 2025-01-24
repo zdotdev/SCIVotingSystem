@@ -1,5 +1,5 @@
 import { loginRefreshToken, election } from '$lib/uri';
-import { error } from '@sveltejs/kit';
+import { error, fail } from '@sveltejs/kit';
 
 export const load = async ({ fetch, cookies }) => {
     let userChecker = null;
@@ -27,7 +27,7 @@ export const load = async ({ fetch, cookies }) => {
         const elections = await fetch(election);
 
         if (!elections.ok) {
-            return { errorMessage: 'Failed to fetch elections' };
+            return fail(401, { errorMessage: 'Failed to fetch elections' });
         }
 
         const electionData = await elections.json();

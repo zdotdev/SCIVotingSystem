@@ -57,8 +57,7 @@ export async function POST({ request }) {
       return json({ message: 'Forbidden' }, { status: 403 });
     }
 
-    return new Response(
-      JSON.stringify({ message: 'User signed out successfully' }),
+    return json({ message: 'User signed out successfully' },
       {
         status: 200,
         headers: responseHeaders,
