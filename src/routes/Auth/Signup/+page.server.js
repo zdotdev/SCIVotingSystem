@@ -1,4 +1,4 @@
-import { json, error, fail } from "@sveltejs/kit";
+import { json, error, fail, redirect } from "@sveltejs/kit";
 import { signUp } from "$lib/uri";
 
 export const actions = {
