@@ -1,4 +1,4 @@
-import { error, json } from '@sveltejs/kit';
+import { error, json, fail } from '@sveltejs/kit';
 import { signIn } from '$lib/uri';
 
 export const actions = {
@@ -23,22 +23,21 @@ export const actions = {
             const data = await response.json();
             const user = data.user;
 
-            if (response.ok) {
-                if (user === 'student') {
-                    return { redirect: '/SCI-Voting-System/Student/Dashboard' };
-                } else if (user === 'newUser') {
-                    return { redirect: '/Pending' };
-                } else if (user === 'admin') {
-                    return { redirect: '/SCI-Voting-System/Admin/Dashboard' };
-                } else {
-                    return json({ errorMessage: 'Invalid user role.' });
-                }
-            } else {
-                return json({ errorMessage: data.message || 'Sign in failed.' });
+            if (!response.ok) {
+                return fail(400, { errorMessage: data.message || 'Sign in failed.' });
             }
         } catch (error) {
             console.error('Error during login:', error);
             throw error(500, { errorMessage: 'An internal error occurred. Please try again.' });
         }
-    },
+        if (user === 'student') {
+            throw redirect(303, '/SCI-Voting-System/Student/Dashboard');
+        } else if (user === 'newUser') {
+            throw redirect(303, '/Pending');
+        } else if (user === 'admin') {
+            throw redirect(303, '/SCI-Voting-System/Admin/Dashboard');
+        } else {
+            throw fail(400, { errorMessage: 'Invalid user role.' });
+        }
+    }
 };

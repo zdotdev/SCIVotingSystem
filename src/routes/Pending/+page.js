@@ -15,7 +15,7 @@ export const load = async ({ fetch, cookies }) => {
 
         const authData = await authResponse.json();
         userChecker = authData.user;
-        console.log(userChecker);
+        
         if (authResponse.ok && browser) {
             if (userChecker === 'student') {
                 window.location.href = '/SCI-Voting-System/Student/Dashboard';

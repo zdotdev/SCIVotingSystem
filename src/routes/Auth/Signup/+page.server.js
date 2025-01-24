@@ -1,4 +1,4 @@
-import { json, error } from "@sveltejs/kit";
+import { json, error, fail } from "@sveltejs/kit";
 import { signUp } from "$lib/uri";
 
 export const actions = {
@@ -9,6 +9,7 @@ export const actions = {
         const password = formData.get("password");
         const studentId = formData.get("studentId");
         const studentCourse = formData.get("studentCourse");
+        let userChecker = null;
 
         if (!name || !email || !password || !studentId || !studentCourse) {
             return json({ errorMessage: "All fields are required." });
@@ -23,22 +24,21 @@ export const actions = {
             });
 
             const data = await response.json();
-            const user = data.user;
+            userChecker = data.user;
             
-            if (response.ok) {
-                if (user === 'student') {
-                    return { redirect: '/SCI-Voting-System/Student/Dashboard' };
-                } else if (user === 'newUser') {
-                    return { redirect: '/Pending' };
-                } else if (user === 'admin') {
-                    return { redirect: '/SCI-Voting-System/Admin/Dashboard' };
-                }
-            } else {
-                return json({ errorMessage: data.message || 'Sign up failed.' });
+            if (!response.ok) {
+                return fail(data.status, { errorMessage: data.message || 'Sign up failed.' });
             }
         } catch(error) {
             console.error("Error during signup:", error);
             throw error(500, { errorMessage: "An internal error occurred. Please try again." });
+        }
+        if (userChecker === 'student') {
+            throw redirect(303, '/SCI-Voting-System/Student/Dashboard');
+        } else if (userChecker === 'newUser') {
+            throw redirect(303, '/Pending');
+        } else if (userChecker === 'admin') {
+            throw redirect(303, '/SCI-Voting-System/Admin/Dashboard');
         }
     }
 }
