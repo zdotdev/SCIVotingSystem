@@ -1,5 +1,5 @@
 import { fail, error } from '@sveltejs/kit';
-import { loginRefreshToken, newUsers } from '$lib/uri';
+import { loginRefreshToken, newUsers } from '$lib/Helpers/uri';
 
 export async function load({ fetch }) {
     let userChecker = null;

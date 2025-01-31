@@ -1,4 +1,4 @@
-import { loginRefreshToken, election } from '$lib/uri';
+import { loginRefreshToken, election } from '$lib/Helpers/uri';
 import { error, fail } from '@sveltejs/kit';
 
 export const load = async ({ fetch, cookies }) => {

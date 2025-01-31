@@ -1,4 +1,4 @@
-import { loginRefreshToken } from '$lib/uri';
+import { loginRefreshToken } from '$lib/Helpers/uri';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { browser } from '$app/environment';
 

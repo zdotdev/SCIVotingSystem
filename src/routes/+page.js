@@ -1,5 +1,5 @@
 import { fail, error, redirect } from '@sveltejs/kit';
-import { loginRefreshToken } from '$lib/uri';
+import { loginRefreshToken } from '$lib/Helpers/uri';
 import { browser } from '$app/environment';
 
 export async function load({ fetch }) {

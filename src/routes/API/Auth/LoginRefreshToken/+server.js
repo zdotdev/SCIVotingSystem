@@ -1,4 +1,4 @@
-import { json } from '@sveltejs/kit';
+import { json, error } from '@sveltejs/kit';
 import User from '$db/Schema/User';
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from '$env/static/private';
@@ -12,8 +12,7 @@ export async function POST({ request }) {
 
     if (!refreshToken) {
       return json({ message: 'Refresh token required' }, {
-        status: 401,
-        headers: { 'Content-Type': 'application/json' },
+        status: 401
       });
     }
 
@@ -21,16 +20,14 @@ export async function POST({ request }) {
 
     const user = await User.findById(decoded.id.id);
     if (!user) {
-      return josn({ message: 'User not found' }, {
-        status: 404,
-        headers: { 'Content-Type': 'application/json' },
+      return json({ message: 'User not found' }, {
+        status: 404
       });
     }
 
     if (user.refreshToken !== refreshToken) {
       return json({ message: 'Invalid refresh token' }, {
-        status: 403,
-        headers: { 'Content-Type': 'application/json' },
+        status: 403
       });
     }
 
@@ -54,9 +51,8 @@ export async function POST({ request }) {
   } catch (error) {
     console.error('Error during token refresh:', error);
 
-    return json({ message: 'Invalid or expired refresh token' }, {
-      status: 401,
-      headers: { 'Content-Type': 'application/json' },
+    return error({ message: 'Invalid or expired refresh token' }, {
+      status: 401
     });
   }
 }

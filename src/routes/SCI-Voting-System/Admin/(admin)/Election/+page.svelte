@@ -1,6 +1,6 @@
 <script>
     import Button from "$lib/Components/Button/Button.svelte";
-    import formatDate from '$lib/dateFormatter.js'
+    import formatDate from '$lib/Helpers/dateFormatter.js'
     import { browser } from "$app/environment";
     export let data;
     const {electionList, errorMessage} = data;

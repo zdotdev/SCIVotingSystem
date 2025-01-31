@@ -1,5 +1,5 @@
 <script>
-    import formatDate from '$lib/dateFormatter';
+    import formatDate from '$lib/Helpers/dateFormatter';
     export let electionData = {};
     export let userChecker = null;
 

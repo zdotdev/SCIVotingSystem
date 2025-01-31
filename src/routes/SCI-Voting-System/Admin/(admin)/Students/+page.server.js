@@ -1,5 +1,5 @@
 import { fail } from '@sveltejs/kit';
-import { user } from '$lib/uri.js';
+import { user } from '$lib/Helpers/uri.js';
 
 export const actions = {
     default: async ({ request }) => {

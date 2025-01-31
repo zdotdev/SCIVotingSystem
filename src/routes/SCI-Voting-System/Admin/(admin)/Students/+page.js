@@ -1,4 +1,4 @@
-import { loginRefreshToken, user } from '$lib/uri';
+import { loginRefreshToken, user } from '$lib/Helpers/uri';
 import { error } from '@sveltejs/kit';
 
 export const load = async ({ fetch, cookies }) => {

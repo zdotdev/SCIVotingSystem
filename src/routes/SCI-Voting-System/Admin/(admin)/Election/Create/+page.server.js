@@ -1,5 +1,5 @@
 import { fail, error, redirect } from '@sveltejs/kit';
-import { loginRefreshToken, election } from '$lib/uri';
+import { loginRefreshToken, election } from '$lib/Helpers/uri';
 
 export const actions = {
     default: async ({ request, fetch }) => {

@@ -1,5 +1,5 @@
 import { json, error, fail, redirect } from "@sveltejs/kit";
-import { signUp } from "$lib/uri";
+import { signUp } from "$lib/Helpers/uri";
 
 export const actions = {
     default: async ({ request, fetch }) => {

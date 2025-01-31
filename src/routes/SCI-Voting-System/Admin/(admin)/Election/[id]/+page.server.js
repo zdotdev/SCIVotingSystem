@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { election } from '$lib/uri.js';
+import { election } from '$lib/Helpers/uri.js';
 
 export const actions = {
     default: async ({ request }) => {

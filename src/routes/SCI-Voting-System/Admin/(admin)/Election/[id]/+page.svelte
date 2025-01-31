@@ -1,5 +1,5 @@
 <script>
-    import formatDate from '$lib/dateFormatter.js';
+    import formatDate from '$lib/Helpers/dateFormatter.js';
     import Button from '$lib/Components/Button/Button.svelte';
     import { browser } from '$app/environment';
     import { page } from '$app/stores';
