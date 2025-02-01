@@ -5,6 +5,5 @@
     const title = ['Dashboard', 'Election', 'Students', 'Registration'];
     const path = 'Admin';
 </script>
-<Navbar />
 <Sidebar {path} {title} />
 <slot />
