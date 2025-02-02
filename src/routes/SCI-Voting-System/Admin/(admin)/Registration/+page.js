@@ -4,6 +4,8 @@ import { loginRefreshToken, newUsers } from '$lib/Helpers/uri';
 export async function load({ fetch }) {
     let userChecker = null;
     let newUsersData = {};
+    let name = null;
+    let studentId = null;
     try {
         const authResponse = await fetch(loginRefreshToken, {
             method: 'POST',
@@ -20,6 +22,8 @@ export async function load({ fetch }) {
         }
 
         userChecker = authData.user;
+        name = authData.name;
+        studentId = authData.studentId
 
         if (userChecker !== 'admin') {
             throw error(403, { errorMessage: 'Forbidden: Admins only' });
@@ -30,7 +34,9 @@ export async function load({ fetch }) {
         if (users.ok) {
             newUsersData = (await users.json()).user;
             return {
-                newUsersData
+                newUsersData,
+                name,
+                studentId
             }
         }else {
             return { errorMessage: 'Failed to load new users data. Please try again later.' };

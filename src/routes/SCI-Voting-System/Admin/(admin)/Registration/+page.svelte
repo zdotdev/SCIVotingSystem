@@ -1,8 +1,9 @@
 <script>
     import Button from '$lib/Components/Button/Button.svelte';
 	import Container from '$lib/Components/Container/Container.svelte';
+    import Ribbon from '$lib/Components/Ribbon/Ribbon.svelte';
     export let data;
-    const { newUsersData, errorMessage } = data;
+    const { newUsersData, name, studentId, errorMessage } = data;
 
     function groupUsersByCourse() {
         if (!Array.isArray(newUsersData)) {
@@ -22,6 +23,7 @@
 </script>
 
 <Container>
+    <Ribbon {name} {studentId} />
     <main class="flex flex-col gap-8 p-4">
         {#if errorMessage}
             <p class="text-red-500 text-4xl text-center">{errorMessage}</p>

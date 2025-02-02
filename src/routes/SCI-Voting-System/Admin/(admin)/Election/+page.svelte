@@ -3,11 +3,13 @@
     import formatDate from '$lib/Helpers/dateFormatter'
     import Container from "$lib/Components/Container/Container.svelte";
     import { browser } from "$app/environment";
+    import Ribbon from "$lib/Components/Ribbon/Ribbon.svelte";
     export let data;
-    const {electionList, errorMessage} = data;
+    const {electionList, name, studentId, errorMessage} = data;
     
 </script>
 <Container>
+    <Ribbon {name} {studentId} />
     <main class="p-48 flex flex-wrap gap-4 justify-center">
         {#if errorMessage}
             <p class="text-red-500 text-4xl text-center">{errorMessage}</p>

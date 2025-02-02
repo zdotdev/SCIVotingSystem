@@ -4,7 +4,9 @@
     import LogoutImage from '$lib/Assets/logout_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg';
     import Logo from '$lib/Assets/icon.png';
     import User from 'lucide-svelte/icons/user'
-    
+    export let name = null
+    export let studentId = null
+
     async function signout() {
         try {
             const response = await fetch(signOut, {
@@ -30,8 +32,8 @@
         <User />
     </div>
     <div class="flex flex-col justify-center items-center">
-        <strong>Admin</strong>
-        <p>21B1424</p>
+        <strong>{name}</strong>
+        <p>{studentId}</p>
     </div>
     <div class="border border-black border-l-2 border-r-0 border-b-0 border-t-0 pl-4">
         <button type="button" on:click={() => {signout()}} class="w-12 h-12 bg-white flex content-center p-2">

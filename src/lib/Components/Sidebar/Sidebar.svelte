@@ -9,7 +9,7 @@
         <img class="h-12 w-12" src="{Logo}" alt="Home">
         <p class="text-white flex flex-col items-center"><span>SCI Voting System</span><span class="text-sm">Santa Cruz Institute</span></p>
     </div>
-    <div class="flex mt-20 flex-col items-center h-full">
+    <div class="flex mt-20 flex-col items-center gap-8 h-full">
         {#each title as item}
             <NavigationButton {path} title={item} />
         {/each}

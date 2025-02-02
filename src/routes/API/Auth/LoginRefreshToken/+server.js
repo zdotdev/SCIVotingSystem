@@ -33,7 +33,7 @@ export async function POST({ request }) {
 
     const accessToken = await generateAccessToken({ id: user._id });
 
-    return json({ message: 'Token refreshed successfully', user: user.role, id: user._id },
+    return json({ message: 'Token refreshed successfully', user: user.role, id: user._id, name: user.name, studentId: user.studentId },
       {
         status: 200,
         headers: {

@@ -3,6 +3,8 @@ import { error, fail } from '@sveltejs/kit';
 
 export const load = async ({ fetch, cookies }) => {
     let userChecker = null;
+    let name = null;
+    let studentId = null;
 
     try {
         const authResponse = await fetch(loginRefreshToken, {
@@ -20,6 +22,8 @@ export const load = async ({ fetch, cookies }) => {
         }
 
         userChecker = authData.user;
+        name = authData.name
+        studentId = authData.studentId
         if (userChecker !== 'admin') {
             throw error(403, 'Forbidden: Admins only');
         }
@@ -34,6 +38,8 @@ export const load = async ({ fetch, cookies }) => {
         const electionList = electionData.election;
         
         return {
+            name,
+            studentId,
             electionList
         }
 
