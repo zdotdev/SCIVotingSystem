@@ -1,6 +1,6 @@
 <script>
     import Dashboard from "lucide-svelte/icons/layout-dashboard";
-    import Election from "lucide-svelte/icons/library";
+    import Election from "lucide-svelte/icons/square-chart-gantt";
     import Students from "lucide-svelte/icons/book";
     import Registration from "lucide-svelte/icons/clipboard";
     import { browser } from "$app/environment";
