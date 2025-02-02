@@ -16,16 +16,14 @@ export const load = async ({ fetch, cookies }) => {
         const authData = await response.json();
         userChecker = authData.user;
         
-        if (!response.ok) {
-            throw fail(400, { errorMessage: authData.message || 'Failed to refresh session. Please log in again.' });
-        }
     } catch (err) {
         console.error('Error in load function:', err);
-        throw error(500, { errorMessage: 'Forbidden: Admins only' });
     }
     if (userChecker === 'student') {
         throw redirect(303, '/SCI-Voting-System/Student/Dashboard');
     } else if (userChecker === 'admin') {
         throw redirect(303, '/SCI-Voting-System/Admin/Dashboard');
+    } else {
+        throw redirect(303, '/Auth/Signin');
     }
 };

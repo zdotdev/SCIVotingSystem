@@ -24,24 +24,24 @@
 
 <Container>
     <Ribbon {name} {studentId} />
-    <main class="flex flex-col gap-8 p-4">
+    <main class="flex flex-col p-8 gap-8">
         {#if errorMessage}
             <p class="text-red-500 text-4xl text-center">{errorMessage}</p>
         {/if}
 
         {#if Object.keys(groupedStudentsByCourse).length > 0}
             {#each Object.entries(groupedStudentsByCourse) as [course, students]}
-                <section class="w-fit p-4 ml-96 border rounded-lg bg-gray-50">
+                <section class="w-full p-4 border rounded-lg shadow-lg bg-gray-50">
                     <h2 class="text-2xl w-fit font-bold text-gray-700 mb-4">{course}</h2>
-                    <div class="grid grid-cols-1 w-fit sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="flex justify-center flex-wrap gap-6">
                         {#each students as user}
                             <div class="flex flex-col items-start space-y-4 p-4 bg-white border border-gray-200 rounded-lg shadow-md">
-                                <div class="flex flex-col gap-1">
+                                <div class="flex flex-col items-center justify-center gap-1">
                                     <h3 class="text-xl font-semibold text-gray-800">{user.name}</h3>
                                     <p class="text-gray-600">{user.studentId}</p>
                                     <p class="text-gray-600">{user.email}</p>
                                 </div>
-                                <form method="POST">
+                                <form method="POST" class="flex justify-center items-center w-full">
                                     <input type="hidden" name="id" value={user._id} />
                                     <Button type="submit" color="red" text="Delete" />
                                 </form>
