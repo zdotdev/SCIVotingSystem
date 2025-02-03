@@ -4,6 +4,7 @@
     import { Button } from '$lib/Components/ui/button/index';
     import * as Card from '$lib/Components/ui/card/index';
     import * as Table from '$lib/Components/ui/table/index';
+    import * as AlertDialog from '$lib/Components/ui/alert-dialog/index';
     export let data;
     const { usersData, name, studentId, errorMessage } = data;
 
@@ -52,10 +53,25 @@
                                             <Table.Cell>{user.studentId}</Table.Cell>
                                             <Table.Cell>{user.email}</Table.Cell>
                                             <Table.Cell>
-                                                <form method="POST">
-                                                    <input type="hidden" name="id" value={user._id} />
-                                                    <Button type="submit" variant={"destructive"}>Delete</Button>
-                                                </form>
+                                                <AlertDialog.Root>
+                                                    <AlertDialog.Trigger><Button variant="destructive">Delete</Button></AlertDialog.Trigger>
+                                                    <AlertDialog.Content>
+                                                        <AlertDialog.Header>
+                                                            <AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
+                                                            <AlertDialog.Description>
+                                                                This action cannot be undone. This will permanently delete the account
+                                                                and remove the data from our servers.
+                                                            </AlertDialog.Description>
+                                                        </AlertDialog.Header>
+                                                        <AlertDialog.Footer>
+                                                            <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+                                                            <form method="POST">
+                                                                <input type="hidden" name="id" value={user._id} />
+                                                                <AlertDialog.Action type="submit">Continue</AlertDialog.Action>
+                                                            </form>
+                                                        </AlertDialog.Footer>
+                                                    </AlertDialog.Content>
+                                                </AlertDialog.Root>
                                             </Table.Cell>
                                         </Table.Row>
                                     </Table.Body>

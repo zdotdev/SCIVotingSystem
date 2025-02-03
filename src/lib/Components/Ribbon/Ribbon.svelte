@@ -5,6 +5,7 @@
     import Logo from '$lib/Assets/icon.png';
     import User from 'lucide-svelte/icons/user'
     import ChevronRight from 'lucide-svelte/icons/chevron-right'
+    import * as AlertDialog from '$lib/Components/ui/alert-dialog/index';
     export let name = null
     export let studentId = null
     export let location = null
@@ -43,10 +44,26 @@
             <strong>{name}</strong>
             <p>{studentId}</p>
         </div>
-        <div class="border border-black border-l-2 border-r-0 border-b-0 border-t-0 pl-4">
-            <button type="button" on:click={() => {signout()}} class="w-12 h-12 bg-white flex content-center p-2">
-                <img src="{LogoutImage}" alt="Logout">
-            </button>
-        </div>
+        <AlertDialog.Root>
+            <AlertDialog.Trigger>
+                <div class="border border-black border-l-2 border-r-0 border-b-0 border-t-0 pl-4">
+                    <button type="button" class="w-12 h-12 bg-white flex content-center p-2">
+                        <img src="{LogoutImage}" alt="Logout">
+                    </button>
+                </div>         
+            </AlertDialog.Trigger>
+            <AlertDialog.Content>
+                <AlertDialog.Header>
+                    <AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
+                        <AlertDialog.Description>
+                            This action cannot be undone. This will permanently logout your account.
+                        </AlertDialog.Description>
+                </AlertDialog.Header>
+                <AlertDialog.Footer>
+                    <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+                    <AlertDialog.Action onclick={() => {signout()}}>Continue</AlertDialog.Action>
+                </AlertDialog.Footer>
+            </AlertDialog.Content>
+        </AlertDialog.Root>
     </div>
 </nav>
