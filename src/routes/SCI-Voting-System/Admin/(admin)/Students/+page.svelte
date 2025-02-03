@@ -2,6 +2,7 @@
     import Button from '$lib/Components/Button/Button.svelte';
 	import Container from '$lib/Components/Container/Container.svelte';
     import Ribbon from '$lib/Components/Ribbon/Ribbon.svelte';
+    import * as Card from '$lib/Components/ui/card/index'
     export let data;
     const { usersData, name, studentId, errorMessage } = data;
 
@@ -35,17 +36,19 @@
                     <h2 class="text-2xl w-fit font-bold text-gray-700 mb-4">{course}</h2>
                     <div class="flex justify-center flex-wrap gap-6">
                         {#each students as user}
-                            <div class="flex flex-col items-start space-y-4 p-4 bg-white border border-gray-200 rounded-lg shadow-md">
-                                <div class="flex flex-col items-center justify-center gap-1">
-                                    <h3 class="text-xl font-semibold text-gray-800">{user.name}</h3>
-                                    <p class="text-gray-600">{user.studentId}</p>
-                                    <p class="text-gray-600">{user.email}</p>
-                                </div>
-                                <form method="POST" class="flex justify-center items-center w-full">
+                        <Card.Root>
+                            <Card.Header>
+                                <Card.Title>{user.name}</Card.Title>
+                                <Card.Description>{user.studentId}</Card.Description>
+                                <Card.Description>{user.email}</Card.Description>
+                            </Card.Header>
+                            <Card.Footer>
+                                <form method="POST" class="flex pt-4 justify-center items-center w-full">
                                     <input type="hidden" name="id" value={user._id} />
                                     <Button type="submit" color="red" text="Delete" />
                                 </form>
-                            </div>
+                            </Card.Footer>
+                        </Card.Root>
                         {/each}
                     </div>
                 </section>

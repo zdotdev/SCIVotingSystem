@@ -2,6 +2,7 @@
     import Button from '$lib/Components/Button/Button.svelte';
 	import Container from '$lib/Components/Container/Container.svelte';
     import Ribbon from '$lib/Components/Ribbon/Ribbon.svelte';
+    import * as Card from '$lib/Components/ui/card/index'
     export let data;
     const { newUsersData, name, studentId, errorMessage } = data;
 
@@ -35,13 +36,14 @@
                     <h2 class="text-2xl font-bold text-gray-700 mb-4">{course}</h2>
                     <div class="flex justify-center flex-wrap gap-6">
                         {#each users as user}
-                            <div class="flex flex-col w-fit items-center space-y-4 p-4 bg-white border border-gray-200 rounded-lg shadow-md">
-                                <div class="flex flex-col gap-1 items-center">
-                                    <h3 class="text-xl font-semibold text-gray-800">{user.name}</h3>
-                                    <p class="text-gray-600">{user.studentId}</p>
-                                    <p class="text-gray-600">{user.email}</p>
-                                </div>
-                                <div class="flex gap-4 justify-center">
+                        <Card.Root>
+                            <Card.Header>
+                                <Card.Title>{user.name}</Card.Title>
+                                <Card.Description>{user.studentId}</Card.Description>
+                                <Card.Description>{user.email}</Card.Description>
+                            </Card.Header>
+                            <Card.Footer>
+                                <div class="flex gap-4 pt-8 justify-center">
                                     <form method="POST" action="?/patchUser">
                                         <input type="hidden" name="id" value={user._id} />
                                         <Button type="submit" color="green" text="Accept" />
@@ -51,7 +53,8 @@
                                         <Button type="submit" color="red" text="Delete" />
                                     </form>
                                 </div>
-                            </div>
+                            </Card.Footer>
+                        </Card.Root>
                         {/each}
                     </div>
                 </section>
