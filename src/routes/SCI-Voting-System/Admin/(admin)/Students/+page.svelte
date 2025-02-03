@@ -1,8 +1,9 @@
 <script>
-    import Button from '$lib/Components/Button/Button.svelte';
 	import Container from '$lib/Components/Container/Container.svelte';
     import Ribbon from '$lib/Components/Ribbon/Ribbon.svelte';
-    import * as Card from '$lib/Components/ui/card/index'
+    import { Button } from '$lib/Components/ui/button/index';
+    import * as Card from '$lib/Components/ui/card/index';
+    import * as Table from '$lib/Components/ui/table/index';
     export let data;
     const { usersData, name, studentId, errorMessage } = data;
 
@@ -24,7 +25,7 @@
 </script>
 
 <Container>
-    <Ribbon {name} {studentId} />
+    <Ribbon location={"Students"} {name} {studentId} />
     <main class="flex flex-col p-8 gap-8">
         {#if errorMessage}
             <p class="text-red-500 text-4xl text-center">{errorMessage}</p>
@@ -32,26 +33,36 @@
 
         {#if Object.keys(groupedStudentsByCourse).length > 0}
             {#each Object.entries(groupedStudentsByCourse) as [course, students]}
-                <section class="w-full p-4 border rounded-lg shadow-lg bg-gray-50">
                     <h2 class="text-2xl w-fit font-bold text-gray-700 mb-4">{course}</h2>
-                    <div class="flex justify-center flex-wrap gap-6">
-                        {#each students as user}
-                        <Card.Root>
-                            <Card.Header>
-                                <Card.Title>{user.name}</Card.Title>
-                                <Card.Description>{user.studentId}</Card.Description>
-                                <Card.Description>{user.email}</Card.Description>
-                            </Card.Header>
-                            <Card.Footer>
-                                <form method="POST" class="flex pt-4 justify-center items-center w-full">
-                                    <input type="hidden" name="id" value={user._id} />
-                                    <Button type="submit" color="red" text="Delete" />
-                                </form>
-                            </Card.Footer>
-                        </Card.Root>
-                        {/each}
-                    </div>
-                </section>
+                    <Card.Root>
+                        <Card.Content>
+                            <Table.Root>
+                                <Table.Header>
+                                    <Table.Row>
+                                        <Table.Head>Name</Table.Head>
+                                        <Table.Head>Student ID</Table.Head>
+                                        <Table.Head>Email</Table.Head>
+                                        <Table.Head>Actions</Table.Head>
+                                    </Table.Row>
+                                </Table.Header>
+                                {#each students as user}
+                                    <Table.Body>
+                                        <Table.Row>
+                                            <Table.Cell>{user.name}</Table.Cell>
+                                            <Table.Cell>{user.studentId}</Table.Cell>
+                                            <Table.Cell>{user.email}</Table.Cell>
+                                            <Table.Cell>
+                                                <form method="POST">
+                                                    <input type="hidden" name="id" value={user._id} />
+                                                    <Button type="submit" variant={"destructive"}>Delete</Button>
+                                                </form>
+                                            </Table.Cell>
+                                        </Table.Row>
+                                    </Table.Body>
+                                {/each}
+                            </Table.Root>
+                        </Card.Content>
+                    </Card.Root>
             {/each}
         {:else}
             <p class="text-gray-500 text-center text-2xl">No students available to display.</p>

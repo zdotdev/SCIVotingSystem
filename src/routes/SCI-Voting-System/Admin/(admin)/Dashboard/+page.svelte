@@ -3,6 +3,7 @@
     import ElectionResults from '$lib/Components/Election/ElectionResult.svelte';
     import Container from '$lib/Components/Container/Container.svelte';
 	import Ribbon from '$lib/Components/Ribbon/Ribbon.svelte';
+    import { Button } from '$lib/Components/ui/button/index';
 
     export let data;
 
@@ -11,8 +12,9 @@
 </script>
 
 <Container>
-    <Ribbon {name} {studentId} />
+    <Ribbon location={"Dashboard"} {name} {studentId} />
     <main class="h-fit w-4/5 flex gap-56">
+        <Button variant={"accept"} onclick={()=>{console.log('clicked')}}>Create Election</Button>
         {#if errorMessage}
             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-500 text-white p-4 rounded-lg">
                 <p>{errorMessage}</p>
