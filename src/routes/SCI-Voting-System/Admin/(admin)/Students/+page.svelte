@@ -27,7 +27,7 @@
 
 <Container>
     <Ribbon location={"Students"} {name} {studentId} />
-    <main class="flex flex-col p-8 gap-8">
+    <main class="flex flex-col py-8 px-28 gap-8">
         {#if errorMessage}
             <p class="text-red-500 text-4xl text-center">{errorMessage}</p>
         {/if}

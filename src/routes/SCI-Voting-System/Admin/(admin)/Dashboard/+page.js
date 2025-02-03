@@ -1,4 +1,4 @@
-import { loginRefreshToken, electionActive, electionDisplayed } from '$lib/Helpers/uri';
+import { loginRefreshToken, electionActive, electionDisplayed, user } from '$lib/Helpers/uri';
 import { error } from '@sveltejs/kit';
 
 export const load = async ({ fetch, cookies }) => {
@@ -7,6 +7,7 @@ export const load = async ({ fetch, cookies }) => {
     let studentId = null
     let electionData = {};
     let displayedData = {};
+    let userCount = [];
 
     try {
         const authResponse = await fetch(loginRefreshToken, {
@@ -32,6 +33,7 @@ export const load = async ({ fetch, cookies }) => {
 
         const activeElectionRes = await fetch(electionActive);
         const displayedElectionRes = await fetch(electionDisplayed);
+        const userRes = await fetch(user);
 
         if (activeElectionRes.ok) {
             electionData = (await activeElectionRes.json()).election;
@@ -39,12 +41,17 @@ export const load = async ({ fetch, cookies }) => {
 
         if (displayedElectionRes.ok) {
             displayedData = (await displayedElectionRes.json()).election;
-        } 
+        }
+
+        if (userRes.ok) {
+            userCount = (await userRes.json()).user.length;
+        }
 
         return {
             userChecker,
             name,
             studentId,
+            userCount,
             electionData,
             displayedData
         };

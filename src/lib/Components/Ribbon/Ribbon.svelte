@@ -31,7 +31,7 @@
     }
 </script>
 
-<nav class="flex items-center pt-8 pr-44 pl-28 gap-4 justify-between">
+<nav class="flex items-center pt-8 pr-28 pl-28 gap-4 justify-between">
     <div class="flex gap-4 items-center">
         <ChevronRight/>
         <h2 class="text-3xl font-bold">{location}</h2>

@@ -26,7 +26,7 @@
 
 <Container>
     <Ribbon location={"Registration"} {name} {studentId} />
-    <main class="flex flex-col gap-8 p-8">
+    <main class="flex flex-col gap-8 py-8 px-28">
         {#if errorMessage}
             <p class="text-red-500 text-4xl text-center">{errorMessage}</p>
         {/if}
@@ -54,11 +54,11 @@
                                         <div class="flex gap-4">
                                             <form method="POST" action="?/patchUser">
                                                 <input type="hidden" name="id" value={user._id} />
-                                                <Button type="submit" variant="accept">Accept</Button>
+                                                <Button type="submit" variant="outline">Accept</Button>
                                             </form>
                                             <form method="POST" action="?/deleteUser">
                                                 <input type="hidden" name="id" value={user._id} />
-                                                <Button type="submit" variant="destructive">Reject</Button>
+                                                <Button type="submit">Reject</Button>
                                             </form>
                                         </div>
                                     </Table.Cell>

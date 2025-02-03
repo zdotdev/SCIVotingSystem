@@ -1,9 +1,13 @@
 const formatDate = (date) => {
     const d = new Date(date);
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
+    const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+    const month = monthNames[d.getMonth()];
+    const day = d.getDate();
     const year = d.getFullYear();
-    return `${month}-${day}-${year}`;
+    return `${month} ${day}, ${year}`;
 }
 
 export default formatDate;

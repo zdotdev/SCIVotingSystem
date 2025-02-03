@@ -12,7 +12,6 @@
 				secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm font-bold",
 				ghost: "hover:bg-accent hover:text-accent-foreground font-bold",
 				link: "text-primary underline-offset-4 hover:underline",
-				accept: "bg-green-500 text-primary-foreground hover:bg-green-900 hover:text-white shadow font-bold",
 			},
 			size: {
 				default: "h-9 px-4 py-2",

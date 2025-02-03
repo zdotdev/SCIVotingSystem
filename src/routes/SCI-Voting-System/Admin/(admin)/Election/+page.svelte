@@ -34,11 +34,11 @@
 
 <Container>
     <Ribbon location={"Election"} {name} {studentId} />
-    <main class="flex flex-col justify-center p-8">
+    <main class="flex flex-col justify-center py-8 px-28">
         {#if errorMessage}
             <p class="text-red-500 text-4xl text-center">{errorMessage}</p>
         {/if}
-        <div class="ml-auto mr-12 px-28 pt-4">
+        <div class="ml-auto pt-4">
             <Button on:click={() => { if (browser) { window.location.href = '/SCI-Voting-System/Admin/Election/Create'; } }}>
                 Create Election
             </Button>
@@ -53,8 +53,8 @@
                                     <Table.Row>
                                         <Table.Head>Title</Table.Head>
                                         <Table.Head>Status</Table.Head>
-                                        <Table.Head>Start Date</Table.Head>
-                                        <Table.Head>End Date</Table.Head>
+                                        <Table.Head>Starting Date</Table.Head>
+                                        <Table.Head>Ending Date</Table.Head>
                                         <Table.Head>Display Date</Table.Head>
                                         <Table.Head>Actions</Table.Head>
                                     </Table.Row>
