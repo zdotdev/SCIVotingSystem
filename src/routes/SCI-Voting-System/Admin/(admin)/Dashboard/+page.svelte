@@ -1,5 +1,4 @@
 <script>
-    import ElectionResults from '$lib/Components/Election/ElectionResult.svelte';
     import Container from '$lib/Components/Container/Container.svelte';
     import Election from '$lib/Components/Container/Election.svelte';
 	import Ribbon from '$lib/Components/Ribbon/Ribbon.svelte';
@@ -21,11 +20,11 @@
                 <p>{errorMessage}</p>
             </div>
         {:else}
-            {#if displayedData}
-            <Election {totalVoteCount} {userCount} electionData={displayedData}` electionStatus='Previous' />
-            
+            {#if electionData}
+                <Election {totalVoteCount} {userCount} {electionData} />
+
             {:else}
-            <Election {totalVoteCount} {userCount} {electionData} />
+                <Election {totalVoteCount} {userCount} electionData={displayedData}` electionStatus='Previous' />
             {/if} 
         {/if}
     </main>

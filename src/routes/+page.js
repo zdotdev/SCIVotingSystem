@@ -24,10 +24,7 @@ export async function load({ fetch }) {
             document.cookie = 'refreshToken=; Max-Age=0; path=/';
             document.cookie = 'accessToken=; Max-Age=0; path=/';
         }
-        // console.error('Error in load function:', err);
-        // throw error(500, { error: 'Failed to refresh session. Please log in again.' });
     }
-    console.log('User Checker:', userChecker);
     
     if (userChecker === 'student') {
         throw redirect(303, '/SCI-Voting-System/Student/Dashboard');

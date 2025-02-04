@@ -1,15 +1,20 @@
 <script>
     import { Button } from '$lib/Components/ui/button/index';
     import { getLocalTimeZone, today } from "@internationalized/date";
-    import { Calendar } from "$lib/Components/ui/calendar/index.js";
+    import { Calendar } from "$lib/Components/ui/calendar/index";
     import { browser } from '$app/environment';
     import ElectionDetails from '$lib/Components/Container/ElectionDetails.svelte';
     import VotingProgressContainer from '$lib/Components/Container/VotingProgressContainer.svelte';
     import ElectionResultsContainer from '$lib/Components/Container/ElectionResultsContainer.svelte';
+    import RangeCalendar from '$lib/Components/Container/RangeCalendar.svelte';
     export let electionData = {};
     export let totalVoteCount = 0;
     export let userCount = 0;
     export let electionStatus = 'Active';
+
+    let electionStart = electionData.electionStart;
+    let electionEnd = electionData.electionEnd;
+    
     
     let value = today(getLocalTimeZone());
 </script>
@@ -30,7 +35,11 @@
             </div>
         </div>
         <div class="w-fit ml-8">
-            <Calendar type="single" bind:value class="rounded-md border shadow" />
+            {#if electionStatus === 'Active'}
+                <RangeCalendar {electionStart} {electionEnd} />
+            {:else}
+                <Calendar type="single" bind:value class="rounded-md border shadow" />
+            {/if}
         </div>
     </div>
 </main>
