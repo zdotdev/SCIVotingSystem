@@ -39,7 +39,7 @@
             <p class="text-red-500 text-4xl text-center">{errorMessage}</p>
         {/if}
         <div class="ml-auto pt-4">
-            <Button on:click={() => { if (browser) { window.location.href = '/SCI-Voting-System/Admin/Election/Create'; } }}>
+            <Button onclick={() => { if (browser) { window.location.href = '/SCI-Voting-System/Admin/Election/Create'; } }}>
                 Create Election
             </Button>
         </div>
@@ -63,7 +63,15 @@
                                     {#each group.elections as election}
                                         <Table.Row>
                                             <Table.Cell>{election.electionTitle}</Table.Cell>
-                                            <Table.Cell><span class="">Pending</span></Table.Cell>
+                                            <Table.Cell>
+                                                {#if new Date() < new Date(election.electionStart)}
+                                                    Pending
+                                                {:else if new Date() >= new Date(election.electionStart) && new Date() <= new Date(election.electionEnd)}
+                                                    On going
+                                                {:else}
+                                                    Released
+                                                {/if}
+                                            </Table.Cell>
                                             <Table.Cell>{formatDate(election.electionStart)}</Table.Cell>
                                             <Table.Cell>{formatDate(election.electionEnd)}</Table.Cell>
                                             <Table.Cell>{formatDate(election.displayElection)}</Table.Cell>
