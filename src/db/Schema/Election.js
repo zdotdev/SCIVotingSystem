@@ -9,6 +9,10 @@ const electionCanditateSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  candidateParty: {
+    type: String,
+    required: true
+  },
   candidateVotes: {
     type: Number,
     default: 0

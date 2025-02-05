@@ -7,6 +7,7 @@
     import VotingProgressContainer from '$lib/Components/Container/VotingProgressContainer.svelte';
     import ElectionResultsContainer from '$lib/Components/Container/ElectionResultsContainer.svelte';
     import RangeCalendar from '$lib/Components/Container/RangeCalendar.svelte';
+    import Graph from '$lib/Components/Chart/Graph.svelte';
     export let electionData = {};
     export let totalVoteCount = 0;
     export let userCount = 0;
@@ -32,6 +33,9 @@
             </div>
             <div>
                 <ElectionResultsContainer {electionData} />
+            </div>
+            <div>
+                <Graph />
             </div>
         </div>
         <div class="w-fit ml-8">

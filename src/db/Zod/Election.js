@@ -18,6 +18,7 @@ export const ElectionCandidateZodSchema = z.object({
   candidatePosition: z
     .string()
     .min(3, { message: 'Candidate position is required.' }),
+  candidateParty: z.string().min(3, { message: 'Candidate party is required.' }),
   candidateVotes: z.number({ message: 'Vote must be a number.' }).default(0)
 })
 

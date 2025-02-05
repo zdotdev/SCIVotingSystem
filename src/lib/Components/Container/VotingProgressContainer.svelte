@@ -7,7 +7,7 @@
 
 <section class="border rounded-md h-fit shadow p-6">
     <div class="w-fit">
-        <p class="text-3xl mb-4 font-bold">Election Progress</p>
+        <p class="text-3xl mb-4 font-bold">Vote Progress</p>
         <div class="flex flex-col gap-4">
             <Progress value={totalStudentVotesPercentage} />
             <p class="text-lg text-gray-500 mb-3">Total student votes: {totalVoteCount} out of {userCount} students.</p>
