@@ -8,6 +8,7 @@ export const load = async ({ fetch, cookies }) => {
     let electionData = {};
     let displayedData = {};
     let userCount = [];
+    let id = null
 
     try {
         const authResponse = await fetch(loginRefreshToken, {
@@ -17,13 +18,6 @@ export const load = async ({ fetch, cookies }) => {
             },
             credentials: 'include',
         });
-
-        const updateData = await fetch(election, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
     
         const authData = await authResponse.json();
 
@@ -44,6 +38,13 @@ export const load = async ({ fetch, cookies }) => {
 
         if (activeElectionRes.ok) {
             electionData = (await activeElectionRes.json()).election;
+            id = electionData._id
+            const updateData = await fetch(`${election}/${id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
         }
 
         if (displayedElectionRes.ok) {

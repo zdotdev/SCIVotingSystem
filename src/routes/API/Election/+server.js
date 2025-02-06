@@ -19,7 +19,7 @@ export async function GET() {
 
 export async function POST({ request }) {
     try {
-        let electionPartylistGraph = [];
+        const electionPartylistGraph = [];
         const body = await request.json();
         const validatedData = ElectionZodSchema.safeParse(body);
 
@@ -73,42 +73,5 @@ export async function POST({ request }) {
     } catch (error) {
         console.error("Error creating election:", error);
         return json({ message: "Internal server error." }, { status: 500 });
-    }
-}
-
-export async function PATCH() {
-    try {
-        const elections = await Election.find();
-
-        if (!elections || !elections.length) {
-            return json({ message: "No elections found." }, { status: 404 });
-        }
-
-        for (let i = 0; i < elections.length; i++) {
-            const election = elections[i];
-
-            election.electionPartylistGraph.forEach(party => {
-                const candidateVotes = election.electionCandidates
-                    .filter(candidate => candidate.candidateParty === party.electionPartylistName)
-                    .reduce((acc, candidate) => acc + (candidate.totalVotes || 0), 0);
-
-                const previousValue = party.electionPartylistData || 0;
-                
-                party.electionPartylistData = previousValue + candidateVotes;
-            });
-
-            await election.save();
-        }
-
-        return json({
-            message: "Election partylist data updated successfully.",
-            timestamp: new Date().toISOString()
-        }, { status: 200 });
-    } catch (error) {
-        console.error("Error updating partylist data:", error);
-        return json({ 
-            message: "Internal server error.", 
-            errorDetails: process.env.NODE_ENV === 'development' ? error.message : undefined
-        }, { status: 500 });
     }
 }

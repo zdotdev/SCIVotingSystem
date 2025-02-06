@@ -16,6 +16,8 @@
     let electionStart = electionData?.electionStart;
     let electionEnd = electionData?.electionEnd;
     let value = today(getLocalTimeZone());
+    let electionGraphData = electionData?.electionPartylistGraph || null
+    
 </script>
 
 <main class="flex flex-col w-screen py-8 px-28">
@@ -33,7 +35,7 @@
                 <ElectionResultsContainer {electionData} />
             </div>
             <div>
-                <Graph />
+                <Graph {electionGraphData} />
             </div>
         </div>
         <div class="w-fit ml-8">

@@ -121,7 +121,7 @@
                         />
                     </label>
 
-                    <Button variant="destructive" on:click={() => removeCandidate(index)}>
+                    <Button variant="destructive" onclick={() => removeCandidate(index)}>
                         Remove Candidate
                     </Button>
                 </div>
@@ -133,7 +133,7 @@
 
             <!-- Action Buttons -->
             <div class="flex gap-8">
-                <Button variant="outline" on:click={addCandidate}>
+                <Button variant="outline" onclick={addCandidate}>
                     Add Candidate
                 </Button>
                 <Button type="submit">Save</Button>

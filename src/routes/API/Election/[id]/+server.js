@@ -27,6 +27,7 @@ export async function PUT({ params, request }) {
     try {
         const { id } = params
         const body = await request.json();
+        const electionPartylistGraph = [];
 
         if(!body) {
             return json({ message: 'Request body is required.' }, { status: 400 });
@@ -62,6 +63,14 @@ export async function PUT({ params, request }) {
             );
         }
 
+        electionCandidates.forEach(candidate => {
+            if (candidate.candidateParty) {
+                if (!electionPartylistGraph.includes(candidate.candidateParty)) {
+                    electionPartylistGraph.push({electionPartylistName: candidate.candidateParty});
+                }
+            }
+        });
+
         const election = await Election.findById(id)
 
         if (!election) {
@@ -72,6 +81,7 @@ export async function PUT({ params, request }) {
         election.electionStart = electionStart
         election.electionEnd = electionEnd
         election.electionCandidates = electionCandidates
+        election.electionPartylistGraph = electionPartylistGraph
         election.displayElection = displayElection
 
         await election.save()
@@ -80,6 +90,40 @@ export async function PUT({ params, request }) {
 
     }catch(error) {
         return json({message: 'Internal server error.'}, error, { status: 500 })
+    }
+}
+
+export async function PATCH({params}) {
+    try {
+        const { id } = params
+        const election = await Election.findById(id);
+
+        if (!election) {
+            return json({ message: "No elections found." }, { status: 404 });
+        }
+
+        election.electionPartylistGraph.forEach(party => {
+                const candidateVotes = election.electionCandidates
+                    .filter(candidate => candidate.candidateParty === party.electionPartylistName)
+                    .reduce((acc, candidate) => acc + (candidate.totalVotes || 0), 0);
+
+                const previousValue = party.electionPartylistData || 0;
+                
+                party.electionPartylistData = previousValue + candidateVotes;
+            });
+
+            await election.save();
+
+        return json({
+            message: "Election partylist data updated successfully.",
+            timestamp: new Date().toISOString()
+        }, { status: 200 });
+    } catch (error) {
+        console.error("Error updating partylist data:", error);
+        return json({ 
+            message: "Internal server error.", 
+            errorDetails: process.env.NODE_ENV === 'development' ? error.message : undefined
+        }, { status: 500 });
     }
 }
 

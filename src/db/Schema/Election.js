@@ -26,7 +26,7 @@ const partylistGraphSchema = new mongoose.Schema({
   electionPartylistData: {
     type: Number,
     default: 0
-  }
+  },
 })
 
 const electionSchema = new mongoose.Schema(
