@@ -3,9 +3,15 @@
     import formatDate from '$lib/Helpers/dateFormatter';
     import { Button } from '$lib/Components/ui/button/index';
     export let electionData = {};
+    if(electionData){
+        console.log(true);
+    }else{
+        console.log(false);
+    }
+    
 
 </script>
-<section class="border rounded-md shadow p-6 h-fit">
+<section class="border rounded-md shadow p-6 w-full h-auto">
     {#if electionData}
         <p class="text-3xl mb-4 font-bold">{electionData.electionTitle}</p>
         <div>

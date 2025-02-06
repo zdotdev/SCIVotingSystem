@@ -2,9 +2,9 @@
     export let electionData = {};
     import * as Table from '$lib/Components/ui/table/index';
 </script>
-<section class="border rounded-md shadow p-6 mt-8">
+<section class="border rounded-md shadow p-6 mt-8 w-full">
     <p class="text-3xl mb-4 font-bold">Election Results</p>
-    {#if Object.keys(electionData).length > 0}
+    {#if electionData}
         {#if new Date().toDateString() === new Date(electionData.displayElection).toDateString()}
             {#each electionData.electionCandidates as candidate}
                     {#each electionData.electionCandidates.sort((a, b) => {

@@ -67,7 +67,7 @@
                                                 {#if new Date() < new Date(election.electionStart)}
                                                     Pending
                                                 {:else if new Date() >= new Date(election.electionStart) && new Date() <= new Date(election.electionEnd)}
-                                                    On going
+                                                    Ongoing
                                                 {:else}
                                                     Released
                                                 {/if}

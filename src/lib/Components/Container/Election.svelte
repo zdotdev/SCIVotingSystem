@@ -8,14 +8,13 @@
     import ElectionResultsContainer from '$lib/Components/Container/ElectionResultsContainer.svelte';
     import RangeCalendar from '$lib/Components/Container/RangeCalendar.svelte';
     import Graph from '$lib/Components/Chart/Graph.svelte';
-    export let electionData = {};
+    export let electionData = null;
     export let totalVoteCount = 0;
     export let userCount = 0;
-    export let electionStatus = 'Active';
+    export let electionStatus = 'No';
 
-    let electionStart = electionData.electionStart;
-    let electionEnd = electionData.electionEnd;
-
+    let electionStart = electionData?.electionStart;
+    let electionEnd = electionData?.electionEnd;
     let value = today(getLocalTimeZone());
 </script>
 
@@ -25,8 +24,8 @@
         <Button onclick={() => {if(browser){window.location.reload()}}}>Refresh</Button>
     </div>
     <div class="flex">
-        <div>
-            <div class="flex gap-8">
+        <div class="w-full">
+            <div class="flex gap-8 w-full">
                 <ElectionDetails {electionData} />
                 <VotingProgressContainer {totalVoteCount} {userCount} />
             </div>
