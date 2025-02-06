@@ -23,6 +23,6 @@
             </div>
         </div>
     {:else}
-        <p class="text-gray-500">No active election available.</p>
+        <p class="text-lg text-gray-500 mb-3">No active election available.</p>
     {/if}
 </section>
