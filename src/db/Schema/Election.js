@@ -19,6 +19,16 @@ const electionCanditateSchema = new mongoose.Schema({
   }
 })
 
+const partylistGraphSchema = new mongoose.Schema({
+  electionPartylistName: {
+    type: String
+  },
+  electionPartylistData: {
+    type: Number,
+    default: 0
+  }
+})
+
 const electionSchema = new mongoose.Schema(
   {
     electionTitle: {
@@ -36,6 +46,11 @@ const electionSchema = new mongoose.Schema(
     electionCandidates: [
       {
         type: electionCanditateSchema
+      }
+    ],
+    electionPartylistGraph: [
+      {
+        type: partylistGraphSchema
       }
     ],
     electionVoters: [

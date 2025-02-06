@@ -3,11 +3,6 @@
     import formatDate from '$lib/Helpers/dateFormatter';
     import { Button } from '$lib/Components/ui/button/index';
     export let electionData = {};
-    if(electionData){
-        console.log(true);
-    }else{
-        console.log(false);
-    }
     
 
 </script>
@@ -23,6 +18,6 @@
             </div>
         </div>
     {:else}
-        <p class="text-lg text-gray-500 mb-3">No active election available.</p>
+        <p class="text-lg text-gray-500 mb-3">No election available.</p>
     {/if}
 </section>

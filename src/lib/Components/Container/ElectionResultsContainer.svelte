@@ -1,5 +1,5 @@
 <script>
-    export let electionData = {};
+    export let electionData;
     import * as Table from '$lib/Components/ui/table/index';
 </script>
 <section class="border rounded-md shadow p-6 mt-8 w-full">
@@ -36,5 +36,7 @@
         {:else}
             <p class="text-gray-500">Please wait for the election results...</p>
         {/if}
+        {:else}
+        <p class="text-lg text-gray-500 mb-3">No results available.</p>
     {/if}
 </section>

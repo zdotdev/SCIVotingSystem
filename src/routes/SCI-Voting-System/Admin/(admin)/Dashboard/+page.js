@@ -1,4 +1,4 @@
-import { loginRefreshToken, electionActive, electionDisplayed, user } from '$lib/Helpers/uri';
+import { loginRefreshToken, electionActive, electionDisplayed, user, election } from '$lib/Helpers/uri';
 import { error } from '@sveltejs/kit';
 
 export const load = async ({ fetch, cookies }) => {
@@ -18,6 +18,13 @@ export const load = async ({ fetch, cookies }) => {
             credentials: 'include',
         });
 
+        const updateData = await fetch(election, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+    
         const authData = await authResponse.json();
 
         if (!authResponse.ok) {

@@ -84,7 +84,7 @@
                     </Card.Root>
                 {/each}
             {:else}
-                <p>No election data to display.</p>
+                <p class="text-lg text-gray-500 mb-3">No Election Data to display.</p>
             {/if}
     </main>
 </Container>

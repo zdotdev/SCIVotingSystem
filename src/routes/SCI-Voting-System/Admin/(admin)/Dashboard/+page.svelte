@@ -13,7 +13,6 @@
     const userCount = data.userCount || 0;
     const studentId = data.studentId || 0;
     const errorMessage = data.errorMessage || null;
-    console.log(displayedData);
     
 
     const totalVoteCount = electionData?.electionVoters?.length || 0;

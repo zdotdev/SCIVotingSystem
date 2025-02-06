@@ -9,6 +9,12 @@ const config = {
 		adapter: adapter(),
 		alias: {
 			$db: './src/db'
+		},
+		vite: {
+			build: {
+				sourcemap: true,  // Enable source maps
+				outDir: 'build'
+			}
 		}
 	}
 };
