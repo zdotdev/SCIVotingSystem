@@ -48,8 +48,18 @@ export async function PUT({ params, request }) {
             return json({message: validatedData.error.issues[0].message}, { status: 400 })
         }
 
-        if (parserCandidates.some((candidate) => !candidate.success)) {
-            return json({message: parserCandidates.find((candidate) => !candidate.success).error.issues[0].message}, { status: 400 })
+        const invalidCandidate =
+            Array.isArray(electionCandidates) &&
+            electionCandidates.find(candidate => {
+                const validation = ElectionCandidateZodSchema.safeParse(candidate);
+                return !validation.success;
+            });
+        if (invalidCandidate) {
+            const validation = ElectionCandidateZodSchema.safeParse(invalidCandidate);
+            return json(
+                { message: validation.error.issues[0].message },
+                { status: 400 }
+            );
         }
 
         const election = await Election.findById(id)

@@ -37,8 +37,8 @@
                             <input type="text" id="candidate_position_{i}" name="candidate_position_{i}" placeholder="Position">
                         </div>
                         <div class="flex flex-col gap-4">
-                            <label for="candidate_partylist_{i}">Partylist:</label>
-                            <input type="text" id="candidate_partylist_{i}" name="candidate_partylist_{i}" placeholder="Partylist">
+                            <label for="candidate_party_{i}">Party:</label>
+                            <input type="text" id="candidate_party_{i}" name="candidate_party_{i}" placeholder="Party">
                         </div>
                     {/each}
                 </div>

@@ -8,8 +8,7 @@
     export let data;
 
     const { electionData, displayedData, userChecker, name, userCount, studentId, errorMessage } = data;
-    const totalVoteCount = electionData.electionVoters?.length || 0;   
-
+    const totalVoteCount = electionData.electionVoters?.length || 0;
 </script>
 
 <Container>
@@ -20,11 +19,10 @@
                 <p>{errorMessage}</p>
             </div>
         {:else}
-            {#if electionData}
+            {#if electionData.electionTitle}
                 <Election {totalVoteCount} {userCount} {electionData} />
-
-            {:else}
-                <Election {totalVoteCount} {userCount} electionData={displayedData}` electionStatus='Previous' />
+            {:else if displayedData}
+                <Election {totalVoteCount} {userCount} electionData={displayedData} electionStatus='Previous' />
             {/if} 
         {/if}
     </main>

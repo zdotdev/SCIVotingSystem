@@ -29,7 +29,7 @@ export async function POST({ request }) {
             );
         }
 
-        const { electionTitle, electionStart, electionEnd, electionCandidates, displayElection } = validatedData.data;
+        const { electionTitle, electionStart, electionEnd, electionCandidates, displayElection } = body;
         const invalidCandidate =
             Array.isArray(electionCandidates) &&
             electionCandidates.find(candidate => {

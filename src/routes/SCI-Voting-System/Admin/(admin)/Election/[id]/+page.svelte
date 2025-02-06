@@ -30,6 +30,7 @@
                         <li>
                             <p><strong>Name:</strong> {candidate.candidateName}</p>
                             <p><strong>Position:</strong> {candidate.candidatePosition}</p>
+                            <p><strong>Party:</strong> {candidate.candidateParty}</p>
                             <p><strong>Votes:</strong> {candidate.candidateVotes}</p>
                         </li>
                     {/each}

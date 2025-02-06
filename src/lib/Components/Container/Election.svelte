@@ -15,8 +15,7 @@
 
     let electionStart = electionData.electionStart;
     let electionEnd = electionData.electionEnd;
-    
-    
+
     let value = today(getLocalTimeZone());
 </script>
 

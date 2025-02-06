@@ -18,7 +18,8 @@ export const actions = {
         for (let i = 0; i < candidateCount; i++) {
             const candidateName = formData.get(`candidate_name_${i}`);
             const candidatePosition = formData.get(`candidate_position_${i}`);
-            candidates.push({ candidateName, candidatePosition });
+            const candidateParty = formData.get(`candidate_party_${i}`);
+            candidates.push({ candidateName, candidatePosition, candidateParty });
         }
         
         try {
