@@ -65,7 +65,6 @@ export const actions = {
             console.error('Error during election update:', err);
             throw error(500, { errorMessage: 'An internal error occurred. Please try again.' });
         }
-        // throw redirect(303, `/SCI-Voting-System/Admin/Dashboard`);
     },
     postAction: async ({ request, fetch }) => {
         const formData = await request.formData();

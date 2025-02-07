@@ -1,6 +1,6 @@
 <script>
     import { browser } from '$app/environment';
-    import Button from '$lib/Components/Button/Button.svelte';
+    import { Button } from '$lib/Components/ui/button/index';
 
     export let form;
 </script>
@@ -10,11 +10,11 @@
         <h2 class="text-4xl font-bold">Login</h2>
         <div class="flex flex-col gap-4">
             <label for="email">Email:</label>
-            <input type="text" id="email" name="email" required placeholder="myemail@email.com" />
+            <input type="text" id="email" name="email" required class="w-56 border p-2" placeholder="myemail@email.com" />
         </div>
         <div class="flex flex-col gap-4">
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required placeholder="Abcd1234!" />
+            <input type="password" id="password" name="password" required class="w-56 border p-2" placeholder="Abcd1234!" />
         </div>
 
         {#if form?.errorMessage}
@@ -24,8 +24,8 @@
         {/if}
 
         <div class="flex gap-4">
-            <Button type="submit" color="green" text="Login" />
-            <Button type="button" func={() => {if(browser){window.location.href = '/Auth/Signup'}}} color="gray" text="Sign up"/>
+            <Button type='submit'>Login</Button>
+            <Button type="button" variant='secondary' onclick={() => {if(browser){window.location.href = '/Auth/Signup'}}}>Sign in</Button>
         </div>
     </form>
 </main>

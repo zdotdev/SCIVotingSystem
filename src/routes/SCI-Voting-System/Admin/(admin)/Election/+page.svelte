@@ -129,34 +129,7 @@
                                                                     <AlertDialog.Content>
                                                                         <AlertDialog.Header>
                                                                             <AlertDialog.Title>{election.electionTitle}</AlertDialog.Title>
-                                                                            <form method="POST" action="?/putAction">    
-                                                                                <AlertDialog.Description>
-                                                                                   <div class="max-h-[80vh] overflow-y-auto">
-                                                                                        <input type="hidden" name="electionId" value={election._id}>
-                                                                                        <div>
-                                                                                            <label for="electionTitle">Election Title:</label>
-                                                                                            <input class="border rounded p-2 w-full" type="text" name="electionTitle" value="{election.electionTitle}" required> 
-                                                                                        </div>
-                                                                                        <div>
-                                                                                            <label for="electionStart">Election Start:</label>
-                                                                                            <input class="border rounded p-2 w-full" type="datetime-local" name="electionStart" value={new Date(election.electionStart).toISOString().slice(0, 16)} required> 
-                                                                                        </div>
-                                                                                        <div>
-                                                                                            <label for="electionEnd">Election End:</label>
-                                                                                            <input class="border rounded p-2 w-full" type="datetime-local" name="electionEnd" value={new Date(election.electionEnd).toISOString().slice(0, 16)} required> 
-                                                                                        </div>
-                                                                                        <div>
-                                                                                            <label for="displayElection">Election Announcement:</label>
-                                                                                            <input class="border rounded p-2 w-full" type="datetime-local" name="displayElection" value={new Date(election.displayElection).toISOString().slice(0, 16)} required> 
-                                                                                        </div>
-                                                                                        <input type="text" name="electionId" bind:value={election._id} hidden>
-                                                                                        <EditCandidateContainer candidate={election.electionCandidates} />
-                                                                                    </div>
-                                                                                </AlertDialog.Description>
-                                                                                <div class="flex justify-center">
-                                                                                    <Button type="submit" variant='accept'>Save</Button>
-                                                                                </div>
-                                                                            </form>
+                                                                                <ElectionForm method={'POST'} action={'?/putAction'} electionData={election} />
                                                                             <AlertDialog.Footer>
                                                                                 <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
                                                                             </AlertDialog.Footer>
