@@ -2,7 +2,7 @@
     import { Button } from '$lib/Components/ui/button/index';
     export let candidate;
 
-    let candidateData = Array.isArray(candidate) ? [...candidate] : [candidate];
+    let candidateData = Array.isArray(candidate) ? [...candidate] : [];
 
     function addCandidate() {
         candidateData = [

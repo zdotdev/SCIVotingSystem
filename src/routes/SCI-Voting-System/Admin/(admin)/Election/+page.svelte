@@ -1,5 +1,5 @@
 <script>
-    import { Button } from "$lib/Components/ui/button/index";
+    import { Button, Root } from "$lib/Components/ui/button/index";
     import formatDate from '$lib/Helpers/dateFormatter';
     import Container from "$lib/Components/Container/Container.svelte";
     import Ribbon from "$lib/Components/Ribbon/Ribbon.svelte";
@@ -7,7 +7,8 @@
     import * as Table from "$lib/Components/ui/table/index";
     import * as AlertDialog from "$lib/components/ui/alert-dialog/index.js";
     import { sortCandidates } from "$lib/Helpers/candidateSorter";
-    import EditCandidateContainer from "$lib/Components/Container/editCandidateContainer.svelte";
+    import EditCandidateContainer from "$lib/Components/Container/EditCandidateContainer.svelte";
+    import ElectionForm from "$lib/Components/Container/ElectionForm.svelte";
     import { browser } from "$app/environment";
 	import { enhance } from "$app/forms";
 
@@ -43,9 +44,20 @@
             <p class="text-red-500 text-4xl text-center">{errorMessage}</p>
         {/if}
         <div class="ml-auto pt-4">
-            <Button onclick={() => { if (browser) { window.location.href = '/SCI-Voting-System/Admin/Election/Create'; } }}>
-                Create Election
-            </Button>
+            <AlertDialog.Root>
+                <AlertDialog.Trigger>
+                    <Button>Create Election</Button>
+                </AlertDialog.Trigger>
+                <AlertDialog.Content>
+                    <AlertDialog.Header>Create Election</AlertDialog.Header>
+                    <AlertDialog.Content>
+                        <ElectionForm method={'POST'} action={'?/postAction'} />
+                    </AlertDialog.Content>
+                    <AlertDialog.Footer>
+                        <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+                    </AlertDialog.Footer>
+                </AlertDialog.Content>
+            </AlertDialog.Root>
         </div>
             {#if electionList.length > 0}
                 {#each groupedElections as group}
@@ -117,7 +129,7 @@
                                                                     <AlertDialog.Content>
                                                                         <AlertDialog.Header>
                                                                             <AlertDialog.Title>{election.electionTitle}</AlertDialog.Title>
-                                                                            <form method="POST" action="?/putAction" use:enhance>    
+                                                                            <form method="POST" action="?/putAction">    
                                                                                 <AlertDialog.Description>
                                                                                    <div class="max-h-[80vh] overflow-y-auto">
                                                                                         <input type="hidden" name="electionId" value={election._id}>
@@ -151,7 +163,7 @@
                                                                         </AlertDialog.Header>
                                                                     </AlertDialog.Content>
                                                                 </AlertDialog.Root>
-                                                                <form method="POST" action="?/deleteAction" use:enhance>
+                                                                <form method="POST" action="?/deleteAction">
                                                                     <input type="hidden" name="electionId" bind:value="{election._id}">
                                                                     <Button type="submit" variant='destructive'>Delete</Button>
                                                                 </form>
