@@ -1,4 +1,8 @@
 export function sortCandidates(electionData, sortBy = 'votes') {
+    if (!electionData) {
+        return [];
+    }
+    
     const positionOrder = ["President", "Vice president", "Secretary", "Auditor", "Treasurer", "PIO", "Project Manager", "Representatives", "Muse", "Escort"];
     const candidates = [...electionData.electionCandidates];
     

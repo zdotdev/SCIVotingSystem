@@ -5,6 +5,9 @@
     import Ribbon from "$lib/Components/Ribbon/Ribbon.svelte";
     import * as Card from "$lib/Components/ui/card/index";
     import * as Table from "$lib/Components/ui/table/index";
+    import * as AlertDialog from "$lib/components/ui/alert-dialog/index.js";
+    import { sortCandidates } from "$lib/Helpers/candidateSorter";
+    import EditCandidateContainer from "$lib/Components/Container/editCandidateContainer.svelte";
     import { browser } from "$app/environment";
 
     export let data;
@@ -75,7 +78,86 @@
                                             <Table.Cell>{formatDate(election.electionStart)}</Table.Cell>
                                             <Table.Cell>{formatDate(election.electionEnd)}</Table.Cell>
                                             <Table.Cell>{formatDate(election.displayElection)}</Table.Cell>
-                                            <Table.Cell><Button onclick={() => {if(browser){window.location.href = `/SCI-Voting-System/Admin/Election/${election._id}`}}}>View</Button></Table.Cell>
+                                            <Table.Cell>
+                                                <AlertDialog.Root>
+                                                    <AlertDialog.Trigger>
+                                                        <Button>View</Button>
+                                                    </AlertDialog.Trigger>
+                                                    <AlertDialog.Content>
+                                                        <AlertDialog.Header>
+                                                            <AlertDialog.Title>{election.electionTitle}</AlertDialog.Title>
+                                                            <AlertDialog.Description>
+                                                                <Table.Root>
+                                                                    <Table.Header>
+                                                                        <Table.Row>
+                                                                            <Table.Head>Candidates</Table.Head>
+                                                                            <Table.Head>Position</Table.Head>
+                                                                            <Table.Head>Votes</Table.Head>
+                                                                            <Table.Head>Party</Table.Head>
+                                                                        </Table.Row>
+                                                                    </Table.Header>
+                                                                    <Table.Body>
+                                                                        {#each sortCandidates(election) as candidate}
+                                                                            <Table.Row>
+                                                                                <Table.Cell>{candidate.candidateName}</Table.Cell>
+                                                                                <Table.Cell>{candidate.candidatePosition}</Table.Cell>
+                                                                                <Table.Cell>{candidate.candidateVotes}</Table.Cell>
+                                                                                <Table.Cell>{candidate.candidateParty}</Table.Cell>
+                                                                            </Table.Row>
+                                                                        {/each}
+                                                                    </Table.Body>
+                                                                </Table.Root>
+                                                            </AlertDialog.Description>
+                                                            <AlertDialog.Footer>
+                                                                <AlertDialog.Root>
+                                                                    <AlertDialog.Trigger>
+                                                                        <Button>Edit</Button>
+                                                                    </AlertDialog.Trigger>
+                                                                    <AlertDialog.Content>
+                                                                        <AlertDialog.Header>
+                                                                            <AlertDialog.Title>{election.electionTitle}</AlertDialog.Title>
+                                                                            <form method="POST">    
+                                                                                <AlertDialog.Description>
+                                                                                   <div class="max-h-[80vh] overflow-y-auto">
+                                                                                        <div>
+                                                                                            <label for="electionTitle">Election Title:</label>
+                                                                                            <input class="border rounded p-2 w-full" type="text" name="electionTitle" value="{election.electionTitle}" required> 
+                                                                                            </div>
+                                                                                        <div>
+                                                                                            <label for="electionStart">Election Start:</label>
+                                                                                            <input class="border rounded p-2 w-full" type="date" name="electionStart" value="{election.electionStart}" required> 
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            <label for="electionEnd">Election End:</label>
+                                                                                            <input class="border rounded p-2 w-full" type="date" name="electionEnd" value="{election.electionEnd}" required> 
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            <label for="displayElecton">Election Announcement:</label>
+                                                                                            <input class="border rounded p-2 w-full" type="date" name="displayElection" value="{election.displayElection}" required> 
+                                                                                        </div>
+                                                                                            <EditCandidateContainer candidate={election.electionCandidates} />
+                                                                                    </div>
+                                                                                </AlertDialog.Description>
+                                                                                <div class="flex justify-center">
+                                                                                    <Button type="submit" variant='accept'>Save</Button>
+                                                                                </div>
+                                                                            </form>
+                                                                            <AlertDialog.Footer>
+                                                                                <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+                                                                            </AlertDialog.Footer>
+                                                                        </AlertDialog.Header>
+                                                                    </AlertDialog.Content>
+                                                                </AlertDialog.Root>
+                                                                <form method="POST" action="?/deleteAction">
+                                                                    <input type="hidden" name="electionId" bind:value="{election._id}">
+                                                                    <Button type="submit" variant='destructive'>Delete</Button>
+                                                                </form>
+                                                                <AlertDialog.Cancel>Exit</AlertDialog.Cancel>
+                                                            </AlertDialog.Footer>
+                                                        </AlertDialog.Header>
+                                                    </AlertDialog.Content>
+                                                </AlertDialog.Root>
+                                            </Table.Cell>
                                         </Table.Row>
                                     {/each}
                                 </Table.Body>
