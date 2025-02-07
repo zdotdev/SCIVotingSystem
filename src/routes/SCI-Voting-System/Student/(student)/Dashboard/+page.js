@@ -1,14 +1,13 @@
-import { loginRefreshToken, electionActive, electionDisplayed, user, election } from '$lib/Helpers/uri';
+import { loginRefreshToken, user, electionActive, electionDisplayed } from '$lib/Helpers/uri';
 import { error } from '@sveltejs/kit';
 
 export const load = async ({ fetch, cookies }) => {
     let userChecker = null;
-    let name = null
-    let studentId = null
     let electionData = null;
     let displayedData = null;
+    let name = null;
+    let studentId = null;
     let userCount = null;
-    let id = null
 
     try {
         const authResponse = await fetch(loginRefreshToken, {
@@ -25,12 +24,9 @@ export const load = async ({ fetch, cookies }) => {
             throw error(401, 'Unauthorized: Failed to refresh session');
         }
 
-        userChecker = authData.user;
+        userChecker = authData.user
         name = authData.name
         studentId = authData.studentId
-        if (userChecker !== 'admin') {
-            throw error(403, 'Forbidden: Admins only');
-        }
 
         const activeElectionRes = await fetch(electionActive);
         const displayedElectionRes = await fetch(electionDisplayed);
@@ -38,30 +34,21 @@ export const load = async ({ fetch, cookies }) => {
 
         if (activeElectionRes.ok) {
             electionData = (await activeElectionRes.json()).election;
-            id = electionData._id
-            const updateData = await fetch(`${election}/${id}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
         }
-
         if (displayedElectionRes.ok) {
             displayedData = (await displayedElectionRes.json()).election;
         }
-
         if (userRes.ok) {
             userCount = (await userRes.json()).user.length;
         }
 
         return {
             userChecker,
+            electionData,
+            displayedData,
+            userCount,
             name,
             studentId,
-            userCount,
-            electionData,
-            displayedData
         };
 
     } catch (err) {
