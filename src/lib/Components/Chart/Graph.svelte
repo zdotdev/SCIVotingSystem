@@ -4,8 +4,6 @@
     import { getRelativePosition } from 'chart.js/helpers';
     import { formatChartData } from '$lib/Helpers/formatChartData'
     export let electionGraphData;
-    console.log(electionGraphData);
-    
     
     let ctx;
 

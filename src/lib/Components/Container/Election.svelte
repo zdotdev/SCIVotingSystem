@@ -12,8 +12,6 @@
     export let totalVoteCount = 0;
     export let userCount = 0;
     export let electionStatus = 'No';
-    console.log(electionData);
-    
 
     let electionStart = electionData?.electionStart;
     let electionEnd = electionData?.electionEnd;

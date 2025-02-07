@@ -1,8 +1,6 @@
 <script>
     import { Button } from '$lib/Components/ui/button/index';
     export let candidate;
-    console.log(candidate);
-    
 
     let candidateData = Array.isArray(candidate) ? [...candidate] : [candidate];
 
@@ -13,7 +11,6 @@
         ];
     }
 
-    // Remove a candidate by index
     function removeCandidate(index) {
         candidateData = candidateData.filter((_, i) => i !== index);
     }
@@ -23,16 +20,16 @@
     {#each candidateData as candidate, index}
         <div class="bg-slate-200 my-8 p-2 rounded-sm">
             <div>
-                <label for="candidateName">Candidate Name: </label>
-                <input class="border rounded p-2 w-full" type="text" name="candidateName" value="{candidate.candidateName}" required> 
+                <label for="candidateName_{index}">Candidate Name: </label>
+                <input class="border rounded p-2 w-full" type="text" name="candidateName_{index}" value="{candidate.candidateName}" required> 
             </div>
             <div>
-                <label for="candidatePosition">Candidate Position: </label>
-                <input class="border rounded p-2 w-full" type="text" name="candidatePosition" value="{candidate.candidatePosition}" required> 
+                <label for="candidatePosition_{index}">Candidate Position: </label>
+                <input class="border rounded p-2 w-full" type="text" name="candidatePosition_{index}" value="{candidate.candidatePosition}" required> 
             </div>
             <div>
-                <label for="candidateParty">Candidate Party: </label>
-                <input class="border rounded p-2 w-full" type="text" name="candidateParty" value="{candidate.candidateParty}" required> 
+                <label for="candidateParty_{index}">Candidate Party: </label>
+                <input class="border rounded p-2 w-full" type="text" name="candidateParty_{index}" value="{candidate.candidateParty}" required> 
             </div>
         </div>
         <div>
@@ -41,6 +38,7 @@
             </Button>
         </div>
     {/each}
+    <input type="text" name="candidateCount" bind:value={candidateData.length} hidden>
     <div class="flex justify-end m-2">
         <Button onclick={addCandidate}>
             Add Candidate
