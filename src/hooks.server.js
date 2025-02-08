@@ -35,7 +35,7 @@ function setSecurityHeaders(response) {
     'Content-Security-Policy',
     `
       default-src 'self';
-      connect-src 'self' http://localhost:5173;
+      connect-src 'self' http://localhost:6900;
       style-src 'self' 'unsafe-inline';
       script-src 'self' 'unsafe-inline';
     `.replace(/\s{2,}/g, ' ').trim() // Minify the CSP header
