@@ -13,7 +13,7 @@ start_mongo()
 
 // Implementing CORS manually
 function handleCors(request, response) {
-  const allowedOrigins = ['http://localhost:5173', 'http://localhost:5174']; // Replace with your frontend URL
+  const allowedOrigins = ['http://localhost:6900', 'http://localhost:5173']; // Replace with your frontend URL
   const origin = request.headers.get('origin');
 
   if (allowedOrigins.includes(origin)) {
