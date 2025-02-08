@@ -1,5 +1,5 @@
 <script>
-    import { RangeCalendar } from "$lib/components/ui/range-calendar/index";
+    import { RangeCalendar } from "$lib/Components/ui/range-calendar/index";
     import { getLocalTimeZone, today, CalendarDate } from "@internationalized/date";
 
     export let electionEnd = "";
