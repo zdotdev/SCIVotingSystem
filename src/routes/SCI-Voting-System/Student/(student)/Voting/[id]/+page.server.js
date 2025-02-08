@@ -8,7 +8,6 @@ export const actions = {
         const { userId, ...votingData } = data;
         
         try {
-            // Fetch current election data
             const response = await fetch(`${election}/${params.id}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch election data');
@@ -19,12 +18,10 @@ export const actions = {
                 throw error(500, { errorMessage: 'No election data fetched.' });
             }
             
-            // Validate candidates
             const validCandidateIds = new Set(
                 electionData.election.electionCandidates.map(candidate => candidate._id)
             );
             
-            // Update votes
             for (const [key, value] of Object.entries(votingData)) {
                 if (!validCandidateIds.has(value)) {
                     throw new Error(`Invalid candidate selected: ${value}`);

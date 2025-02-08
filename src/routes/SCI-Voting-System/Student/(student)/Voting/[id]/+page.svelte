@@ -8,7 +8,6 @@ let { name, studentId, electionData, dataId } = data;
 const title = electionData?.electionTitle || "No election available";
 const positionOrder = ["President", "Vice president", "Secretary", "Auditor", "Treasurer", "PIO", "Project Manager", "Representatives", "Muse", "Escort"];
 
-// Sorting functions remain the same
 export function sortCandidates(candidates = [], sortBy = 'position') {
     if (!candidates.length) return [];
     return [...candidates].sort((a, b) => {
@@ -45,12 +44,9 @@ const sortedPositions = Object.keys(groupedCandidates).sort((a, b) => {
     return finalPosA - finalPosB;
 });
 
-// Submit handler
 async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    // Add your form submission logic here
-    console.log('Form submitted successfully!');
 }
 </script>
 

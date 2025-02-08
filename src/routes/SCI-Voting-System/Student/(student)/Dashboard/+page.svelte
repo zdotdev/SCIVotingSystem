@@ -16,7 +16,7 @@ const totalVoteCount = electionData?.electionVoters?.length || 0;
     <div class="flex flex-col gap-4 md:gap-8 m-4">
         {#if electionData}
             <ElectionDetails {electionData} {userChecker}/>
-            <VotingProgressContainer />
+            <VotingProgressContainer {totalVoteCount} {userCount} />
             <CandidateContainer {electionData} />
         {:else}
             <ElectionResultsContainer electionData={displayedData} />

@@ -65,11 +65,12 @@ export async function PUT({ params, request }) {
 
         electionCandidates.forEach(candidate => {
             if (candidate.candidateParty) {
-                if (!electionPartylistGraph.includes(candidate.candidateParty)) {
-                    electionPartylistGraph.push({electionPartylistName: candidate.candidateParty});
+                if (!electionPartylistGraph.some(party => party.electionPartylistName === candidate.candidateParty)) {
+                    electionPartylistGraph.push({ electionPartylistName: candidate.candidateParty });
                 }
             }
         });
+
 
         const election = await Election.findById(id)
 
@@ -94,39 +95,48 @@ export async function PUT({ params, request }) {
     }
 }
 
-export async function PATCH({params}) {
-    try {
-        const { id } = params
-        const election = await Election.findById(id);
+export async function PATCH({ params }) {
+  try {
+    const { id } = params;
+    const election = await Election.findById(id);
 
-        if (!election) {
-            return json({ message: "No elections found." }, { status: 404 });
-        }
-
-        election.electionPartylistGraph.forEach(party => {
-                const candidateVotes = election.electionCandidates
-                    .filter(candidate => candidate.candidateParty === party.electionPartylistName)
-                    .reduce((acc, candidate) => acc + (candidate.totalVotes || 0), 0);
-
-                const previousValue = party.electionPartylistData || 0;
-                
-                party.electionPartylistData = previousValue + candidateVotes;
-            });
-
-            await election.save();
-
-        return json({
-            message: "Election partylist data updated successfully.",
-            timestamp: new Date().toISOString()
-        }, { status: 200 });
-    } catch (error) {
-        console.error("Error updating partylist data:", error);
-        return json({ 
-            message: "Internal server error.", 
-            errorDetails: process.env.NODE_ENV === 'development' ? error.message : undefined
-        }, { status: 500 });
+    if (!election) {
+      return json({ message: "No elections found." }, { status: 404 });
     }
+
+    if (!Array.isArray(election.electionPartylistGraph)) {
+      return json({ message: "Invalid election partylist data." }, { status: 400 });
+    }
+
+    election.electionPartylistGraph.forEach(party => {
+      party.electionPartylistData = 0;
+    });
+
+    election.electionPartylistGraph = election.electionPartylistGraph.map(party => {
+      const totalVotes = election.electionCandidates
+        .filter(candidate => candidate.candidateParty === party.electionPartylistName)
+        .reduce((acc, candidate) => acc + (candidate.candidateVotes || 0), 0);
+
+      return { ...party, electionPartylistData: totalVotes };
+    });
+
+    await election.save();
+
+    return json({
+      message: "Election partylist data updated successfully.",
+      updatedElection: election,
+      timestamp: new Date().toISOString()
+    }, { status: 200 });
+
+  } catch (error) {
+    console.error("Error updating partylist data:", error);
+    return json({
+      message: "Internal server error.",
+      errorDetails: process.env.NODE_ENV === 'development' ? error.message : undefined
+    }, { status: 500 });
+  }
 }
+
 
 export async function DELETE({ params }) {
     try {
