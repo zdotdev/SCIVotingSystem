@@ -4,7 +4,7 @@ import { ElectionSaveVoteZodSchema } from "$db/Zod/Election.js";
 import { json } from "@sveltejs/kit";
 import mongoose from "mongoose";
 
-export async function PUT({ params, request }) {
+export async function PATCH({ params, request }) {
     try {
         const { id } = params;
 

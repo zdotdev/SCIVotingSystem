@@ -37,7 +37,7 @@ export async function PUT({ params, request }) {
             return json({message: 'Election ID is required.'}, { status: 400 })
         }
         
-        const { electionTitle, electionStart, electionEnd, electionCandidates, displayElection } = body
+        const { electionTitle, electionStart, electionEnd, electionCandidates, electionVoters, displayElection } = body
 
         const validatedData = ElectionZodSchema.pick({ electionTitle: true, electionStart: true, electionEnd: true, electionCandidates: true, displayElection: true }).safeParse(body)
 
@@ -82,6 +82,7 @@ export async function PUT({ params, request }) {
         election.electionEnd = electionEnd
         election.electionCandidates = electionCandidates
         election.electionPartylistGraph = electionPartylistGraph
+        election.electionVoters = electionVoters
         election.displayElection = displayElection
 
         await election.save()

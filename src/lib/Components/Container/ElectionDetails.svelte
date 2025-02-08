@@ -20,7 +20,7 @@
                 </div>
                 {:else}
                 <div class="flex justify-end">
-                    <Button onclick={() => {if(browser){window.location.href = `/SCI-Voting-System/Student/Voting`}}}>Vote</Button>
+                    <Button onclick={() => {if(browser){window.location.href = `/SCI-Voting-System/Student/Voting/${electionData._id}`}}}>Vote</Button>
                 </div>
             {/if}
         </div>
