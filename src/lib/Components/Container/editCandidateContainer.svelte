@@ -14,7 +14,7 @@
     function removeCandidate(index) {
         candidateData = candidateData.filter((_, i) => i !== index);
     }
-
+ 
 </script>
 <div>
     {#each candidateData as candidate, index}
