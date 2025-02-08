@@ -1,5 +1,5 @@
 <script>
-    import { signOut } from "$lib/helpers/uri";
+    import { signOut } from "$lib/Helpers/uri";
     import {error, fail} from '@sveltejs/kit'
     import LogoutImage from '$lib/Assets/logout_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg';
     import Logo from '$lib/Assets/icon.png';
