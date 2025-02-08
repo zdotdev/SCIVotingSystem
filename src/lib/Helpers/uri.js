@@ -1,16 +1,16 @@
 // User
-export const user = 'http://localhost:6900/API/User';
-export const newUsers = 'http://localhost:6900/API/User/NewUsers';
+export const user = '/API/User';
+export const newUsers = '/API/User/NewUsers';
 
 // Election
-export const election = 'http://localhost:6900/API/Election';
-export const electionCandidate = 'http://localhost:6900/API/Election/Candidates';
-export const electionActive = 'http://localhost:6900/API/Election/Active';
-export const electionDisplayed = 'http://localhost:6900/API/Election/Displayed';
-export const electionVote = 'http://localhost:6900/API/Election/Vote';
+export const election = '/API/Election';
+export const electionCandidate = '/API/Election/Candidates';
+export const electionActive = '/API/Election/Active';
+export const electionDisplayed = '/API/Election/Displayed';
+export const electionVote = '/API/Election/Vote';
 
 // Auth
-export const loginRefreshToken = 'http://localhost:6900/API/Auth/LoginRefreshToken';
-export const signIn = 'http://localhost:6900/API/Auth/Signin';
-export const signUp = 'http://localhost:6900/API/Auth/Signup';
-export const signOut = 'http://localhost:6900/API/Auth/Signout';
+export const loginRefreshToken = '/API/Auth/LoginRefreshToken';
+export const signIn = '/API/Auth/Signin';
+export const signUp = '/API/Auth/Signup';
+export const signOut = '/API/Auth/Signout';
