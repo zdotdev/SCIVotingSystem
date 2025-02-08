@@ -16,9 +16,9 @@ export async function load({ fetch }) {
         const data = await response.json();
         userChecker = data.user;
 
-        if (!response.ok) {
-            throw fail(400, { errorMessage: data.message || 'Failed to refresh session. Please log in again.' });
-        }
+        // if (!response.ok) {
+        //     throw fail(400, { errorMessage: data.message || 'Failed to refresh session. Please log in again.' });
+        // }
     } catch (err) {
         if (browser) {
             document.cookie = 'refreshToken=; Max-Age=0; path=/';

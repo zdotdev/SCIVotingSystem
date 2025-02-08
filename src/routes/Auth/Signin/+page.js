@@ -15,9 +15,9 @@ export async function load({ fetch }) {
 
         const authData = await authResponse.json();
 
-        if (!authResponse.ok) {
-            throw error(401, 'Unauthorized: Failed to refresh session');
-        }
+        // if (!authResponse.ok) {
+        //     throw error(401, 'Unauthorized: Failed to refresh session');
+        // }
 
         userChecker = authData.user;
 
