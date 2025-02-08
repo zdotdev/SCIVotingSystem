@@ -1,6 +1,6 @@
 import Election from "$db/Schema/Election";
 import User from "$db/Schema/User";
-import { ElectionSaveVoteZodSchema } from "$db/Zod/Election.js";
+import { electionSaveVoteZodSchema } from "$db/Zod/Election.js";
 import { json } from "@sveltejs/kit";
 import mongoose from "mongoose";
 
