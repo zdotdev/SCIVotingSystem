@@ -1,5 +1,5 @@
 <script>
-    import EditCandidateContainer from "./EditCandidateContainer.svelte";
+    import EditCandidateContainer from "./editCandidateContainer.svelte";
     import { Button } from "$lib/Components/ui/button/index";
     export let electionData = null;
     export let action;

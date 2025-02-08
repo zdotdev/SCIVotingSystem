@@ -7,7 +7,7 @@
     import * as Table from "$lib/Components/ui/table/index";
     import * as AlertDialog from "$lib/Components/ui/alert-dialog/index.js";
     import { sortCandidates } from "$lib/Helpers/candidateSorter";
-    import EditCandidateContainer from "$lib/Components/Container/EditCandidateContainer.svelte";
+    import EditCandidateContainer from "$lib/Components/Container/editCandidateContainer.svelte";
     import ElectionForm from "$lib/Components/Container/ElectionForm.svelte";
     import { browser } from "$app/environment";
 	import { enhance } from "$app/forms";
