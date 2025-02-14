@@ -12,6 +12,7 @@
     export let totalVoteCount = 0;
     export let userCount = 0;
     export let electionStatus = 'No';
+    export let userChecker = null;
 
     let electionStart = electionData?.electionStart;
     let electionEnd = electionData?.electionEnd;
@@ -28,7 +29,7 @@
     <div class="flex">
         <div class="w-full">
             <div class="flex gap-8 w-full">
-                <ElectionDetails {electionData} />
+                <ElectionDetails {userChecker} {electionData} />
                 <VotingProgressContainer {totalVoteCount} {userCount} />
             </div>
             <div>

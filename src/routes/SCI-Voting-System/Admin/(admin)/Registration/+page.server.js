@@ -20,7 +20,6 @@ export const actions = {
             
             return { success: true };
         } catch (error) {
-            console.error('Error updating user:', error);
             return fail(500, { errorMessage: 'An error occurred while updating the user' });
         }
     },
@@ -41,7 +40,6 @@ export const actions = {
 
             return { success: true };
         } catch (error) {
-            console.error('Error deleting user:', error);
             return fail(500, { errorMessage: 'An error occurred while deleting the user' });
         }
     }

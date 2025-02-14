@@ -19,7 +19,6 @@ export async function GET({ params }) {
 
         return json({ message: 'User fetched successfully.', user: users });
     } catch (error) {
-        console.error(error);
         return json({ message: 'Internal server error.' }, { status: 500 });
     }
 }
@@ -61,7 +60,6 @@ export async function PATCH({ params, request }) {
 
         return json({ message: 'User updated successfully.', user });
     } catch (error) {
-        console.error(error);
         return json({ message: 'Internal server error.' }, { status: 500 });
     }
 }
@@ -84,7 +82,6 @@ export async function DELETE({ params }) {
 
         return json({ message: 'User has been deleted.' });
     } catch (error) {
-        console.error(error);
         return json({ message: 'Internal server error.' }, { status: 500 });
     }
 }

@@ -11,7 +11,6 @@ export async function GET() {
 
         return json({ election })
     } catch (error) {
-        console.error('Error fetching election:', error)
         return json({ message: 'Internal server error occurred while fetching election data.' }, { status: 500 })
     }
 }

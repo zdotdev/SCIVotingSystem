@@ -71,7 +71,6 @@ export async function POST({ request }) {
       }
     );
   } catch (err) {
-    console.error('Error during sign-in:', err);
     return json({ message: err.message }, { status: 500 });
   }
 }

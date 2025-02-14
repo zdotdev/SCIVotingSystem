@@ -22,7 +22,7 @@ export async function load({ fetch }) {
         userChecker = authData.user;
 
     } catch (err) {
-        console.error('Error in load function:', err);
+        throw error(500, { errorMessage: "An internal error occurred. Please try again." });
     }
     if (userChecker === 'student') {
         throw redirect(303, '/SCI-Voting-System/Student/Dashboard');

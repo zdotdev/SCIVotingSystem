@@ -129,7 +129,6 @@ export async function PATCH({ params }) {
     }, { status: 200 });
 
   } catch (error) {
-    console.error("Error updating partylist data:", error);
     return json({
       message: "Internal server error.",
       errorDetails: process.env.NODE_ENV === 'development' ? error.message : undefined

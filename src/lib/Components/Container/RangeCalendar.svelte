@@ -22,7 +22,6 @@
         start = convertToCalendarDate(electionStart);
         end = convertToCalendarDate(electionEnd);
     } catch (error) {
-        console.error("Error formatting date:", error.message);
         const todayDate = today(getLocalTimeZone());
         start = todayDate;
         end = todayDate;

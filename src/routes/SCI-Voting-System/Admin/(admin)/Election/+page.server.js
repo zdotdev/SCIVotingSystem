@@ -15,10 +15,9 @@ export const actions = {
             if (id) {
                  return {success: true};
             } else {
-                return { errorMessage: 'Failed to delete election' };
+                return error(400, { errorMessage: 'Failed to delete election' });
             }
         } catch (error) {
-            console.error('Error deleting election:', error);
             return json({ errorMessage: 'An error occurred while deleting the election' });
         }
     },
@@ -62,7 +61,6 @@ export const actions = {
                 return fail(response.status, { errorMessage: errorData.message || 'Failed to update election.' });
             }
         } catch (err) {
-            console.error('Error during election update:', err);
             throw error(500, { errorMessage: 'An internal error occurred. Please try again.' });
         }
     },
@@ -105,7 +103,6 @@ export const actions = {
                 return fail(response.status, { errorMessage: errorData.message || 'Failed to update election.' });
             }
         } catch (err) {
-            console.error('Error during election update:', err);
             throw error(500, { errorMessage: 'An internal error occurred. Please try again.' });
         }
     }

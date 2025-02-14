@@ -18,7 +18,6 @@ export const actions = {
 
             return { success: true };
         } catch (error) {
-            console.error('Error deleting user:', error);
             return fail(500, { errorMessage: 'An error occurred while deleting the user' });
         }
     }

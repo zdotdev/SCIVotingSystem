@@ -33,7 +33,6 @@ export const actions = {
                 return fail(400, { errorMessage: data.message || 'Sign in failed.' });
             }
         } catch (error) {
-            console.error('Error during login:', error);
             throw error(500, { errorMessage: 'An internal error occurred. Please try again.' });
         }
         if (userChecker === 'student') {

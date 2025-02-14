@@ -17,7 +17,6 @@ export async function load({ fetch, cookies }) {
         const user = data.user;
 
     } catch (err) {
-        console.error('Error in load function:', err);
         throw error(500,{ error: 'Failed to refresh session. Please log in again.' });
     }
     if (userChecker === 'student') {

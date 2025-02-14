@@ -79,11 +79,9 @@ export async function POST({ request }) {
 
       return response;
     } catch (err) {
-      console.error('Error saving user:', err);
       return json({ message: err.message }, { status: 500 });
     }
   } catch (err) {
-    console.error('Error during sign-up:', err);
     return json({ message: err.message }, { status: 500 });
   }
 }

@@ -18,14 +18,14 @@ export const load = async ({ fetch, cookies }) => {
         const authData = await authResponse.json();
 
         if (!authResponse.ok) {
-            throw error(401, 'Unauthorized: Failed to refresh session');
+            throw error(401, {errorMessage: 'Unauthorized: Failed to refresh session'});
         }
 
         userChecker = authData.user;
         name = authData.name
         studentId = authData.studentId
         if (userChecker !== 'admin') {
-            throw error(403, 'Forbidden: Admins only');
+            throw error(403, {errorMessage: 'Forbidden: Admins only'});
         }
 
         const elections = await fetch(election);
@@ -44,7 +44,6 @@ export const load = async ({ fetch, cookies }) => {
         }
 
     } catch (err) {
-        console.error('Error in load function:', err);
         throw error(500, { errorMessage: 'Forbidden: Admins only' });
     }
 };

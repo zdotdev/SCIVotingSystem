@@ -43,7 +43,6 @@ export async function load({ fetch }) {
         }
 
     } catch (err) {
-        console.error('Error in load function:', err);
         throw error(500, { errorMessage: 'Failed to load data. Please try again later.' })
     }
 }

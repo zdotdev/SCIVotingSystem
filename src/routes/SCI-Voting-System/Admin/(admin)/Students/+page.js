@@ -43,7 +43,6 @@ export const load = async ({ fetch, cookies }) => {
         }
 
     } catch (err) {
-        console.error('Error in load function:', err);
         throw error(500, { errorMessage: 'Forbidden: Admins only' });
     }
 };

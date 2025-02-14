@@ -41,7 +41,8 @@ export const load = async ({ fetch, cookies }) => {
         if (userRes.ok) {
             userCount = (await userRes.json()).user.length;
         }
-
+        console.log(electionData);
+        
         return {
             userChecker,
             electionData,
@@ -52,7 +53,6 @@ export const load = async ({ fetch, cookies }) => {
         };
 
     } catch (err) {
-        console.error('Error in load function:', err);
         throw error(500, { errorMessage: 'Forbidden: Admins only' });
     }
 };

@@ -71,7 +71,6 @@ export async function POST({ request }) {
 
         return json({ message: "Election created successfully." }, { status: 201 });
     } catch (error) {
-        console.error("Error creating election:", error);
         return json({ message: "Internal server error." }, { status: 500 });
     }
 }

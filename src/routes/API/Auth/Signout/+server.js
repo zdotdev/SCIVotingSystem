@@ -64,7 +64,6 @@ export async function POST({ request }) {
       }
     );
   } catch (err) {
-    console.error('Sign-out error:', err);
     return json({ message: err.message }, { status: 500 });
   }
 }

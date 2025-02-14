@@ -13,6 +13,7 @@
     const userCount = data.userCount || 0;
     const studentId = data.studentId || 0;
     const errorMessage = data.errorMessage || null;
+    const userChecker = data.userChecker || null;
     
 
     const totalVoteCount = electionData?.electionVoters?.length || 0;
@@ -26,10 +27,10 @@
                 <p>{errorMessage}</p>
             </div>
         {:else}
-            {#if electionData.electionTitle}
-                <Election {totalVoteCount} {userCount} {electionData} electionStatus='Active' />
-            {:else if displayedData.electionTitle}
-                <Election {totalVoteCount} {userCount} electionData={displayedData} electionStatus='Previous' />
+            {#if electionData?.electionTitle}
+                <Election {userChecker} {totalVoteCount} {userCount} {electionData} electionStatus='Active' />
+            {:else if displayedData?.electionTitle}
+                <Election {userChecker} {totalVoteCount} {userCount} electionData={displayedData} electionStatus='Previous' />
             {:else}
                 <Election />
             {/if}

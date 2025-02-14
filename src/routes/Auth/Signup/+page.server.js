@@ -34,7 +34,6 @@ export const actions = {
                 return fail(data.status, { errorMessage: data.message || 'Sign up failed.' });
             }
         } catch(error) {
-            console.error("Error during signup:", error);
             throw error(500, { errorMessage: "An internal error occurred. Please try again." });
         }
         if (userChecker === 'student') {

@@ -50,7 +50,6 @@ export const actions = {
             }
             
         } catch (err) {
-            console.error('Error details:', err);
             throw error(500, { 
                 errorMessage: 'An internal error occurred. Please try again.',
                 errorDetails: err.message

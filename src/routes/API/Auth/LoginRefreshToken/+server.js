@@ -11,9 +11,7 @@ export async function POST({ request }) {
     const refreshToken = cookies.refreshToken;
 
     if (!refreshToken) {
-      return json({ message: 'Refresh token required' }, {
-        status: 401
-      });
+      throw error(401, { message: 'Refresh token required' });
     }
 
     const decoded = jwt.verify(refreshToken, JWT_SECRET);
@@ -49,10 +47,6 @@ export async function POST({ request }) {
     );
 
   } catch (error) {
-    console.error('Error during token refresh:', error);
-
-    return error({ message: 'Invalid or expired refresh token' }, {
-      status: 401
-    });
+    throw error(401, { message: 'Invalid or expired refresh token' });
   }
 }
