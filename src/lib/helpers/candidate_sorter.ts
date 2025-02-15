@@ -1,4 +1,4 @@
-import type { Election_Interface } from "$interface/election_interface";
+import type { Election_Interface } from "$interface/election";
 
 export function sortCandidates(electionData: Election_Interface, sortBy = 'votes') {
     if (!electionData) {

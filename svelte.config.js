@@ -20,6 +20,8 @@ const config = {
 			$interface: './src/interface',
 			$types: './src/types',
 			$ui: './src/lib/components/ui',
+			$custom_ui: './src/lib/components/custom_ui',
+			$helpers: './src/lib/helpers',
 		}
 	}
 };

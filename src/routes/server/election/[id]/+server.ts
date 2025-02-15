@@ -1,7 +1,7 @@
 import Election from '$schema/election'
 import { json } from '@sveltejs/kit'
 import { Election_Zod_Schema, Election_Candidate_Zod_Schema } from '$zod/election'
-import type { Partylist_Graph_Interface, Candidate_Interface } from '$interface/election_interface'
+import type { Partylist_Graph_Interface, Candidate_Interface } from '$interface/election'
 import mongoose from 'mongoose'
 
 export async function GET({ params }) {

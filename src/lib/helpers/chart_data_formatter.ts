@@ -1,6 +1,6 @@
-import type { Partylist_Graph_Interface } from "$interface/election_interface";
+import type { Partylist_Graph_Interface } from "$interface/election";
 
-export function formatChartData(partylistData: Partylist_Graph_Interface[]) {
+export function format_chart_data(partylistData: Partylist_Graph_Interface[]) {
     
     if (!partylistData) {
         return {
