@@ -1,9 +1,14 @@
-<script>
+<script lang="ts">
 	import { RangeCalendar as RangeCalendarPrimitive } from "bits-ui";
 	import ChevronLeft from "lucide-svelte/icons/chevron-left";
-	import { buttonVariants } from "$lib/Components/ui/button/index.js";
-	import { cn } from "$lib/Utils.js";
-	let { ref = $bindable(null), class: className, children, ...restProps } = $props();
+	import { buttonVariants } from "$lib/components/ui/button/index.js";
+	import { cn } from "$lib/utils/utils.js";
+	let {
+		ref = $bindable(null),
+		class: className,
+		children,
+		...restProps
+	}: RangeCalendarPrimitive.PrevButtonProps = $props();
 </script>
 
 {#snippet Fallback()}

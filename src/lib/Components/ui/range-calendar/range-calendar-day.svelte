@@ -1,9 +1,13 @@
-<script>
+<script lang="ts">
 	import { RangeCalendar as RangeCalendarPrimitive } from "bits-ui";
-	import { buttonVariants } from "$lib/Components/ui/button/index.js";
-	import { cn } from "$lib/Utils.js";
+	import { buttonVariants } from "$lib/components/ui/button/index.js";
+	import { cn } from "$lib/utils/utils.js";
 
-	let { ref = $bindable(null), class: className, ...restProps } = $props();
+	let {
+		ref = $bindable(null),
+		class: className,
+		...restProps
+	}: RangeCalendarPrimitive.DayProps = $props();
 
 	export { className as class };
 </script>

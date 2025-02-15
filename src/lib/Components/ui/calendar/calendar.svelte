@@ -1,7 +1,7 @@
-<script>
-	import { Calendar as CalendarPrimitive } from "bits-ui";
+<script lang="ts">
+	import { Calendar as CalendarPrimitive, type WithoutChildrenOrChild } from "bits-ui";
 	import * as Calendar from "./index.js";
-	import { cn } from "$lib/Utils.js";
+	import { cn } from "$lib/utils/utils.js";
 
 	let {
 		ref = $bindable(null),
@@ -10,7 +10,7 @@
 		class: className,
 		weekdayFormat = "short",
 		...restProps
-	} = $props();
+	}: WithoutChildrenOrChild<CalendarPrimitive.RootProps> = $props();
 </script>
 
 <!--
@@ -18,7 +18,7 @@ Discriminated Unions + Destructing (required for bindable) do not
 get along, so we shut typescript up by casting `value` to `never`.
 -->
 <CalendarPrimitive.Root
-	bind:value
+	bind:value={value as never}
 	bind:ref
 	bind:placeholder
 	{weekdayFormat}

@@ -1,0 +1,6 @@
+POST http://localhost:6900/server/auth/signin
+Content-Type: application/json
+{
+    "email": "admin@gmail.com",
+    "password": "Admin123!"
+}

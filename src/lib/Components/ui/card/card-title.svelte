@@ -1,7 +1,17 @@
-<script>
-	import { cn } from "$lib/Utils.js";
+<script lang="ts">
+	import type { WithElementRef } from "bits-ui";
+	import type { HTMLAttributes } from "svelte/elements";
+	import { cn } from "$lib/utils/utils.js";
 
-	let { ref = $bindable(null), class: className, level = 3, children, ...restProps } = $props();
+	let {
+		ref = $bindable(null),
+		class: className,
+		level = 3,
+		children,
+		...restProps
+	}: WithElementRef<HTMLAttributes<HTMLDivElement>> & {
+		level?: 1 | 2 | 3 | 4 | 5 | 6;
+	} = $props();
 </script>
 
 <div

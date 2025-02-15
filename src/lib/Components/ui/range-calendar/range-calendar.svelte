@@ -1,7 +1,7 @@
-<script>
-	import { RangeCalendar as RangeCalendarPrimitive } from "bits-ui";
+<script lang="ts">
+	import { RangeCalendar as RangeCalendarPrimitive, type WithoutChildrenOrChild } from "bits-ui";
 	import * as RangeCalendar from "./index.js";
-	import { cn } from "$lib/Utils.js";
+	import { cn } from "$lib/utils/utils.js";
 
 	let {
 		ref = $bindable(null),
@@ -10,7 +10,7 @@
 		class: className,
 		weekdayFormat = "short",
 		...restProps
-	} = $props();
+	}: WithoutChildrenOrChild<RangeCalendarPrimitive.RootProps> = $props();
 </script>
 
 <RangeCalendarPrimitive.Root

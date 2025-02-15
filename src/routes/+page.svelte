@@ -1,6 +1,2 @@
-<script>
-    import Image from '$lib/Assets/1497.gif';
-</script>
-<main class="flex justify-center items-center h-screen">
-    <img src="{Image}" alt="Laoding..." />
-</main>
+<h1>Welcome to SvelteKit</h1>
+<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
